@@ -19,5 +19,7 @@ Instead of travelling 1 floor at a time and dealing with whatever is there, we c
 ---
 
 Use all the above but instead of cards in hand you have lines which eg. deal 1 damage. After each battle you have a chance to combine these lines to create shapes. You could start with 3 straight lines and 2 curved lines in your deck. 2 curves could create a circle which eg. create a bubble around the player to prevent the next damage, or 3 straight lines could create a triangle which eg. deals 3 times 3 damage.
+Another potential starter card could be a vertex(corner) and an upgrade could be that the vertex gets sharper thus dealing more damage.
+There could be a way for the user to create the shapes instead if they wanted to draw them themselves
 
 ---
