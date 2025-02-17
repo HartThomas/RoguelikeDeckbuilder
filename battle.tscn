@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://by1bi0miuud7i"]
+
+[ext_resource type="PackedScene" uid="uid://48qfybefw3aa" path="res://card.tscn" id="1_8fvkg"]
+[ext_resource type="Script" path="res://battle.gd" id="1_flmcs"]
+[ext_resource type="Texture2D" uid="uid://di6egicjkh32r" path="res://art/card deck space.png" id="3_b0d62"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rsbja"]
+size = Vector2(731, 204)
+
+[node name="Battle" type="Node2D"]
+script = ExtResource("1_flmcs")
+
+[node name="Hand" type="Area2D" parent="."]
+
+[node name="HandCollisionShape2D" type="CollisionShape2D" parent="Hand"]
+position = Vector2(579, 495)
+shape = SubResource("RectangleShape2D_rsbja")
+
+[node name="Card" parent="." instance=ExtResource("1_8fvkg")]
+
+[node name="DeckPlacement" type="Sprite2D" parent="."]
+position = Vector2(103, 536)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("3_b0d62")
+
+[node name="PlayedPlacement" type="Sprite2D" parent="."]
+position = Vector2(1048, 538)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("3_b0d62")
