@@ -9,6 +9,7 @@ size = Vector2(731, 204)
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_flmcs")
+card_scene = ExtResource("1_8fvkg")
 
 [node name="Hand" type="Area2D" parent="."]
 

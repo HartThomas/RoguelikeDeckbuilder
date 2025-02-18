@@ -1,13 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://48qfybefw3aa"]
+[gd_scene load_steps=5 format=3 uid="uid://48qfybefw3aa"]
 
 [ext_resource type="Texture2D" uid="uid://cn1gh045dv4k5" path="res://art/card back.png" id="1_4nbxh"]
 [ext_resource type="Script" path="res://card.gd" id="1_t3xw1"]
+[ext_resource type="Resource" uid="uid://b1jsm7umavvtr" path="res://resources/hit.tres" id="2_b2ymv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uxrx6"]
 size = Vector2(49, 67)
 
 [node name="Card" type="Area2D"]
 script = ExtResource("1_t3xw1")
+card_info = ExtResource("2_b2ymv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, -0.5)
@@ -16,3 +18,5 @@ shape = SubResource("RectangleShape2D_uxrx6")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_4nbxh")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

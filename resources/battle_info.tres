@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="BattleInfo" load_steps=2 format=3 uid="uid://d3ai2fr6k3fx2"]
+
+[ext_resource type="Script" path="res://classnames/battle_manager.gd" id="1_pou5e"]
+
+[resource]
+script = ExtResource("1_pou5e")
+cards_in_deck = []
+cards_in_hand = []
+cards_played = []

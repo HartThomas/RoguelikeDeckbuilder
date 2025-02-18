@@ -2,6 +2,7 @@ extends Area2D
 var is_dragging : bool = false
 var mouse_offset :Vector2
 var delay = 0
+@export var card_info : Resource
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -10,11 +11,13 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if not is_dragging and card_info.position != self.position:
+		self.position = self.position.lerp(card_info.position, 5 * delta)
 
-func _input(event: InputEvent) -> void:
-	if event.type == InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
+			print(self.card_info.card_name)
 			is_dragging = true
 			mouse_offset = get_global_mouse_position() - global_position
 		else:
