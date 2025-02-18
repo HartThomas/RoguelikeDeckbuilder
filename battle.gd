@@ -10,7 +10,8 @@ func _ready() -> void:
 		var new_card = card_scene.instantiate()
 		new_card.card_info = card
 		new_card.position = new_card.card_info.position
-		new_card.set_meta('target_position', Vector2())
+		new_card.position.y -= 20 * index
+		new_card.set_meta('target_position', Vector2(new_card.card_info.position.x, new_card.card_info.position.y - (20 * index)))
 		add_child(new_card)
 		index += 1
 

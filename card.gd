@@ -11,13 +11,13 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if not is_dragging and card_info.position != self.position:
-		self.position = self.position.lerp(card_info.position, 5 * delta)
+	if not is_dragging and self.has_meta("target_position") and self.get_meta("target_position") != self.position:
+		self.position = self.position.lerp(self.get_meta("target_position"), 5 * delta)
 
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			print(self.card_info.card_name)
+			print(self.get_meta('target_position'))
 			is_dragging = true
 			mouse_offset = get_global_mouse_position() - global_position
 		else:
