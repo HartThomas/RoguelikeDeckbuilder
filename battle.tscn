@@ -28,3 +28,5 @@ texture = ExtResource("3_b0d62")
 position = Vector2(1048, 538)
 scale = Vector2(0.15, 0.15)
 texture = ExtResource("3_b0d62")
+
+[connection signal="clicked" from="Card" to="." method="_on_card_clicked"]

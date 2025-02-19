@@ -3,6 +3,9 @@ var is_dragging : bool = false
 var mouse_offset :Vector2
 var delay = 0
 @export var card_info : Resource
+signal clicked(input)
+signal released
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,10 +20,10 @@ func _process(delta: float) -> void:
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			print(self.get_meta('target_position'))
-			is_dragging = true
+			clicked.emit(self)
 			mouse_offset = get_global_mouse_position() - global_position
 		else:
+			released.emit()
 			is_dragging = false
 
 func _physics_process(delta):
