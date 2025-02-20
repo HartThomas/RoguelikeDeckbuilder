@@ -4,13 +4,13 @@ var mouse_offset :Vector2
 var delay = 0
 @export var card_info : Resource
 signal clicked(input)
-signal released
-
+signal released(input)
+var in_hand : bool = true
+var in_deck : bool = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -23,7 +23,7 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 			clicked.emit(self)
 			mouse_offset = get_global_mouse_position() - global_position
 		else:
-			released.emit()
+			released.emit(self)
 			is_dragging = false
 
 func _physics_process(delta):

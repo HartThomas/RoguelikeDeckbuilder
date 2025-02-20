@@ -37,5 +37,7 @@ offset_bottom = 157.0
 text = "Draw
 "
 
+[connection signal="area_entered" from="Hand" to="." method="_on_hand_area_entered"]
+[connection signal="area_exited" from="Hand" to="." method="_on_hand_area_exited"]
 [connection signal="clicked" from="Card" to="." method="_on_card_clicked"]
 [connection signal="button_down" from="Draw" to="." method="_on_draw_button_down"]
