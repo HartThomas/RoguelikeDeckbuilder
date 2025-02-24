@@ -5,17 +5,41 @@ var delay = 0
 @export var card_info : Resource
 signal clicked(input)
 signal released(input)
+signal mouseEntered(input, entered)
 var in_hand : bool = true
 var in_deck : bool = true
+var temporary_instance : bool = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	$Damage.visible = false
+	$Shield.visible = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	
 	if not is_dragging and self.has_meta("target_position") and self.get_meta("target_position") != self.position:
 		self.position = self.position.lerp(self.get_meta("target_position"), 5 * delta)
+	if not in_deck:
+		var face_up_texture = load('res://art/card.png')
+		$Sprite2D.texture = face_up_texture
+		$Name.text = card_info.card_name
+		if card_info.attack > 0:
+			$Damage.visible = true
+			$Damage/DamageLabel.text = str(card_info.attack)
+		if card_info.block > 0:
+			$Shield.visible = true
+			$Shield/ShieldLabel.text = str(card_info.block)
+		if in_hand and get_parent().hand.has(self):
+			self.scale = Vector2(2,2)
+		else:
+			self.scale = Vector2(1,1)
+	else:
+		var face_down_texture = load("res://art/card back.png")
+		$Sprite2D.texture = face_down_texture
+		$Name.text = ''
+		$Damage.visible = false
+		$Shield.visible = false
 
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
@@ -30,3 +54,12 @@ func _physics_process(delta):
 	if is_dragging:
 		var tween = get_tree().create_tween()
 		tween.tween_property(self, "position", get_global_mouse_position()-mouse_offset, delay * delta)
+
+
+func _on_mouse_entered() -> void:
+	if not temporary_instance:
+		mouseEntered.emit(self, true)
+
+func _on_mouse_exited() -> void:
+	if not temporary_instance:
+		mouseEntered.emit(self, false)

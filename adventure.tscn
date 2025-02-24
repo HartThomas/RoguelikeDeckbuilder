@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://dfrdfyeyubmgf"]
+
+[ext_resource type="Script" path="res://adventure.gd" id="1_jxl1m"]
+[ext_resource type="Texture2D" uid="uid://d1bskddfm5bji" path="res://art/Player.png" id="1_npcdx"]
+[ext_resource type="PackedScene" uid="uid://dn0bmuvdapvbf" path="res://route.tscn" id="2_vf6ap"]
+
+[node name="Adventure" type="Node2D"]
+script = ExtResource("1_jxl1m")
+route_scene = ExtResource("2_vf6ap")
+
+[node name="Player" type="Sprite2D" parent="."]
+position = Vector2(578, 505)
+texture = ExtResource("1_npcdx")

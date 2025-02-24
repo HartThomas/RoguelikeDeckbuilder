@@ -17,6 +17,7 @@ func _ready() -> void:
 		new_card.set_meta('target_position', Vector2(new_card.card_info.position.x, new_card.card_info.position.y - (20 * index)))
 		new_card.clicked.connect(_on_card_clicked)
 		new_card.released.connect(_on_card_released)
+		new_card.mouseEntered.connect(_on_card_entered)
 		deck.append(new_card)
 		add_child(new_card)
 		index += 1
@@ -98,3 +99,15 @@ func arrange_deck_positions() -> void:
 		deck[i].in_deck = true
 		deck[i].set_meta("target_position", Vector2(103,536 - (20 * i)))
 		deck[i].z_index = i
+
+var temporary_card: PackedScene
+
+func _on_card_entered(card, entered) -> void:
+	if not hand.has(card):
+		return
+	#if entered:
+		#var temporary_card = card.duplicate
+		#new_card.scale = Vector2(1.5, 1.5)
+		#new_card.position = Vector2(new_card.position.x - 49, new_card.position.y - 67)
+	#else:
+		
