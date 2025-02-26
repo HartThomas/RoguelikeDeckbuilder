@@ -10,10 +10,12 @@ var in_hand : bool = true
 var in_deck : bool = true
 var temporary_instance : bool = true
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$Damage.visible = false
-	$Shield.visible = false
+	$CanvasLayer/Damage.visible = false
+	$CanvasLayer/Shield.visible = false
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -22,24 +24,24 @@ func _process(delta: float) -> void:
 		self.position = self.position.lerp(self.get_meta("target_position"), 5 * delta)
 	if not in_deck:
 		var face_up_texture = load('res://art/card.png')
-		$Sprite2D.texture = face_up_texture
-		$Name.text = card_info.card_name
+		$CanvasLayer/Sprite2D.texture = face_up_texture
+		$CanvasLayer/Name.text = card_info.card_name
 		if card_info.attack > 0:
-			$Damage.visible = true
-			$Damage/DamageLabel.text = str(card_info.attack)
+			$CanvasLayer/Damage.visible = true
+			$CanvasLayer/Damage/DamageLabel.text = str(card_info.attack)
 		if card_info.block > 0:
-			$Shield.visible = true
-			$Shield/ShieldLabel.text = str(card_info.block)
+			$CanvasLayer/Shield.visible = true
+			$CanvasLayer/Shield/ShieldLabel.text = str(card_info.block)
 		if in_hand and get_parent().hand.has(self):
 			self.scale = Vector2(2,2)
 		else:
 			self.scale = Vector2(1,1)
 	else:
 		var face_down_texture = load("res://art/card back.png")
-		$Sprite2D.texture = face_down_texture
-		$Name.text = ''
-		$Damage.visible = false
-		$Shield.visible = false
+		$CanvasLayer/Sprite2D.texture = face_down_texture
+		$CanvasLayer/Name.text = ''
+		$CanvasLayer/Damage.visible = false
+		$CanvasLayer/Shield.visible = false
 
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:

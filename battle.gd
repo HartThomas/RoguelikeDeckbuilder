@@ -3,24 +3,12 @@ extends Node2D
 var hand : Array = []
 var deck : Array = []
 var depleted : Array = []
+signal battle_over
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$Card.queue_free()
-	var index = 0
-	for card in BattleManager.battleInfo.deck:
-		var new_card = card_scene.instantiate()
-		new_card.card_info = card
-		new_card.position = new_card.card_info.position
-		new_card.position.y -= 20 * index
-		new_card.z_index = index
-		new_card.set_meta('target_position', Vector2(new_card.card_info.position.x, new_card.card_info.position.y - (20 * index)))
-		new_card.clicked.connect(_on_card_clicked)
-		new_card.released.connect(_on_card_released)
-		new_card.mouseEntered.connect(_on_card_entered)
-		deck.append(new_card)
-		add_child(new_card)
-		index += 1
+	hide()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -44,10 +32,14 @@ func _on_card_released(card) -> void:
 		clicked.is_dragging = false
 	clickedArray.clear()
 	if not card.in_hand and hand.has(card):
+		edit_enemy_health(card.card_info.attack)
+		
 		depleted.append(card)
 		hand.erase(card)
 		arrange_depleted()
 		arrange_hand_positions()
+		if BattleManager.enemy_health <= 0:
+			battle_over.emit()
 
 func _on_draw_button_down() -> void:
 	if deck.size() == 0:
@@ -105,9 +97,44 @@ var temporary_card: PackedScene
 func _on_card_entered(card, entered) -> void:
 	if not hand.has(card):
 		return
-	#if entered:
-		#var temporary_card = card.duplicate
-		#new_card.scale = Vector2(1.5, 1.5)
-		#new_card.position = Vector2(new_card.position.x - 49, new_card.position.y - 67)
-	#else:
-		
+
+func start_battle()->void:
+	deck.clear()
+	hand.clear()
+	depleted.clear()
+	
+	var cards = get_children().filter(func(card) : return 'card_info' in card)
+	for card in cards:
+		card.queue_free()
+	
+	var index = 0
+	for card in BattleManager.battleInfo.deck:
+		var new_card = card_scene.instantiate()
+		new_card.card_info = card
+		new_card.position = new_card.card_info.position
+		new_card.position.y -= 20 * index
+		new_card.z_index = index
+		new_card.set_meta('target_position', Vector2(new_card.card_info.position.x, new_card.card_info.position.y - (20 * index)))
+		new_card.clicked.connect(_on_card_clicked)
+		new_card.released.connect(_on_card_released)
+		new_card.mouseEntered.connect(_on_card_entered)
+		deck.append(new_card)
+		add_child(new_card)
+		index += 1
+	BattleManager.enemy_health = BattleManager.enemy_max_health
+	$Player/HealthBar.max_value = BattleManager.player_max_health
+	$Player/HealthBar.value  = BattleManager.player_health
+	$Enemy/HealthBar.max_value = BattleManager.enemy_max_health
+	$Enemy/HealthBar.value = BattleManager.enemy_health
+	show()
+
+func edit_player_health(amount) -> void:
+	BattleManager.player_health += amount
+	$Player/HealthBar.value = BattleManager.player_health
+
+func edit_enemy_health(amount) -> void:
+	BattleManager.enemy_health -= amount
+	$Enemy/HealthBar.value = BattleManager.enemy_health
+
+func end_battle()->void:
+	hide()

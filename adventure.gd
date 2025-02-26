@@ -13,7 +13,12 @@ func _ready() -> void:
 	new_route3.position.x = 812
 	add_child(new_route3)
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+func start_battle()->void:
+	hide()
+
+func end_battle()->void:
+	show()

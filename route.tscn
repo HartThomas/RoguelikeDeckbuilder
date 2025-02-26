@@ -4,13 +4,28 @@
 [ext_resource type="Texture2D" uid="uid://bipan5d128y3c" path="res://art/Arrow.png" id="2_hey77"]
 [ext_resource type="Script" path="res://route.gd" id="3_la4yp"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_scvn3"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_otu6f"]
 shader = ExtResource("1_lmc1t")
-shader_parameter/outline_color = Vector4(1, 1, 0, 1)
-shader_parameter/outline_width = 3.0
+shader_parameter/outline_width = 2.0
+shader_parameter/outline_color = Color(0.944422, 0.819134, 0.750774, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2cp02"]
 size = Vector2(176, 180)
+
+[sub_resource type="Animation" id="Animation_k76mm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_14v5s"]
 resource_name = "bounce"
@@ -18,29 +33,14 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
+tracks/0/path = NodePath(".:offset")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(812, 212), Vector2(812, 200), Vector2(812, 212)]
-}
-
-[sub_resource type="Animation" id="Animation_k76mm"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(812, 212)]
+"values": [Vector2(0, 0), Vector2(0, -12), Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_75x5h"]
@@ -50,7 +50,7 @@ _data = {
 }
 
 [node name="Route" type="Sprite2D"]
-material = SubResource("ShaderMaterial_scvn3")
+material = SubResource("ShaderMaterial_otu6f")
 position = Vector2(812, 212)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_hey77")
@@ -66,5 +66,6 @@ libraries = {
 "": SubResource("AnimationLibrary_75x5h")
 }
 
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
