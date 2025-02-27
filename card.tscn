@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://48qfybefw3aa"]
+[gd_scene load_steps=14 format=3 uid="uid://48qfybefw3aa"]
 
 [ext_resource type="Shader" path="res://card.gdshader" id="1_2d2o1"]
 [ext_resource type="Texture2D" uid="uid://cn1gh045dv4k5" path="res://art/card back.png" id="1_4nbxh"]
@@ -29,6 +29,68 @@ shader_parameter/mouse_screen_pos_test = Vector2(0, 0)
 shader = ExtResource("4_dnc1n")
 shader_parameter/outline_width = 2.0
 shader_parameter/outline_color = Color(0.995768, 0.895899, 0.826184, 1)
+
+[sub_resource type="Animation" id="Animation_6tt1t"]
+resource_name = "flip"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 1), Vector2(1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"card_flip"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 1), Vector2(2, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_w6tm1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_83wxg"]
+_data = {
+"RESET": SubResource("Animation_w6tm1"),
+"flip": SubResource("Animation_6tt1t")
+}
 
 [node name="Card" type="Area2D"]
 script = ExtResource("1_t3xw1")
@@ -86,6 +148,11 @@ theme_override_font_sizes/font_size = 70
 text = "5"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_83wxg")
+}
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

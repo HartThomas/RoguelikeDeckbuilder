@@ -45,14 +45,19 @@ func _on_draw_button_down() -> void:
 	if deck.size() == 0:
 		if depleted.size() == 0:
 			return
-		for card in depleted:
+
+		for i in depleted.size():
+			var card = depleted[i]
 			deck.append(card)
+			card.trigger_card_flip_animation()
 		depleted.clear()
 		deck.shuffle()
 		arrange_deck_positions()
-	hand.append(deck[deck.size() - 1])
-	deck.remove_at(deck.size() - 1)
-	arrange_hand_positions()
+	else:
+		hand.append(deck[deck.size() - 1])
+		deck.remove_at(deck.size() - 1)
+		hand[hand.size() - 1].trigger_card_flip_animation()
+		arrange_hand_positions()
 
 var hand_width : float = 0.0
 var hand_position : Vector2

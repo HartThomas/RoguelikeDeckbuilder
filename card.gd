@@ -9,7 +9,10 @@ signal mouseEntered(input, entered)
 var in_hand : bool = true
 var in_deck : bool = true
 var temporary_instance : bool = true
-
+var face_up : bool = false
+var face_up_texture = load('res://art/card.png')
+var face_down_texture = load("res://art/card back.png")
+@onready var animation = $AnimationPlayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -23,25 +26,11 @@ func _process(delta: float) -> void:
 	if not is_dragging and self.has_meta("target_position") and self.get_meta("target_position") != self.position:
 		self.position = self.position.lerp(self.get_meta("target_position"), 5 * delta)
 	if not in_deck:
-		var face_up_texture = load('res://art/card.png')
-		$CanvasLayer/Sprite2D.texture = face_up_texture
-		$CanvasLayer/Name.text = card_info.card_name
-		if card_info.attack > 0:
-			$CanvasLayer/Damage.visible = true
-			$CanvasLayer/Damage/DamageLabel.text = str(card_info.attack)
-		if card_info.block > 0:
-			$CanvasLayer/Shield.visible = true
-			$CanvasLayer/Shield/ShieldLabel.text = str(card_info.block)
 		if in_hand and get_parent().hand.has(self):
 			self.scale = Vector2(2,2)
 		else:
 			self.scale = Vector2(1,1)
-	else:
-		var face_down_texture = load("res://art/card back.png")
-		$CanvasLayer/Sprite2D.texture = face_down_texture
-		$CanvasLayer/Name.text = ''
-		$CanvasLayer/Damage.visible = false
-		$CanvasLayer/Shield.visible = false
+
 
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
@@ -65,3 +54,25 @@ func _on_mouse_entered() -> void:
 func _on_mouse_exited() -> void:
 	if not temporary_instance:
 		mouseEntered.emit(self, false)
+
+func trigger_card_flip_animation()->void:
+	animation.play('flip')
+
+func card_flip() -> void:
+	face_up = !face_up
+	if face_up:
+		
+		$CanvasLayer/Sprite2D.texture = face_up_texture
+		$CanvasLayer/Name.text = card_info.card_name
+		if card_info.attack > 0:
+			$CanvasLayer/Damage.visible = true
+			$CanvasLayer/Damage/DamageLabel.text = str(card_info.attack)
+		if card_info.block > 0:
+			$CanvasLayer/Shield.visible = true
+			$CanvasLayer/Shield/ShieldLabel.text = str(card_info.block)
+	else:
+		
+		$CanvasLayer/Sprite2D.texture = face_down_texture
+		$CanvasLayer/Name.text = ''
+		$CanvasLayer/Damage.visible = false
+		$CanvasLayer/Shield.visible = false
