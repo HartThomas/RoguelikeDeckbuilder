@@ -12,10 +12,11 @@ uniform float y_rot : hint_range(-180, 180) = 0.0;
 
 uniform float x_rot : hint_range(-180, 180) = 0.0;
 
-
+uniform float instance_rotation;
 
 uniform float inset : hint_range(0, 1) = 0.0;
 
+uniform vec2 instance_offset;
 // Consider changing this to a uniform and changing it from code
 
 uniform float hovering;
@@ -112,7 +113,7 @@ void vertex(){
 
 	}
 
-	float rand_angel = rand_trans_power * mod(TIME * (0.9 + mod(rand_seed, 0.5)), 2.0 * PI);
+	float rand_angel = rand_trans_power * mod((TIME + rand_seed * 10.0) * (0.9 + mod(rand_seed, 1.0)), 2.0 * PI);
 
 	vec2 rand_vec = vec2(cos(rand_angel), sin(rand_angel));
 
@@ -206,7 +207,7 @@ void fragment(){
 
 	uv.y *= asp;
 
-	uv = rotate(uv, vec2(0.5, 0.5), rotation + rand_trans_power*0.05*sin(TIME * (0.9 + mod(rand_seed, 0.5)) + rand_seed * 123.8985));
+	uv = rotate(uv, vec2(0.5, 0.5), rotation + instance_rotation);
 
 	uv.y /= asp;
 

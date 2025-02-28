@@ -13,11 +13,19 @@ var face_up : bool = false
 var face_up_texture = load('res://art/card.png')
 var face_down_texture = load("res://art/card back.png")
 @onready var animation = $AnimationPlayer
+@onready var card: Area2D = $"."
+@onready var canvas_layer: Node2D = $CanvasLayer
+var rng = RandomNumberGenerator.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$CanvasLayer/Damage.visible = false
-	$CanvasLayer/Shield.visible = false
+	$CanvasLayer/Sprite2D/Damage.visible = false
+	$CanvasLayer/Sprite2D/Shield.visible = false
+	var shader = canvas_layer.get_material()
+	shader.set_shader_parameter('width', 0)
+	#shader.set_shader_parameter("instance_rotation", randf() * 2.0 * PI)
+	#shader.set_shader_parameter("instance_offset", Vector2(randf(), randf()))
+	#shader.set('shader_parameters/rand_seed', rng.randf_range(-10.0, 10.0))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -50,10 +58,14 @@ func _physics_process(delta):
 func _on_mouse_entered() -> void:
 	if not temporary_instance:
 		mouseEntered.emit(self, true)
+	var shader = canvas_layer.get_material()
+	shader.set_shader_parameter('width', 2)
 
 func _on_mouse_exited() -> void:
 	if not temporary_instance:
 		mouseEntered.emit(self, false)
+	var shader = canvas_layer.get_material()
+	shader.set_shader_parameter('width', 0)
 
 func trigger_card_flip_animation()->void:
 	animation.play('flip')
@@ -61,18 +73,16 @@ func trigger_card_flip_animation()->void:
 func card_flip() -> void:
 	face_up = !face_up
 	if face_up:
-		
 		$CanvasLayer/Sprite2D.texture = face_up_texture
-		$CanvasLayer/Name.text = card_info.card_name
+		$CanvasLayer/Sprite2D/Name.text = card_info.card_name
 		if card_info.attack > 0:
-			$CanvasLayer/Damage.visible = true
-			$CanvasLayer/Damage/DamageLabel.text = str(card_info.attack)
+			$CanvasLayer/Sprite2D/Damage.visible = true
+			$CanvasLayer/Sprite2D/Damage/DamageLabel.text = str(card_info.attack)
 		if card_info.block > 0:
-			$CanvasLayer/Shield.visible = true
-			$CanvasLayer/Shield/ShieldLabel.text = str(card_info.block)
+			$CanvasLayer/Sprite2D/Shield.visible = true
+			$CanvasLayer/Sprite2D/Shield/ShieldLabel.text = str(card_info.block)
 	else:
-		
 		$CanvasLayer/Sprite2D.texture = face_down_texture
-		$CanvasLayer/Name.text = ''
-		$CanvasLayer/Damage.visible = false
-		$CanvasLayer/Shield.visible = false
+		$CanvasLayer/Sprite2D/Name.text = ''
+		$CanvasLayer/Sprite2D/Damage.visible = false
+		$CanvasLayer/Sprite2D/Shield.visible = false

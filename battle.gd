@@ -129,17 +129,21 @@ func start_battle()->void:
 	BattleManager.enemy_health = BattleManager.enemy_max_health
 	$Player/HealthBar.max_value = BattleManager.player_max_health
 	$Player/HealthBar.value  = BattleManager.player_health
+	$Player/HealthBar/HealthLabel.text = str(BattleManager.player_health) + '/' + str(BattleManager.player_max_health)
 	$Enemy/HealthBar.max_value = BattleManager.enemy_max_health
 	$Enemy/HealthBar.value = BattleManager.enemy_health
+	$Enemy/HealthBar/Label.text = str(BattleManager.enemy_health) + '/' + str(BattleManager.enemy_max_health)
 	show()
 
 func edit_player_health(amount) -> void:
-	BattleManager.player_health += amount
+	BattleManager.player_health -= amount
 	$Player/HealthBar.value = BattleManager.player_health
+	$Player/HealthBar/HealthLabel.text = str(BattleManager.player_health) + '/' + str(BattleManager.player_max_health)
 
 func edit_enemy_health(amount) -> void:
 	BattleManager.enemy_health -= amount
 	$Enemy/HealthBar.value = BattleManager.enemy_health
+	$Enemy/HealthBar/Label.text = str(BattleManager.enemy_health) + '/' + str(BattleManager.enemy_max_health)
 
 func end_battle()->void:
 	hide()

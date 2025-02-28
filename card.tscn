@@ -1,34 +1,37 @@
-[gd_scene load_steps=14 format=3 uid="uid://48qfybefw3aa"]
+[gd_scene load_steps=12 format=3 uid="uid://48qfybefw3aa"]
 
-[ext_resource type="Shader" path="res://card.gdshader" id="1_2d2o1"]
 [ext_resource type="Texture2D" uid="uid://cn1gh045dv4k5" path="res://art/card back.png" id="1_4nbxh"]
 [ext_resource type="Script" path="res://card.gd" id="1_t3xw1"]
 [ext_resource type="Resource" uid="uid://b1jsm7umavvtr" path="res://resources/hit.tres" id="2_b2ymv"]
-[ext_resource type="Shader" path="res://arrow.gdshader" id="4_dnc1n"]
+[ext_resource type="Shader" path="res://blah.gdshader" id="3_8xd70"]
 [ext_resource type="Texture2D" uid="uid://clgrttyyuvr7e" path="res://art/damage.png" id="4_m3xde"]
 [ext_resource type="Texture2D" uid="uid://ci01gglxn7rpx" path="res://art/shield.png" id="5_icxvi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uxrx6"]
 size = Vector2(49, 67)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5t77c"]
-shader = ExtResource("1_2d2o1")
-shader_parameter/fov = 90.0
-shader_parameter/cull_back = true
-shader_parameter/y_rot = 0.0
-shader_parameter/x_rot = 0.0
-shader_parameter/inset = 0.0
-shader_parameter/hovering = null
-shader_parameter/rand_trans_power = 1.0
-shader_parameter/rand_seed = null
-shader_parameter/vortex_amt = null
-shader_parameter/rotation = 0.0
-shader_parameter/mouse_screen_pos_test = Vector2(0, 0)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hxf3j"]
+shader = ExtResource("3_8xd70")
+shader_parameter/color = Color(0.857926, 0.794098, 0.69825, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5cjm8"]
-shader = ExtResource("4_dnc1n")
-shader_parameter/outline_width = 2.0
-shader_parameter/outline_color = Color(0.995768, 0.895899, 0.826184, 1)
+[sub_resource type="Animation" id="Animation_w6tm1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_6tt1t"]
 resource_name = "flip"
@@ -65,25 +68,10 @@ tracks/2/path = NodePath(".:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(0, 1), Vector2(2, 2)]
-}
-
-[sub_resource type="Animation" id="Animation_w6tm1"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
+"values": [Vector2(1, 1), Vector2(2, 2)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_83wxg"]
@@ -100,30 +88,27 @@ card_info = ExtResource("2_b2ymv")
 position = Vector2(0.5, -0.5)
 shape = SubResource("RectangleShape2D_uxrx6")
 
-[node name="CanvasLayer" type="Node2D" parent="."]
-material = SubResource("ShaderMaterial_5t77c")
+[node name="CanvasLayer" type="CanvasGroup" parent="."]
+material = SubResource("ShaderMaterial_hxf3j")
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
-material = SubResource("ShaderMaterial_5cjm8")
-use_parent_material = true
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_4nbxh")
 
-[node name="Name" type="Label" parent="CanvasLayer"]
-offset_left = -20.0
-offset_top = -29.0
-offset_right = 20.0
-offset_bottom = -6.0
+[node name="Name" type="Label" parent="CanvasLayer/Sprite2D"]
+offset_left = -200.0
+offset_top = -290.0
+offset_right = -160.0
+offset_bottom = -267.0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Damage" type="Sprite2D" parent="CanvasLayer"]
-use_parent_material = true
-position = Vector2(10, 18)
-scale = Vector2(0.1, 0.1)
+[node name="Damage" type="Sprite2D" parent="CanvasLayer/Sprite2D"]
+position = Vector2(100, 180)
+scale = Vector2(1, 1)
 texture = ExtResource("4_m3xde")
 
-[node name="DamageLabel" type="Label" parent="CanvasLayer/Damage"]
+[node name="DamageLabel" type="Label" parent="CanvasLayer/Sprite2D/Damage"]
 offset_left = -50.0001
 offset_top = -50.0
 offset_right = 49.9999
@@ -133,13 +118,12 @@ text = "5"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Shield" type="Sprite2D" parent="CanvasLayer"]
-use_parent_material = true
-position = Vector2(-10, 18)
-scale = Vector2(0.1, 0.1)
+[node name="Shield" type="Sprite2D" parent="CanvasLayer/Sprite2D"]
+position = Vector2(-100, 180)
+scale = Vector2(1, 1)
 texture = ExtResource("5_icxvi")
 
-[node name="ShieldLabel" type="Label" parent="CanvasLayer/Shield"]
+[node name="ShieldLabel" type="Label" parent="CanvasLayer/Sprite2D/Shield"]
 offset_left = -50.0
 offset_top = -50.0
 offset_right = 50.0

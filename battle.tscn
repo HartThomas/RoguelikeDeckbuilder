@@ -60,6 +60,14 @@ max_value = 50.0
 value = 26.0
 show_percentage = false
 
+[node name="HealthLabel" type="Label" parent="Player/HealthBar"]
+layout_mode = 0
+offset_left = 57.0
+offset_top = 2.0
+offset_right = 97.0
+offset_bottom = 25.0
+text = "50/50"
+
 [node name="Enemy" type="Sprite2D" parent="."]
 position = Vector2(709, 197)
 scale = Vector2(0.556411, 0.546729)
@@ -75,6 +83,15 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_isxt2")
 max_value = 50.0
 value = 26.0
 show_percentage = false
+
+[node name="Label" type="Label" parent="Enemy/HealthBar"]
+layout_mode = 0
+offset_left = 89.8615
+offset_top = 3.65809
+offset_right = 169.862
+offset_bottom = 46.6581
+theme_override_font_sizes/font_size = 30
+text = "50/50"
 
 [connection signal="area_entered" from="Hand" to="." method="_on_hand_area_entered"]
 [connection signal="area_exited" from="Hand" to="." method="_on_hand_area_exited"]
