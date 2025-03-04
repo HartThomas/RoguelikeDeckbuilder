@@ -2,10 +2,12 @@ extends Node
 @export var battleInfo : BattleInfo
 @export var card_resource : CardStats
 @export var player_max_health : int = 50
-@export var enemy_max_health : int = 50
 @export var player_health : int = 50
-@export var enemy_health : int = 50
+@export var player_block : int = 0
 
+@export var enemy_max_health : int = 50
+@export var enemy_health : int = 50
+@export var enemy_block : int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

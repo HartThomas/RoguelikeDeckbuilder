@@ -32,7 +32,6 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	
 	if not is_dragging and self.has_meta("target_position") and self.get_meta("target_position") != self.position:
 		self.position = self.position.lerp(self.get_meta("target_position"), 5 * delta)
 	if not in_deck:
@@ -58,7 +57,6 @@ func _physics_process(delta):
 
 
 func _on_mouse_entered() -> void:
-	
 	if not temporary_instance:
 		mouseEntered.emit(self, true)
 	var shader = canvas_layer.get_material()

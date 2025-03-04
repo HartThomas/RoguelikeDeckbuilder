@@ -33,7 +33,7 @@ func _on_card_released(card) -> void:
 	clickedArray.clear()
 	if not card.in_hand and hand.has(card):
 		edit_enemy_health(card.card_info.attack)
-		
+		edit_player_block(card.card_info.block)
 		depleted.append(card)
 		hand.erase(card)
 		arrange_depleted()
@@ -113,7 +113,6 @@ func start_battle()->void:
 		card.queue_free()
 	
 	var index = 0
-	print(BattleManager.battleInfo.deck)
 	for card in BattleManager.battleInfo.deck:
 		var new_card = card_scene.instantiate()
 		new_card.card_info = card
@@ -131,20 +130,57 @@ func start_battle()->void:
 	$Player/HealthBar.max_value = BattleManager.player_max_health
 	$Player/HealthBar.value  = BattleManager.player_health
 	$Player/HealthBar/HealthLabel.text = str(BattleManager.player_health) + '/' + str(BattleManager.player_max_health)
+	$Player/BlockBar.value = BattleManager.player_block
+	if BattleManager.player_block > 0:
+		$Player/BlockBar/BlockLabel.text = BattleManager.player_block
+	else:
+		$Player/BlockBar/BlockLabel.text = ''
+		
 	$Enemy/HealthBar.max_value = BattleManager.enemy_max_health
 	$Enemy/HealthBar.value = BattleManager.enemy_health
 	$Enemy/HealthBar/Label.text = str(BattleManager.enemy_health) + '/' + str(BattleManager.enemy_max_health)
+	$Enemy/BlockBar.value = BattleManager.enemy_block
+	if BattleManager.enemy_block > 0:
+		$Enemy/BlockBar/BlockLabel.text = BattleManager.enemy_block
+	else:
+		$Enemy/BlockBar/BlockLabel.text = ''
 	show()
 
 func edit_player_health(amount) -> void:
+	if BattleManager.player_block > 0:
+		amount -= BattleManager.player_block
+		BattleManager.player_block = 0
+		$Player/BlockBar.value = BattleManager.player_block
+		if BattleManager.player_block == 0:
+			$Player/BlockBar/BlockLabel.text = ''
+		else:
+			$Player/BlockBar/BlockLabel.text = str(BattleManager.player_block)
 	BattleManager.player_health -= amount
 	$Player/HealthBar.value = BattleManager.player_health
 	$Player/HealthBar/HealthLabel.text = str(BattleManager.player_health) + '/' + str(BattleManager.player_max_health)
 
 func edit_enemy_health(amount) -> void:
+	if BattleManager.enemy_block > 0:
+		amount -= BattleManager.enemy_block
+		BattleManager.enemy_block = 0
+		$Enemy/BlockBar.value = BattleManager.enemy_block
+		if BattleManager.enemy_block == 0:
+			$Enemy/BlockBar/BlockLabel.text = ''
+		else:
+			$Enemy/BlockBar/BlockLabel.text = str(BattleManager.enemy_block)
 	BattleManager.enemy_health -= amount
 	$Enemy/HealthBar.value = BattleManager.enemy_health
 	$Enemy/HealthBar/Label.text = str(BattleManager.enemy_health) + '/' + str(BattleManager.enemy_max_health)
+
+func edit_player_block(amount) -> void:
+	BattleManager.player_block += amount
+	$Player/BlockBar.value = BattleManager.player_block
+	$Player/BlockBar/BlockLabel.text = str(BattleManager.player_block)
+
+func edit_enemy_block(amount) -> void:
+	BattleManager.enemy_block += amount
+	$Enemy/BlockBar.value = BattleManager.enemy_block
+	$Enemy/BlockBar/BlockLabel.text = str(BattleManager.enemy_block)
 
 func end_battle()->void:
 	hide()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://by1bi0miuud7i"]
+[gd_scene load_steps=11 format=3 uid="uid://by1bi0miuud7i"]
 
 [ext_resource type="PackedScene" uid="uid://48qfybefw3aa" path="res://card.tscn" id="1_8fvkg"]
 [ext_resource type="Script" path="res://battle.gd" id="1_flmcs"]
@@ -14,6 +14,11 @@ bg_color = Color(0.0943559, 0.253403, 0.275361, 0.996078)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_isxt2"]
 bg_color = Color(0.997617, 0.102632, 0.073368, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vrubk"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1wdht"]
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_flmcs")
@@ -61,6 +66,7 @@ value = 26.0
 show_percentage = false
 
 [node name="HealthLabel" type="Label" parent="Player/HealthBar"]
+z_index = 1
 layout_mode = 0
 offset_left = 57.0
 offset_top = 2.0
@@ -68,12 +74,29 @@ offset_right = 97.0
 offset_bottom = 25.0
 text = "50/50"
 
+[node name="BlockBar" type="ProgressBar" parent="Player"]
+offset_left = -81.0
+offset_top = -153.0
+offset_right = 66.0
+offset_bottom = -130.0
+theme_override_styles/background = SubResource("StyleBoxFlat_vrubk")
+theme_override_styles/fill = SubResource("StyleBoxFlat_1wdht")
+value = 20.0
+show_percentage = false
+
+[node name="BlockLabel" type="Label" parent="Player/BlockBar"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+
 [node name="Enemy" type="Sprite2D" parent="."]
 position = Vector2(709, 197)
 scale = Vector2(0.556411, 0.546729)
 texture = ExtResource("5_nqs84")
 
 [node name="HealthBar" type="ProgressBar" parent="Enemy"]
+z_index = 1
 offset_left = -140.184
 offset_top = -276.188
 offset_right = 109.816
@@ -92,6 +115,22 @@ offset_right = 169.862
 offset_bottom = 46.6581
 theme_override_font_sizes/font_size = 30
 text = "50/50"
+
+[node name="BlockBar" type="ProgressBar" parent="Enemy"]
+offset_left = -137.0
+offset_top = -274.0
+offset_right = 108.0
+offset_bottom = -227.0
+theme_override_styles/background = SubResource("StyleBoxFlat_vrubk")
+theme_override_styles/fill = SubResource("StyleBoxFlat_1wdht")
+value = 20.0
+show_percentage = false
+
+[node name="BlockLabel" type="Label" parent="Enemy/BlockBar"]
+layout_mode = 0
+offset_right = 87.0
+offset_bottom = 47.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 
 [connection signal="area_entered" from="Hand" to="." method="_on_hand_area_entered"]
 [connection signal="area_exited" from="Hand" to="." method="_on_hand_area_exited"]
