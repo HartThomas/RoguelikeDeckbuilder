@@ -6,17 +6,21 @@ extends Node
 @export var player_health : int = 50
 @export var enemy_health : int = 50
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	add_cards_to_deck(['Hit', 'Hit', 'Hit', 'Hit', 'Block', 'Block', 'Block', 'Block'])
+
+
+func add_cards_to_deck(array: Array[String])-> void :
 	var new_battle_info = load("res://resources/battle_info.tres")
 	battleInfo = new_battle_info
-	var new_card = load("res://resources/hit.tres")
-	battleInfo.add_card_to_deck(new_card)
-	battleInfo.add_card_to_deck(new_card)
-	battleInfo.add_card_to_deck(new_card)
-	if card_resource:
-		card_resource.card_name = 'Hit'
-		print(card_resource)
+	for card in array:
+		var resource_path = "res://resources/%s.tres" % [card.to_lower()]
+		var new_card = load(resource_path)
+		battleInfo.add_card_to_deck(new_card)
+	battleInfo.shuffle_deck()
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

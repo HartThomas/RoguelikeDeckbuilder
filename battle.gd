@@ -49,7 +49,7 @@ func _on_draw_button_down() -> void:
 		for i in depleted.size():
 			var card = depleted[i]
 			deck.append(card)
-			card.trigger_card_flip_animation()
+			card.trigger_card_flip_to_deck_animation()
 		depleted.clear()
 		deck.shuffle()
 		arrange_deck_positions()
@@ -113,6 +113,7 @@ func start_battle()->void:
 		card.queue_free()
 	
 	var index = 0
+	print(BattleManager.battleInfo.deck)
 	for card in BattleManager.battleInfo.deck:
 		var new_card = card_scene.instantiate()
 		new_card.card_info = card

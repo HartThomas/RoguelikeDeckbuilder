@@ -28,3 +28,6 @@ func shuffle_played_into_deck():
 
 func add_card_to_deck(card):
 	deck.push_back(card)
+
+func shuffle_deck() -> void:
+	deck.shuffle()

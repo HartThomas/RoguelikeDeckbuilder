@@ -21,12 +21,14 @@ var rng = RandomNumberGenerator.new()
 func _ready() -> void:
 	$CanvasLayer/Sprite2D/Damage.visible = false
 	$CanvasLayer/Sprite2D/Shield.visible = false
-	var shader = canvas_layer.get_material()
-	shader.set_shader_parameter('width', 0)
+	var new_shader = load("res://blah.gdshader")
+	var duplicated_shader = new_shader.duplicate()
+	canvas_layer.material = ShaderMaterial.new()
+	canvas_layer.material.set('shader', duplicated_shader)
+	canvas_layer.material.set('shader_parameter/width', 0)
 	#shader.set_shader_parameter("instance_rotation", randf() * 2.0 * PI)
 	#shader.set_shader_parameter("instance_offset", Vector2(randf(), randf()))
 	#shader.set('shader_parameters/rand_seed', rng.randf_range(-10.0, 10.0))
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -56,6 +58,7 @@ func _physics_process(delta):
 
 
 func _on_mouse_entered() -> void:
+	
 	if not temporary_instance:
 		mouseEntered.emit(self, true)
 	var shader = canvas_layer.get_material()
@@ -69,6 +72,9 @@ func _on_mouse_exited() -> void:
 
 func trigger_card_flip_animation()->void:
 	animation.play('flip')
+	
+func trigger_card_flip_to_deck_animation()->void:
+	animation.play('flip_to_deck')
 
 func card_flip() -> void:
 	face_up = !face_up
