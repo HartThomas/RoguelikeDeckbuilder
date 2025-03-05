@@ -157,6 +157,9 @@ func start_battle()->void:
 	else:
 		$Enemy/BlockBar/BlockLabel.text = ''
 	show()
+	await get_tree().create_timer(0.5).timeout
+	draw_hand()
+
 
 func edit_player_health(amount) -> void:
 	if BattleManager.player_block > 0:
@@ -211,3 +214,10 @@ func edit_enemy_block(amount) -> void:
 
 func end_battle()->void:
 	hide()
+
+func draw_hand() -> void:
+	_on_draw_button_down()
+	await get_tree().create_timer(0.2).timeout
+	_on_draw_button_down()
+	await get_tree().create_timer(0.2).timeout
+	_on_draw_button_down()
