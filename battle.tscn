@@ -138,7 +138,15 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 30
 vertical_alignment = 1
 
+[node name="Button" type="Button" parent="."]
+offset_left = 541.0
+offset_top = 597.0
+offset_right = 603.0
+offset_bottom = 633.0
+text = "End Turn"
+
 [connection signal="area_entered" from="Hand" to="." method="_on_hand_area_entered"]
 [connection signal="area_exited" from="Hand" to="." method="_on_hand_area_exited"]
 [connection signal="clicked" from="Card" to="." method="_on_card_clicked"]
 [connection signal="button_down" from="Draw" to="." method="_on_draw_button_down"]
+[connection signal="button_down" from="Button" to="." method="end_turn"]

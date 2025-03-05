@@ -44,14 +44,6 @@ func _on_card_released(card) -> void:
 		arrange_hand_positions()
 		if BattleManager.enemy_health <= 0:
 			battle_over.emit()
-	var enemy_action = enemy.which_action_shall_i_take()
-	print(enemy_action)
-	if enemy_action.has('hit'):
-		edit_player_health(enemy_action.get('hit'))
-	if enemy_action.has('heal'):
-		edit_enemy_health(-enemy_action.get('heal'))
-	if enemy_action.has('block'):
-		edit_enemy_block(enemy_action.get('block'))
 
 func _on_draw_button_down() -> void:
 	if deck.size() == 0:
@@ -221,3 +213,21 @@ func draw_hand() -> void:
 	_on_draw_button_down()
 	await get_tree().create_timer(0.2).timeout
 	_on_draw_button_down()
+
+func end_turn() -> void:
+	var enemy_action = enemy.which_action_shall_i_take()
+	print(enemy_action)
+	if enemy_action.has('hit'):
+		edit_player_health(enemy_action.get('hit'))
+	if enemy_action.has('heal'):
+		edit_enemy_health(-enemy_action.get('heal'))
+	if enemy_action.has('block'):
+		edit_enemy_block(enemy_action.get('block'))
+	await get_tree().create_timer(0.1).timeout
+	print(hand)
+	for card in hand:
+		depleted.append(card)
+	hand.clear()
+	print(hand,'umm',depleted)
+	arrange_depleted()
+	arrange_hand_positions()
