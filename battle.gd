@@ -4,10 +4,13 @@ var hand : Array = []
 var deck : Array = []
 var depleted : Array = []
 signal battle_over
+var enemy : Enemy
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$Card.queue_free()
+	var new_enemy = load("res://resources/triangle.tres")
+	enemy = new_enemy
 	hide()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -32,6 +35,7 @@ func _on_card_released(card) -> void:
 		clicked.is_dragging = false
 	clickedArray.clear()
 	if not card.in_hand and hand.has(card):
+		print({'attack':card.card_info.attack, 'block':card.card_info.block})
 		edit_enemy_health(card.card_info.attack)
 		edit_player_block(card.card_info.block)
 		depleted.append(card)
@@ -40,6 +44,14 @@ func _on_card_released(card) -> void:
 		arrange_hand_positions()
 		if BattleManager.enemy_health <= 0:
 			battle_over.emit()
+	var enemy_action = enemy.which_action_shall_i_take()
+	print(enemy_action)
+	if enemy_action.has('hit'):
+		edit_player_health(enemy_action.get('hit'))
+	if enemy_action.has('heal'):
+		edit_enemy_health(-enemy_action.get('heal'))
+	if enemy_action.has('block'):
+		edit_enemy_block(enemy_action.get('block'))
 
 func _on_draw_button_down() -> void:
 	if deck.size() == 0:
@@ -148,27 +160,42 @@ func start_battle()->void:
 
 func edit_player_health(amount) -> void:
 	if BattleManager.player_block > 0:
-		amount -= BattleManager.player_block
-		BattleManager.player_block = 0
+		if BattleManager.player_block >= amount:
+			BattleManager.player_block -= amount
+			amount = 0
+		else:
+			amount -= BattleManager.player_block
+			BattleManager.player_block = 0
+			
 		$Player/BlockBar.value = BattleManager.player_block
 		if BattleManager.player_block == 0:
 			$Player/BlockBar/BlockLabel.text = ''
 		else:
 			$Player/BlockBar/BlockLabel.text = str(BattleManager.player_block)
-	BattleManager.player_health -= amount
+	if BattleManager.player_health - amount > BattleManager.player_max_health:
+		BattleManager.player_health = BattleManager.player_max_health
+	else:
+		BattleManager.player_health -= amount
 	$Player/HealthBar.value = BattleManager.player_health
 	$Player/HealthBar/HealthLabel.text = str(BattleManager.player_health) + '/' + str(BattleManager.player_max_health)
 
 func edit_enemy_health(amount) -> void:
 	if BattleManager.enemy_block > 0:
-		amount -= BattleManager.enemy_block
-		BattleManager.enemy_block = 0
+		if BattleManager.enemy_block >= amount:
+			BattleManager.enemy_block -= amount
+			amount = 0
+		else:
+			amount -= BattleManager.enemy_block
+			BattleManager.enemy_block = 0
 		$Enemy/BlockBar.value = BattleManager.enemy_block
 		if BattleManager.enemy_block == 0:
 			$Enemy/BlockBar/BlockLabel.text = ''
 		else:
 			$Enemy/BlockBar/BlockLabel.text = str(BattleManager.enemy_block)
-	BattleManager.enemy_health -= amount
+	if BattleManager.enemy_health - amount > BattleManager.enemy_max_health:
+		BattleManager.enemy_health = BattleManager.enemy_max_health
+	else:
+		BattleManager.enemy_health -= amount
 	$Enemy/HealthBar.value = BattleManager.enemy_health
 	$Enemy/HealthBar/Label.text = str(BattleManager.enemy_health) + '/' + str(BattleManager.enemy_max_health)
 

@@ -81,6 +81,7 @@ offset_right = 66.0
 offset_bottom = -130.0
 theme_override_styles/background = SubResource("StyleBoxFlat_vrubk")
 theme_override_styles/fill = SubResource("StyleBoxFlat_1wdht")
+max_value = 50.0
 value = 20.0
 show_percentage = false
 
@@ -108,6 +109,7 @@ value = 26.0
 show_percentage = false
 
 [node name="Label" type="Label" parent="Enemy/HealthBar"]
+z_index = 1
 layout_mode = 0
 offset_left = 89.8615
 offset_top = 3.65809
@@ -117,12 +119,14 @@ theme_override_font_sizes/font_size = 30
 text = "50/50"
 
 [node name="BlockBar" type="ProgressBar" parent="Enemy"]
+z_index = 1
 offset_left = -137.0
 offset_top = -274.0
 offset_right = 108.0
 offset_bottom = -227.0
 theme_override_styles/background = SubResource("StyleBoxFlat_vrubk")
 theme_override_styles/fill = SubResource("StyleBoxFlat_1wdht")
+max_value = 50.0
 value = 20.0
 show_percentage = false
 
@@ -131,6 +135,8 @@ layout_mode = 0
 offset_right = 87.0
 offset_bottom = 47.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+vertical_alignment = 1
 
 [connection signal="area_entered" from="Hand" to="." method="_on_hand_area_entered"]
 [connection signal="area_exited" from="Hand" to="." method="_on_hand_area_exited"]

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Enemy" load_steps=2 format=3 uid="uid://dkg4xkvbtva68"]
+
+[ext_resource type="Script" path="res://classnames/enemy.gd" id="1_vuao3"]
+
+[resource]
+script = ExtResource("1_vuao3")
+hit = 3
+block = 3
+heal = 3
+possible_actions = null
