@@ -60,6 +60,8 @@ func _on_draw_button_down() -> void:
 		depleted.clear()
 		deck.shuffle()
 		arrange_deck_positions()
+		await get_tree().create_timer(1.2).timeout
+		_on_draw_button_down()
 	else:
 		hand.append(deck[deck.size() - 1])
 		deck.remove_at(deck.size() - 1)
