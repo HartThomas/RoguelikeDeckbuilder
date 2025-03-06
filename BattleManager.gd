@@ -9,6 +9,8 @@ extends Node
 @export var enemy_health : int = 50
 @export var enemy_block : int = 0
 
+@export var max_effort :int = 1
+@export var effort :int = 1
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	add_cards_to_deck(['Hit', 'Hit', 'Hit', 'Hit', 'Block', 'Block', 'Block', 'Block'])

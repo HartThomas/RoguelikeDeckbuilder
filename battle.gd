@@ -34,16 +34,19 @@ func _on_card_released(card) -> void:
 	for clicked in clickedArray:
 		clicked.is_dragging = false
 	clickedArray.clear()
-	if not card.in_hand and hand.has(card):
-		print({'attack':card.card_info.attack, 'block':card.card_info.block})
-		edit_enemy_health(card.card_info.attack)
-		edit_player_block(card.card_info.block)
-		depleted.append(card)
-		hand.erase(card)
-		arrange_depleted()
-		arrange_hand_positions()
-		if BattleManager.enemy_health <= 0:
-			battle_over.emit()
+	if BattleManager.effort > 0:
+		if not card.in_hand and hand.has(card):
+			print({'attack':card.card_info.attack, 'block':card.card_info.block})
+			edit_enemy_health(card.card_info.attack)
+			edit_player_block(card.card_info.block)
+			depleted.append(card)
+			hand.erase(card)
+			arrange_depleted()
+			arrange_hand_positions()
+			if BattleManager.enemy_health <= 0:
+				battle_over.emit()
+			use_effort(1)
+
 
 func _on_draw_button_down() -> void:
 	if deck.size() == 0:
@@ -148,6 +151,7 @@ func start_battle()->void:
 		$Enemy/BlockBar/BlockLabel.text = BattleManager.enemy_block
 	else:
 		$Enemy/BlockBar/BlockLabel.text = ''
+	$EffortLevel/EffortLabel.text = str(BattleManager.effort) + '/' + str(BattleManager.max_effort)
 	show()
 	await get_tree().create_timer(0.5).timeout
 	draw_hand()
@@ -224,10 +228,18 @@ func end_turn() -> void:
 	if enemy_action.has('block'):
 		edit_enemy_block(enemy_action.get('block'))
 	await get_tree().create_timer(0.1).timeout
-	print(hand)
 	for card in hand:
 		depleted.append(card)
 	hand.clear()
-	print(hand,'umm',depleted)
 	arrange_depleted()
 	arrange_hand_positions()
+	draw_hand()
+	reset_effort()
+
+func use_effort(amount) -> void:
+	BattleManager.effort -= amount
+	$EffortLevel/EffortLabel.text = str(BattleManager.effort) + '/' + str(BattleManager.max_effort)
+
+func reset_effort() -> void:
+	BattleManager.effort = BattleManager.max_effort
+	$EffortLevel/EffortLabel.text = str(BattleManager.effort) + '/' + str(BattleManager.max_effort)
