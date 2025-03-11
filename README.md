@@ -23,3 +23,7 @@ Another potential starter card could be a vertex(corner) and an upgrade could be
 There could be a way for the user to create the shapes instead if they wanted to draw them themselves
 
 ---
+
+Another idea is you could have a few types of effort(mana) instead of having multiple mana eg. physical effort plays normal cards like hit/block but mental effort plays cards like forget.
+
+---

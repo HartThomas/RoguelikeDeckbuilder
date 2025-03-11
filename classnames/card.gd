@@ -6,3 +6,8 @@ class_name CardStats
 @export var block: int 
 @export var position: Vector2 = Vector2(338, 400)
 @export var texture: CompressedTexture2D
+var effect: Callable = func(): pass
+
+func when_played() -> void:
+	if effect:
+		effect.call()

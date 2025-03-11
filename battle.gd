@@ -31,6 +31,7 @@ func _on_card_clicked(card) -> void:
 		i += 1
 
 func _on_card_released(card) -> void:
+	card.card_info.when_played()
 	for clicked in clickedArray:
 		clicked.is_dragging = false
 	clickedArray.clear()
@@ -46,7 +47,6 @@ func _on_card_released(card) -> void:
 			if BattleManager.enemy_health <= 0:
 				battle_over.emit()
 			use_effort(1)
-
 
 func _on_draw_button_down() -> void:
 	if deck.size() == 0:
@@ -125,6 +125,7 @@ func start_battle()->void:
 	for card in BattleManager.battleInfo.deck:
 		var new_card = card_scene.instantiate()
 		new_card.card_info = card
+		new_card.card_info.effect = func(): print(get_children())
 		new_card.position = new_card.card_info.position
 		new_card.position.y -= 20 * index
 		new_card.z_index = index
@@ -141,7 +142,7 @@ func start_battle()->void:
 	$Player/HealthBar/HealthLabel.text = str(BattleManager.player_health) + '/' + str(BattleManager.player_max_health)
 	$Player/BlockBar.value = BattleManager.player_block
 	if BattleManager.player_block > 0:
-		$Player/BlockBar/BlockLabel.text = BattleManager.player_block
+		$Player/BlockBar/BlockLabel.text = str(BattleManager.player_block)
 	else:
 		$Player/BlockBar/BlockLabel.text = ''
 		
@@ -158,21 +159,21 @@ func start_battle()->void:
 	await get_tree().create_timer(0.5).timeout
 	draw_hand()
 
-
 func edit_player_health(amount) -> void:
-	if BattleManager.player_block > 0:
-		if BattleManager.player_block >= amount:
-			BattleManager.player_block -= amount
-			amount = 0
-		else:
-			amount -= BattleManager.player_block
-			BattleManager.player_block = 0
-			
-		$Player/BlockBar.value = BattleManager.player_block
-		if BattleManager.player_block == 0:
-			$Player/BlockBar/BlockLabel.text = ''
-		else:
-			$Player/BlockBar/BlockLabel.text = str(BattleManager.player_block)
+	if amount >= 0:
+		if BattleManager.player_block > 0:
+			if BattleManager.player_block >= amount:
+				BattleManager.player_block -= amount
+				amount = 0
+			else:
+				amount -= BattleManager.player_block
+				BattleManager.player_block = 0
+				
+			$Player/BlockBar.value = BattleManager.player_block
+			if BattleManager.player_block == 0:
+				$Player/BlockBar/BlockLabel.text = ''
+			else:
+				$Player/BlockBar/BlockLabel.text = str(BattleManager.player_block)
 	if BattleManager.player_health - amount > BattleManager.player_max_health:
 		BattleManager.player_health = BattleManager.player_max_health
 	else:
@@ -181,18 +182,19 @@ func edit_player_health(amount) -> void:
 	$Player/HealthBar/HealthLabel.text = str(BattleManager.player_health) + '/' + str(BattleManager.player_max_health)
 
 func edit_enemy_health(amount) -> void:
-	if BattleManager.enemy_block > 0:
-		if BattleManager.enemy_block >= amount:
-			BattleManager.enemy_block -= amount
-			amount = 0
-		else:
-			amount -= BattleManager.enemy_block
-			BattleManager.enemy_block = 0
-		$Enemy/BlockBar.value = BattleManager.enemy_block
-		if BattleManager.enemy_block == 0:
-			$Enemy/BlockBar/BlockLabel.text = ''
-		else:
-			$Enemy/BlockBar/BlockLabel.text = str(BattleManager.enemy_block)
+	if amount >= 0:
+		if BattleManager.enemy_block > 0:
+			if BattleManager.enemy_block >= amount:
+				BattleManager.enemy_block -= amount
+				amount = 0
+			else:
+				amount -= BattleManager.enemy_block
+				BattleManager.enemy_block = 0
+			$Enemy/BlockBar.value = BattleManager.enemy_block
+			if BattleManager.enemy_block == 0:
+				$Enemy/BlockBar/BlockLabel.text = ''
+			else:
+				$Enemy/BlockBar/BlockLabel.text = str(BattleManager.enemy_block)
 	if BattleManager.enemy_health - amount > BattleManager.enemy_max_health:
 		BattleManager.enemy_health = BattleManager.enemy_max_health
 	else:
@@ -203,7 +205,10 @@ func edit_enemy_health(amount) -> void:
 func edit_player_block(amount) -> void:
 	BattleManager.player_block += amount
 	$Player/BlockBar.value = BattleManager.player_block
-	$Player/BlockBar/BlockLabel.text = str(BattleManager.player_block)
+	if BattleManager.player_block ==0:
+		$Player/BlockBar/BlockLabel.text = ''
+	else:
+		$Player/BlockBar/BlockLabel.text = str(BattleManager.player_block)
 
 func edit_enemy_block(amount) -> void:
 	BattleManager.enemy_block += amount
