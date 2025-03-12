@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_vbnd4")
-card_name = "Banish"
+card_name = "Forget"
 attack = 0
 block = 0
 position = Vector2(103, 536)

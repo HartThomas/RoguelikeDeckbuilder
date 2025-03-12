@@ -5,6 +5,7 @@ var deck : Array = []
 var depleted : Array = []
 signal battle_over
 var enemy : Enemy
+var conserved: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -60,8 +61,9 @@ func _on_draw_button_down() -> void:
 		depleted.clear()
 		deck.shuffle()
 		arrange_deck_positions()
+		print({'deck': deck.size(),'hand': hand.size(),'depleted': depleted.size(),})
 		await get_tree().create_timer(1.2).timeout
-		_on_draw_button_down()
+		await _on_draw_button_down()
 	else:
 		hand.append(deck[deck.size() - 1])
 		deck.remove_at(deck.size() - 1)
@@ -124,8 +126,13 @@ func start_battle()->void:
 	var index = 0
 	for card in BattleManager.battleInfo.deck:
 		var new_card = card_scene.instantiate()
+		var effect_dictionary = load("res://dictionaries/when_played_dictionary.gd").new()
 		new_card.card_info = card
-		new_card.card_info.effect = func(): print(get_children())
+		if card.card_name == 'Forget':
+			new_card.card_info.effect = forget
+		if card.card_name == 'Conserve':
+			new_card.card_info.effect = converse
+		#new_card.card_info.effect = func(): print(get_children())
 		new_card.position = new_card.card_info.position
 		new_card.position.y -= 20 * index
 		new_card.z_index = index
@@ -219,11 +226,12 @@ func end_battle()->void:
 	hide()
 
 func draw_hand() -> void:
-	_on_draw_button_down()
+	await get_tree().create_timer(0.5).timeout
+	await _on_draw_button_down()
 	await get_tree().create_timer(0.2).timeout
-	_on_draw_button_down()
+	await _on_draw_button_down()
 	await get_tree().create_timer(0.2).timeout
-	_on_draw_button_down()
+	await _on_draw_button_down()
 
 func end_turn() -> void:
 	var enemy_action = enemy.which_action_shall_i_take()
@@ -234,12 +242,14 @@ func end_turn() -> void:
 		edit_enemy_health(-enemy_action.get('heal'))
 	if enemy_action.has('block'):
 		edit_enemy_block(enemy_action.get('block'))
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.5).timeout
 	for card in hand:
 		depleted.append(card)
 	hand.clear()
 	arrange_depleted()
+	await get_tree().create_timer(0.5).timeout
 	arrange_hand_positions()
+	await get_tree().create_timer(0.5).timeout
 	draw_hand()
 	reset_effort()
 
@@ -248,5 +258,17 @@ func use_effort(amount) -> void:
 	$EffortLevel/EffortLabel.text = str(BattleManager.effort) + '/' + str(BattleManager.max_effort)
 
 func reset_effort() -> void:
-	BattleManager.effort = BattleManager.max_effort
+	if conserved:
+		BattleManager.effort = BattleManager.max_effort + 1
+	else:
+		BattleManager.effort = BattleManager.max_effort
 	$EffortLevel/EffortLabel.text = str(BattleManager.effort) + '/' + str(BattleManager.max_effort)
+
+func forget() -> void:
+	var card = hand.filter(func(c) : return c.card_info.card_name != 'Forget').pick_random()
+	hand.erase(card)
+	card.queue_free()
+	print(hand)
+
+func converse() -> void:
+	conserved = true

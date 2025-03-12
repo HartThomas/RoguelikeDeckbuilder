@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CardStats" load_steps=2 format=3 uid="uid://bf5i7egv1lv46"]
+
+[ext_resource type="Script" path="res://classnames/card.gd" id="1_qc27h"]
+
+[resource]
+script = ExtResource("1_qc27h")
+card_name = "Conserve"
+attack = 0
+block = 0
+position = Vector2(103, 536)

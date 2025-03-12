@@ -13,9 +13,7 @@ extends Node
 @export var effort :int = 1
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	add_cards_to_deck(['Hit', 'Hit', 'Hit', 'Hit', 'Block', 'Block', 'Block', 'Banish'])
-	var banish = load('res://resources/banish.tres')
-	banish.effect = func(): print(get_tree().current_scene)
+	add_cards_to_deck(['Hit', 'Hit', 'Hit', 'Conserve', 'Block', 'Block', 'Block', 'Forget'])
 
 func add_cards_to_deck(array: Array[String])-> void :
 	var new_battle_info = load("res://resources/battle_info.tres")
