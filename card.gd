@@ -14,14 +14,20 @@ var face_up_texture = load('res://art/card.png')
 var face_down_texture = load("res://art/card back.png")
 @onready var animation = $AnimationPlayer
 @onready var card: Area2D = $"."
-@onready var canvas_layer: Node2D = $CanvasLayer
+@onready var canvas_layer: Node2D = $BackBufferCopy/CanvasLayer
 var rng = RandomNumberGenerator.new()
+@onready var shield_label: Label = $BackBufferCopy/CanvasLayer/Sprite2D/Shield/ShieldLabel
+@onready var damage_label: Label = $BackBufferCopy/CanvasLayer/Sprite2D/Damage/DamageLabel
+@onready var sprite_2d: Sprite2D = $BackBufferCopy/CanvasLayer/Sprite2D
+@onready var name_label: Label = $BackBufferCopy/CanvasLayer/Sprite2D/Name
+@onready var damage: Sprite2D = $BackBufferCopy/CanvasLayer/Sprite2D/Damage
+@onready var shield: Sprite2D = $BackBufferCopy/CanvasLayer/Sprite2D/Shield
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$CanvasLayer/Sprite2D/Damage.visible = false
-	$CanvasLayer/Sprite2D/Shield.visible = false
-	var new_shader = load("res://blah.gdshader")
+	damage.visible = false
+	shield.visible = false
+	var new_shader = load("res://shaders/blah.gdshader")
 	var duplicated_shader = new_shader.duplicate()
 	canvas_layer.material = ShaderMaterial.new()
 	canvas_layer.material.set('shader', duplicated_shader)
@@ -77,16 +83,16 @@ func trigger_card_flip_to_deck_animation()->void:
 func card_flip() -> void:
 	face_up = !face_up
 	if face_up:
-		$CanvasLayer/Sprite2D.texture = face_up_texture
-		$CanvasLayer/Sprite2D/Name.text = card_info.card_name
+		sprite_2d.texture = face_up_texture
+		name_label.text = card_info.card_name
 		if card_info.attack > 0:
-			$CanvasLayer/Sprite2D/Damage.visible = true
-			$CanvasLayer/Sprite2D/Damage/DamageLabel.text = str(card_info.attack)
+			damage.visible = true
+			damage_label.text = str(card_info.attack)
 		if card_info.block > 0:
-			$CanvasLayer/Sprite2D/Shield.visible = true
-			$CanvasLayer/Sprite2D/Shield/ShieldLabel.text = str(card_info.block)
+			shield.visible = true
+			shield_label.text = str(card_info.block)
 	else:
-		$CanvasLayer/Sprite2D.texture = face_down_texture
-		$CanvasLayer/Sprite2D/Name.text = ''
-		$CanvasLayer/Sprite2D/Damage.visible = false
-		$CanvasLayer/Sprite2D/Shield.visible = false
+		sprite_2d.texture = face_down_texture
+		name_label.text = ''
+		damage.visible = false
+		shield.visible = false

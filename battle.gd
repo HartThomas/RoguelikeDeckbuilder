@@ -99,14 +99,14 @@ func arrange_depleted() -> void:
 	for i in size:
 		depleted[i].in_deck = false
 		depleted[i].set_meta("target_position", Vector2(1048,538 - (20 * i)))
-		depleted[i].z_index = i
+		depleted[i].z_index = i + 1
 
 func arrange_deck_positions() -> void:
 	var size = deck.size()
 	for i in size:
 		deck[i].in_deck = true
 		deck[i].set_meta("target_position", Vector2(103,536 - (20 * i)))
-		deck[i].z_index = i
+		deck[i].z_index = i + 1
 
 var temporary_card: PackedScene
 
@@ -135,7 +135,7 @@ func start_battle()->void:
 		#new_card.card_info.effect = func(): print(get_children())
 		new_card.position = new_card.card_info.position
 		new_card.position.y -= 20 * index
-		new_card.z_index = index
+		new_card.z_index = index + 1
 		new_card.set_meta('target_position', Vector2(new_card.card_info.position.x, new_card.card_info.position.y - (20 * index)))
 		new_card.clicked.connect(_on_card_clicked)
 		new_card.released.connect(_on_card_released)
@@ -263,6 +263,7 @@ func reset_effort() -> void:
 	else:
 		BattleManager.effort = BattleManager.max_effort
 	$EffortLevel/EffortLabel.text = str(BattleManager.effort) + '/' + str(BattleManager.max_effort)
+	conserved = false
 
 func forget() -> void:
 	var card = hand.filter(func(c) : return c.card_info.card_name != 'Forget').pick_random()

@@ -5,8 +5,8 @@ extends Node
 @export var player_health : int = 50
 @export var player_block : int = 0
 
-@export var enemy_max_health : int = 50
-@export var enemy_health : int = 50
+@export var enemy_max_health : int = 10
+@export var enemy_health : int = 10
 @export var enemy_block : int = 0
 
 @export var max_effort :int = 1

@@ -1,22 +1,13 @@
-[gd_scene load_steps=13 format=3 uid="uid://48qfybefw3aa"]
+[gd_scene load_steps=11 format=3 uid="uid://48qfybefw3aa"]
 
 [ext_resource type="Texture2D" uid="uid://cn1gh045dv4k5" path="res://art/card back.png" id="1_4nbxh"]
 [ext_resource type="Script" path="res://card.gd" id="1_t3xw1"]
 [ext_resource type="Resource" uid="uid://b1jsm7umavvtr" path="res://resources/hit.tres" id="2_b2ymv"]
-[ext_resource type="Shader" path="res://blah.gdshader" id="3_8xd70"]
 [ext_resource type="Texture2D" uid="uid://clgrttyyuvr7e" path="res://art/damage.png" id="4_m3xde"]
 [ext_resource type="Texture2D" uid="uid://ci01gglxn7rpx" path="res://art/shield.png" id="5_icxvi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uxrx6"]
 size = Vector2(49, 67)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hxf3j"]
-shader = ExtResource("3_8xd70")
-shader_parameter/color = Color(0.857926, 0.794098, 0.69825, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
 
 [sub_resource type="Animation" id="Animation_w6tm1"]
 length = 0.001
@@ -118,14 +109,20 @@ card_info = ExtResource("2_b2ymv")
 position = Vector2(0.5, -0.5)
 shape = SubResource("RectangleShape2D_uxrx6")
 
-[node name="CanvasLayer" type="CanvasGroup" parent="."]
-material = SubResource("ShaderMaterial_hxf3j")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_83wxg")
+}
 
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+
+[node name="CanvasLayer" type="CanvasGroup" parent="BackBufferCopy"]
+
+[node name="Sprite2D" type="Sprite2D" parent="BackBufferCopy/CanvasLayer"]
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_4nbxh")
 
-[node name="Name" type="Label" parent="CanvasLayer/Sprite2D"]
+[node name="Name" type="Label" parent="BackBufferCopy/CanvasLayer/Sprite2D"]
 offset_left = -200.0
 offset_top = -290.0
 offset_right = 210.0
@@ -133,12 +130,13 @@ offset_bottom = -80.0
 theme_override_font_sizes/font_size = 80
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
-[node name="Damage" type="Sprite2D" parent="CanvasLayer/Sprite2D"]
+[node name="Damage" type="Sprite2D" parent="BackBufferCopy/CanvasLayer/Sprite2D"]
 position = Vector2(100, 180)
 texture = ExtResource("4_m3xde")
 
-[node name="DamageLabel" type="Label" parent="CanvasLayer/Sprite2D/Damage"]
+[node name="DamageLabel" type="Label" parent="BackBufferCopy/CanvasLayer/Sprite2D/Damage"]
 offset_left = -50.0001
 offset_top = -50.0
 offset_right = 49.9999
@@ -147,12 +145,13 @@ theme_override_font_sizes/font_size = 75
 text = "5"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
-[node name="Shield" type="Sprite2D" parent="CanvasLayer/Sprite2D"]
+[node name="Shield" type="Sprite2D" parent="BackBufferCopy/CanvasLayer/Sprite2D"]
 position = Vector2(-100, 180)
 texture = ExtResource("5_icxvi")
 
-[node name="ShieldLabel" type="Label" parent="CanvasLayer/Sprite2D/Shield"]
+[node name="ShieldLabel" type="Label" parent="BackBufferCopy/CanvasLayer/Sprite2D/Shield"]
 offset_left = -50.0
 offset_top = -50.0
 offset_right = 50.0
@@ -161,11 +160,7 @@ theme_override_font_sizes/font_size = 70
 text = "5"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_83wxg")
-}
+metadata/_edit_use_anchors_ = true
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://dn0bmuvdapvbf"]
 
-[ext_resource type="Shader" path="res://arrow.gdshader" id="1_lmc1t"]
+[ext_resource type="Shader" path="res://shaders/arrow.gdshader" id="1_lmc1t"]
 [ext_resource type="Texture2D" uid="uid://bipan5d128y3c" path="res://art/Arrow.png" id="2_hey77"]
 [ext_resource type="Script" path="res://route.gd" id="3_la4yp"]
 

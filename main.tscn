@@ -1,12 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://85e2cixv0tag"]
+[gd_scene load_steps=8 format=3 uid="uid://85e2cixv0tag"]
 
 [ext_resource type="PackedScene" uid="uid://dfrdfyeyubmgf" path="res://adventure.tscn" id="1_ou14v"]
 [ext_resource type="Script" path="res://main.gd" id="1_xddkn"]
 [ext_resource type="PackedScene" uid="uid://by1bi0miuud7i" path="res://battle.tscn" id="2_t22v1"]
+[ext_resource type="Shader" path="res://shaders/blur.gdshader" id="2_yq2fx"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_cnfgj"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4oikn"]
+as_normal_map = true
+bump_strength = 16.7
+noise = SubResource("FastNoiseLite_cnfgj")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_moiev"]
+shader = ExtResource("2_yq2fx")
+shader_parameter/blur_power = 0.05
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_4oikn")
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_xddkn")
 
-[node name="Adventure" parent="." instance=ExtResource("1_ou14v")]
+[node name="Screen" type="CanvasGroup" parent="."]
+z_index = 10
+material = SubResource("ShaderMaterial_moiev")
 
-[node name="Battle" parent="." instance=ExtResource("2_t22v1")]
+[node name="Adventure" parent="Screen" instance=ExtResource("1_ou14v")]
+
+[node name="Battle" parent="Screen" instance=ExtResource("2_t22v1")]

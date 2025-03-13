@@ -10,7 +10,7 @@ func _ready() -> void:
 		shader = shader.duplicate()
 		shader.set('shader_parameter/outline_width', 0.0)
 		set_material(shader)
-	route_clicked.connect(get_parent().get_parent().route_chosen)
+	route_clicked.connect(get_parent().get_parent().get_parent().route_chosen)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
