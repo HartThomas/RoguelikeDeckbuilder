@@ -1,6 +1,7 @@
 extends Node2D
 @onready var screen: CanvasGroup = $Screen
-
+@onready var battle: Node2D = $Screen/Battle
+@export var victory_scene : PackedScene
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,8 +18,19 @@ func route_chosen() -> void :
 	$Screen/Battle.start_battle()
 	$Screen/Battle.battle_over.connect(end_battle_blur)
 
+func pause_scene(scene) -> void:
+	scene.set_process(false)
+	scene.set_process_input(false)
+
 func battle_over()->void:
 	end_battle_blur()
+	pause_scene(battle)
+	var new_scene = victory_scene.instantiate()
+	add_child(new_scene)
+	#print(battle.get_children())
+	#for card in battle.get_children().filter(func(child): return child.get('card_info')):
+		#print(card)
+		#pause_scene(card)
 	#$Screen/Battle.end_battle()
 	#$Screen/Adventure.end_battle()
 

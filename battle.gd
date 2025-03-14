@@ -122,7 +122,11 @@ func start_battle()->void:
 	var cards = get_children().filter(func(card) : return 'card_info' in card)
 	for card in cards:
 		card.queue_free()
-	
+	var canvas_layer = CanvasGroup.new()
+	#canvas_layer.layer = 1
+	var shader = load("res://shaders/blur.gdshader")
+	canvas_layer.set_material(shader)
+	add_child(canvas_layer)
 	var index = 0
 	for card in BattleManager.battleInfo.deck:
 		var new_card = card_scene.instantiate()
