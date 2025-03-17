@@ -140,6 +140,7 @@ func start_battle()->void:
 		new_card.position = new_card.card_info.position
 		new_card.position.y -= 20 * index
 		new_card.z_index = index + 1
+		new_card.end_of_battle_selecting = false
 		new_card.set_meta('target_position', Vector2(new_card.card_info.position.x, new_card.card_info.position.y - (20 * index)))
 		new_card.clicked.connect(_on_card_clicked)
 		new_card.released.connect(_on_card_released)
@@ -147,6 +148,7 @@ func start_battle()->void:
 		deck.append(new_card)
 		add_child(new_card)
 		index += 1
+	BattleManager.effort = BattleManager.max_effort
 	BattleManager.enemy_health = BattleManager.enemy_max_health
 	$Player/HealthBar.max_value = BattleManager.player_max_health
 	$Player/HealthBar.value  = BattleManager.player_health

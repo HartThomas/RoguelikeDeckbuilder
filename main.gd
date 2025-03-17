@@ -26,14 +26,20 @@ func battle_over()->void:
 	end_battle_blur()
 	pause_scene(battle)
 	var new_scene = victory_scene.instantiate()
+	new_scene.card_picked.connect(card_picked)
 	add_child(new_scene)
 	#print(battle.get_children())
 	#for card in battle.get_children().filter(func(child): return child.get('card_info')):
 		#print(card)
 		#pause_scene(card)
-	#$Screen/Battle.end_battle()
-	#$Screen/Adventure.end_battle()
+
 
 func end_battle_blur() -> void:
 	var tween = get_tree().create_tween()
 	tween.tween_property(screen.get_material(), "shader_parameter/blur_power", 0.05, 1.0)
+
+func card_picked() -> void:
+	$Screen/Battle.end_battle()
+	$Screen/Adventure.end_battle()
+	var tween = get_tree().create_tween()
+	tween.tween_property(screen.get_material(), "shader_parameter/blur_power", 0.0, 1.0)

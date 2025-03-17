@@ -5,6 +5,7 @@ var delay = 0
 @export var card_info : Resource
 signal clicked(input)
 signal released(input)
+signal add_to_deck(input)
 signal mouseEntered(input, entered)
 var in_hand : bool = true
 var in_deck : bool = true
@@ -12,6 +13,7 @@ var temporary_instance : bool = true
 var face_up : bool = false
 var face_up_texture = load('res://art/card.png')
 var face_down_texture = load("res://art/card back.png")
+var end_of_battle_selecting: bool = false
 @onready var animation = $AnimationPlayer
 @onready var card: Area2D = $"."
 @onready var canvas_layer: Node2D = $BackBufferCopy/CanvasLayer
@@ -50,8 +52,12 @@ func _process(delta: float) -> void:
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			clicked.emit(self)
-			mouse_offset = get_global_mouse_position() - global_position
+			if end_of_battle_selecting:
+				add_to_deck.emit(self)
+			else:
+				clicked.emit(self)
+				mouse_offset = get_global_mouse_position() - global_position
+			
 		else:
 			released.emit(self)
 			is_dragging = false

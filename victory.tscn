@@ -18,11 +18,16 @@ offset_left = 171.0
 offset_top = -24.0
 offset_right = 995.0
 offset_bottom = 598.0
+mouse_filter = 1
 
 [node name="Label" type="Label" parent="CanvasLayer/Panel"]
+layout_mode = 0
 offset_left = 162.0
 offset_top = 66.0
 offset_right = 641.0
 offset_bottom = 108.0
 theme_override_font_sizes/font_size = 30
 text = "Choose a card to add to you deck"
+
+[connection signal="card_picked" from="CanvasLayer" to="." method="_on_canvas_layer_card_picked"]
+[connection signal="finished" from="CanvasLayer" to="." method="_on_canvas_layer_finished"]
