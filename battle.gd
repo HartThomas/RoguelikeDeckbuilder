@@ -164,7 +164,7 @@ func start_battle()->void:
 	$Enemy/HealthBar/Label.text = str(BattleManager.enemy_health) + '/' + str(BattleManager.enemy_max_health)
 	$Enemy/BlockBar.value = BattleManager.enemy_block
 	if BattleManager.enemy_block > 0:
-		$Enemy/BlockBar/BlockLabel.text = BattleManager.enemy_block
+		$Enemy/BlockBar/BlockLabel.text = str(BattleManager.enemy_block)
 	else:
 		$Enemy/BlockBar/BlockLabel.text = ''
 	$EffortLevel/EffortLabel.text = str(BattleManager.effort) + '/' + str(BattleManager.max_effort)

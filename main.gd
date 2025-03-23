@@ -13,7 +13,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func route_chosen() -> void :
+func route_chosen(route_stats: Enemy) -> void :
+	BattleManager.edit_enemy_stats(route_stats)
 	$Screen/Adventure.start_battle()
 	$Screen/Battle.start_battle()
 	$Screen/Battle.battle_over.connect(end_battle_blur)

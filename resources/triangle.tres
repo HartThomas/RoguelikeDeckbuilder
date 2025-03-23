@@ -8,3 +8,6 @@ enemy_name = "Triangle"
 hit = 3
 block = 3
 heal = 3
+max_health = 3
+starting_health = 3
+starting_block = 3

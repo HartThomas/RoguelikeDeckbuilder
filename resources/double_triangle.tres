@@ -8,3 +8,6 @@ enemy_name = "Double Triangle"
 hit = 6
 block = 6
 heal = 6
+max_health = 6
+starting_health = 6
+starting_block = 6

@@ -34,3 +34,8 @@ func form_new_deck() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+func edit_enemy_stats(enemy: Enemy) -> void:
+	enemy_max_health = enemy.max_health
+	enemy_health = enemy.starting_health
+	enemy_block = enemy.starting_block

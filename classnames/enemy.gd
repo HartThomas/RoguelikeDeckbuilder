@@ -5,6 +5,10 @@ class_name Enemy
 @export var hit: int
 @export var block : int
 @export var heal :int 
+@export var max_health: int
+@export var starting_health: int
+@export var starting_block: int
+
 var action : Callable
 
 func which_action_shall_i_take() -> Dictionary:
