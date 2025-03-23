@@ -1,10 +1,12 @@
 extends Resource
 class_name Enemy
 
-@export var hit = 3
-@export var block = 3
-@export var heal = 3
-@export var possible_actions : Array = [{'hit':hit}, {'block':block}, {'heal':heal}]
+@export var enemy_name :String
+@export var hit: int
+@export var block : int
+@export var heal :int 
+var action : Callable
 
 func which_action_shall_i_take() -> Dictionary:
+	var possible_actions : Array = [{'hit':hit}, {'block':block}, {'heal':heal}]
 	return  possible_actions.pick_random()

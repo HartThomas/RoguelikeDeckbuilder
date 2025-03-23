@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Enemy" load_steps=2 format=3 uid="uid://bmymygifraho6"]
+
+[ext_resource type="Script" path="res://classnames/enemy.gd" id="1_hc23t"]
+
+[resource]
+script = ExtResource("1_hc23t")
+enemy_name = "Double Triangle"
+hit = 6
+block = 6
+heal = 6

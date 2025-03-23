@@ -2,6 +2,7 @@ extends Sprite2D
 var animation
 @onready var shader = get_material()
 signal route_clicked
+var stats
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -29,3 +30,9 @@ func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			route_clicked.emit()
+
+func assign_stats(input) -> void:
+	var resource_path = "res://resources/%s.tres" % [input.to_lower()]
+	var new_stats = load(resource_path)
+	stats = new_stats
+	print(stats.hit)

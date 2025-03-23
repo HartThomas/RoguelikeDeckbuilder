@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_vuao3")
+enemy_name = "Triangle"
 hit = 3
 block = 3
 heal = 3
-possible_actions = null

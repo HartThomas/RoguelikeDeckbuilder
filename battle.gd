@@ -4,7 +4,7 @@ var hand : Array = []
 var deck : Array = []
 var depleted : Array = []
 signal battle_over
-var enemy : Enemy
+var enemy : Enemy 
 var conserved: bool = false
 
 # Called when the node enters the scene tree for the first time.
@@ -135,7 +135,7 @@ func start_battle()->void:
 		if card.card_name == 'Forget':
 			new_card.card_info.effect = forget
 		if card.card_name == 'Conserve':
-			new_card.card_info.effect = converse
+			new_card.card_info.effect = conserve
 		#new_card.card_info.effect = func(): print(get_children())
 		new_card.position = new_card.card_info.position
 		new_card.position.y -= 20 * index
@@ -277,5 +277,5 @@ func forget() -> void:
 	card.queue_free()
 	print(hand)
 
-func converse() -> void:
+func conserve() -> void:
 	conserved = true
