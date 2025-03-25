@@ -36,4 +36,4 @@ func assign_stats(input) -> void:
 	var resource_path = "res://resources/%s.tres" % [input.to_lower()]
 	var new_stats = load(resource_path)
 	stats = new_stats
-	$Area2D/RouteName.text = stats.enemy_name
+	$Area2D/RouteName.text = stats.route_name

@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://dh5qi0b3y8y2o"]
+
+[ext_resource type="Script" path="res://merchant.gd" id="1_it81v"]
+
+[node name="Merchant" type="Node2D"]
+script = ExtResource("1_it81v")
+
+[node name="RemoveButton" type="Button" parent="."]
+offset_left = 243.0
+offset_top = 144.0
+offset_right = 857.0
+offset_bottom = 201.0
+text = "Remove a card from your deck
+"
+
+[node name="AddButton" type="Button" parent="."]
+offset_left = 243.0
+offset_top = 282.0
+offset_right = 857.0
+offset_bottom = 339.0
+text = "Add a card from your deck
+"

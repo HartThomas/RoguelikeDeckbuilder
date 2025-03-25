@@ -5,14 +5,15 @@ extends Node2D
 func _ready() -> void:
 	var new_route = route_scene.instantiate()
 	new_route.position.x = 600
-	new_route.assign_stats('triangle')
+	new_route.assign_stats('triangle_route')
 	add_child(new_route)
 	var new_route2 = route_scene.instantiate()
 	new_route2.position.x = 388
-	new_route2.assign_stats('double_triangle')
+	new_route2.assign_stats('double_triangle_route')
 	add_child(new_route2)
 	var new_route3 = route_scene.instantiate()
 	new_route3.position.x = 812
+	new_route3.assign_stats('merchant_route')
 	add_child(new_route3)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

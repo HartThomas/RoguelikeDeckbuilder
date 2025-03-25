@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://85e2cixv0tag"]
+[gd_scene load_steps=12 format=3 uid="uid://85e2cixv0tag"]
 
 [ext_resource type="PackedScene" uid="uid://dfrdfyeyubmgf" path="res://adventure.tscn" id="1_ou14v"]
 [ext_resource type="Script" path="res://main.gd" id="1_xddkn"]
 [ext_resource type="PackedScene" uid="uid://ckdbow6m0qkrb" path="res://victory.tscn" id="2_6qd8h"]
 [ext_resource type="PackedScene" uid="uid://by1bi0miuud7i" path="res://battle.tscn" id="2_t22v1"]
 [ext_resource type="Shader" path="res://shaders/blur.gdshader" id="2_yq2fx"]
+[ext_resource type="PackedScene" uid="uid://dh5qi0b3y8y2o" path="res://merchant.tscn" id="3_8htm7"]
 [ext_resource type="Shader" path="res://shaders/plexus.gdshader" id="4_rwyqr"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_cnfgj"]
@@ -32,6 +33,7 @@ shader_parameter/rotation_angle = 0.5
 [node name="Main" type="Node2D"]
 script = ExtResource("1_xddkn")
 victory_scene = ExtResource("2_6qd8h")
+merchant_scene = ExtResource("3_8htm7")
 
 [node name="Screen" type="CanvasGroup" parent="."]
 z_index = 10
