@@ -24,7 +24,7 @@ func _ready() -> void:
 func add_cards_to_deck(array: Array[String])-> void :
 	for card in array:
 		var resource_path = "res://resources/%s.tres" % [card.to_lower()]
-		var new_card = load(resource_path)
+		var new_card = load(resource_path).duplicate()
 		new_card.set_local_to_scene(true)
 		battleInfo.add_card_to_deck(new_card)
 	battleInfo.shuffle_deck()

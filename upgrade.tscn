@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://cod7mpkgaporu"]
+
+[ext_resource type="Script" path="res://upgrade.gd" id="1_kg4yy"]
+[ext_resource type="Script" path="res://canvas_layer_upgrade.gd" id="1_vws5v"]
+
+[node name="Upgrade" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_kg4yy")
+
+[node name="CanvasLayerUpgrade" type="CanvasLayer" parent="."]
+script = ExtResource("1_vws5v")
+
+[node name="Panel" type="Panel" parent="CanvasLayerUpgrade"]
+offset_left = 171.0
+offset_top = -24.0
+offset_right = 995.0
+offset_bottom = 598.0
+mouse_filter = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="CanvasLayerUpgrade/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -185.0
+offset_top = 53.0
+offset_right = 185.0
+offset_bottom = 95.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 30
+text = "Choose a card to upgrade"
+
+[connection signal="card_picked" from="CanvasLayerUpgrade" to="." method="_on_canvas_layer_card_picked"]
+[connection signal="finished" from="CanvasLayerUpgrade" to="." method="_on_canvas_layer_finished"]

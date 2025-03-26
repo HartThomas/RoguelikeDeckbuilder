@@ -4,6 +4,7 @@ extends Node2D
 @export var victory_scene : PackedScene
 @export var merchant_scene : PackedScene
 @export var remove_scene : PackedScene
+@export var upgrade_scene : PackedScene
 var merchant_ref 
 
 # Called when the node enters the scene tree for the first time.
@@ -57,6 +58,7 @@ func merchant_route_clicked(route_stats: Route)-> void:
 	new_scene.merchant_stats = route_stats.merchant
 	new_scene.add.connect(merchant_add_card_clicked)
 	new_scene.remove.connect(merchant_remove_card_clicked)
+	new_scene.upgrade.connect(merchant_upgrade_card_clicked)
 	add_child(new_scene)
 	merchant_ref = new_scene
 
@@ -70,9 +72,14 @@ func merchant_card_picked()-> void:
 	$Screen/Adventure.show()
 	merchant_ref.queue_free()
 
-
 func merchant_remove_card_clicked()-> void:
 	pause_scene(merchant_ref)
 	var new_scene = remove_scene.instantiate()
+	new_scene.card_picked.connect(merchant_card_picked)
+	add_child(new_scene)
+
+func merchant_upgrade_card_clicked() -> void:
+	pause_scene(merchant_ref)
+	var new_scene = upgrade_scene.instantiate()
 	new_scene.card_picked.connect(merchant_card_picked)
 	add_child(new_scene)

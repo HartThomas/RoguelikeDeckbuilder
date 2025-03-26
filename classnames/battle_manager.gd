@@ -34,4 +34,10 @@ func shuffle_deck() -> void:
 
 func remove_card_from_deck(card)-> void:
 	deck.erase(card)
-	
+
+func upgrade_card(card: CardStats, number: int) -> void:
+	var index = deck.find(card)
+	if deck[index].attack > 0:
+		deck[index].attack += number
+	if deck[index].block > 0:
+		deck[index].block += number
