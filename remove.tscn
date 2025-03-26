@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://dle1xv5jikblv"]
+
+[ext_resource type="Script" path="res://canvas_layer_remove.gd" id="1_gg1xl"]
+[ext_resource type="Script" path="res://remove.gd" id="1_pf0yd"]
+
+[node name="Remove" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1150.0
+offset_bottom = 646.0
+script = ExtResource("1_pf0yd")
+
+[node name="CanvasLayerRemove" type="CanvasLayer" parent="."]
+script = ExtResource("1_gg1xl")
+
+[node name="Panel" type="Panel" parent="CanvasLayerRemove"]
+offset_left = 171.0
+offset_top = -24.0
+offset_right = 995.0
+offset_bottom = 598.0
+mouse_filter = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="CanvasLayerRemove/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -294.0
+offset_top = 61.0
+offset_right = 294.0
+offset_bottom = 103.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 30
+text = "Choose a card to remove from your deck"
+
+[connection signal="card_picked" from="CanvasLayerRemove" to="." method="_on_canvas_layer_card_picked"]
+[connection signal="finished" from="CanvasLayerRemove" to="." method="_on_canvas_layer_finished"]

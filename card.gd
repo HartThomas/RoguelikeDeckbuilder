@@ -11,8 +11,8 @@ var in_hand : bool = true
 var in_deck : bool = true
 var temporary_instance : bool = true
 var face_up : bool = false
-var face_up_texture = load('res://art/card.png')
-var face_down_texture = load("res://art/card back.png")
+var face_up_texture = preload('res://art/card.png')
+var face_down_texture = preload("res://art/card back.png")
 var end_of_battle_selecting: bool = false
 @onready var animation = $AnimationPlayer
 @onready var card: Area2D = $"."
@@ -88,6 +88,7 @@ func trigger_card_flip_to_deck_animation()->void:
 
 func card_flip() -> void:
 	face_up = !face_up
+	var face_up_texture = load('res://art/card.png')
 	if face_up:
 		sprite_2d.texture = face_up_texture
 		name_label.text = card_info.card_name

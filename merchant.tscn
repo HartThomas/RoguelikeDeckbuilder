@@ -18,5 +18,8 @@ offset_left = 243.0
 offset_top = 282.0
 offset_right = 857.0
 offset_bottom = 339.0
-text = "Add a card from your deck
+text = "Add a card to your deck
 "
+
+[connection signal="button_down" from="RemoveButton" to="." method="_on_remove_button_button_down"]
+[connection signal="button_down" from="AddButton" to="." method="_on_add_button_button_down"]

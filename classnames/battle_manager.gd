@@ -31,3 +31,7 @@ func add_card_to_deck(card):
 
 func shuffle_deck() -> void:
 	deck.shuffle()
+
+func remove_card_from_deck(card)-> void:
+	deck.erase(card)
+	

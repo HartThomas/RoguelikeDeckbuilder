@@ -1,6 +1,8 @@
 extends Node
 @export var battleInfo : BattleInfo
 @export var card_resource : CardStats
+@export var cards_to_offer : Array[Resource]
+
 @export var player_max_health : int = 50
 @export var player_health : int = 50
 @export var player_block : int = 0
@@ -39,3 +41,13 @@ func edit_enemy_stats(enemy: Enemy) -> void:
 	enemy_max_health = enemy.max_health
 	enemy_health = enemy.starting_health
 	enemy_block = enemy.starting_block
+
+func edit_cards_to_offer(cards: Array[String]) -> void :
+	cards_to_offer.clear()
+	if cards.size() == 0:
+		cards = ['Hit', 'Conserve', 'Forget']
+	for card in cards:
+		var resource_path = "res://resources/%s.tres" % [card.to_lower()]
+		var new_card = load(resource_path)
+		new_card.set_local_to_scene(true)
+		cards_to_offer.push_back(new_card)
