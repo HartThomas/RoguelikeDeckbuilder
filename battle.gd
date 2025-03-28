@@ -6,6 +6,7 @@ var depleted : Array = []
 signal battle_over
 var enemy : Enemy 
 var conserved: bool = false
+@onready var color_rect: ColorRect = $ColorRect
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -13,6 +14,7 @@ func _ready() -> void:
 	var new_enemy = load("res://resources/triangle.tres")
 	enemy = new_enemy
 	hide()
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -32,13 +34,13 @@ func _on_card_clicked(card) -> void:
 		i += 1
 
 func _on_card_released(card) -> void:
-	card.card_info.when_played()
 	for clicked in clickedArray:
 		clicked.is_dragging = false
 	clickedArray.clear()
 	if BattleManager.effort > 0:
 		if not card.in_hand and hand.has(card):
 			print({'attack':card.card_info.attack, 'block':card.card_info.block})
+			card.card_info.when_played()
 			edit_enemy_health(card.card_info.attack)
 			edit_player_block(card.card_info.block)
 			depleted.append(card)
@@ -279,3 +281,12 @@ func forget() -> void:
 
 func conserve() -> void:
 	conserved = true
+
+func _on_play_area_entered(area: Area2D) -> void:
+	print(area)
+	if area.get('in_hand'):
+		color_rect.start_shader()
+
+
+func _on_play_area_exited(area: Area2D) -> void:
+	color_rect.stop_shader()

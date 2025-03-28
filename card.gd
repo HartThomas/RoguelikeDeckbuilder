@@ -34,16 +34,12 @@ func _ready() -> void:
 	canvas_layer.material = ShaderMaterial.new()
 	canvas_layer.material.set('shader', duplicated_shader)
 	canvas_layer.material.set('shader_parameter/width', 0)
-	#shader.set_shader_parameter("instance_rotation", randf() * 2.0 * PI)
-	#shader.set_shader_parameter("instance_offset", Vector2(randf(), randf()))
-	#shader.set('shader_parameters/rand_seed', rng.randf_range(-10.0, 10.0))
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if not is_dragging and self.has_meta("target_position") and self.get_meta("target_position") != self.position:
 		self.position = self.position.lerp(self.get_meta("target_position"), 5 * delta)
 	if not in_deck:
-		if in_hand and get_parent().hand.has(self):
+		if get_parent().hand.has(self):
 			self.scale = Vector2(2,2)
 		else:
 			self.scale = Vector2(1,1)

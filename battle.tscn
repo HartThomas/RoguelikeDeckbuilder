@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://by1bi0miuud7i"]
+[gd_scene load_steps=18 format=3 uid="uid://by1bi0miuud7i"]
 
 [ext_resource type="PackedScene" uid="uid://48qfybefw3aa" path="res://card.tscn" id="1_8fvkg"]
 [ext_resource type="Script" path="res://battle.gd" id="1_flmcs"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://d1bskddfm5bji" path="res://art/Player.png" id="4_bpe10"]
 [ext_resource type="Texture2D" uid="uid://ccf6n26hnpsx7" path="res://art/Enemy.png" id="5_nqs84"]
 [ext_resource type="Texture2D" uid="uid://bdky0m17w7ynf" path="res://art/effort.png" id="6_12q4i"]
+[ext_resource type="Shader" path="res://edge_glow.gdshader" id="8_8uf1w"]
+[ext_resource type="Script" path="res://color_rect.gd" id="9_8ldaj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wimrh"]
 shader = ExtResource("1_xgkp0")
@@ -25,6 +27,16 @@ bg_color = Color(0.997617, 0.102632, 0.073368, 1)
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1wdht"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ov0cb"]
+shader = ExtResource("8_8uf1w")
+shader_parameter/glow_color = Color(1, 1, 1, 1)
+shader_parameter/glow_strength = 1.0
+shader_parameter/edge_width = 0.16
+shader_parameter/hovered = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tjdb5"]
+size = Vector2(729, 212)
 
 [node name="Battle" type="Node2D"]
 material = SubResource("ShaderMaterial_wimrh")
@@ -157,7 +169,26 @@ text = "1/1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_ov0cb")
+offset_left = 215.0
+offset_top = 98.0
+offset_right = 944.0
+offset_bottom = 310.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(1, 1, 1, 0)
+script = ExtResource("9_8ldaj")
+
+[node name="PlayArea" type="Area2D" parent="ColorRect"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ColorRect/PlayArea"]
+position = Vector2(364, 106)
+shape = SubResource("RectangleShape2D_tjdb5")
+
 [connection signal="area_entered" from="Hand" to="." method="_on_hand_area_entered"]
 [connection signal="area_exited" from="Hand" to="." method="_on_hand_area_exited"]
 [connection signal="clicked" from="Card" to="." method="_on_card_clicked"]
 [connection signal="button_down" from="Button" to="." method="end_turn"]
+[connection signal="area_entered" from="ColorRect/PlayArea" to="." method="_on_play_area_entered"]
+[connection signal="area_exited" from="ColorRect/PlayArea" to="." method="_on_play_area_exited"]
