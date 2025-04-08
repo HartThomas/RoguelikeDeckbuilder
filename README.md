@@ -27,3 +27,9 @@ There could be a way for the user to create the shapes instead if they wanted to
 Another idea is you could have a few types of effort(mana) instead of having multiple mana eg. physical effort plays normal cards like hit/block but mental effort plays cards like forget.
 
 ---
+
+Constance Barrowclough
+Victorian era person attempts to leave their apartment. First monster they meet is their landlord/mother.
+Fun place name to be your destination is Lower Sooting, perhaps you are trying to reach a friend or relative there.
+
+---

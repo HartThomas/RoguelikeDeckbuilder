@@ -1,7 +1,4 @@
 shader_type canvas_item;
-
-
-
 // Camera FOV
 
 uniform float fov : hint_range(1, 179) = 90;
@@ -120,18 +117,10 @@ void vertex(){
 	transformed_world_to_canvas_coordinates = (inverse(MODEL_MATRIX) * vec4(mouse_screen_pos, 0.0, 1.0) ).xy;
 
 	vec2 mouse_force = hovering * 0.5* (transformed_world_to_canvas_coordinates )/ length(region_rate/TEXTURE_PIXEL_SIZE) + rand_vec*0.05 *rand_trans_power;
-
-
-
 	float sin_b = sin(y_rot / 180.0 * PI + mouse_force.x);
-
 	float cos_b = cos(y_rot / 180.0 * PI + mouse_force.x);
-
 	float sin_c = sin(x_rot / 180.0 * PI + -mouse_force.y);
-
 	float cos_c = cos(x_rot / 180.0 * PI + -mouse_force.y);
-
-
 
 	inv_rot_mat;
 
@@ -171,7 +160,7 @@ void vertex(){
 
 
 
-	VERTEX += (uv - 0.5) * 1.0*my_region_rate * t * (1.0 - inset);
+	VERTEX += (uv - 0.5) * 1.0* my_region_rate * t * (1.0 - inset);
 
 
 

@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://48qfybefw3aa"]
+[gd_scene load_steps=13 format=3 uid="uid://48qfybefw3aa"]
 
 [ext_resource type="Texture2D" uid="uid://cn1gh045dv4k5" path="res://art/card back.png" id="1_4nbxh"]
 [ext_resource type="Script" path="res://card.gd" id="1_t3xw1"]
 [ext_resource type="Resource" uid="uid://b1jsm7umavvtr" path="res://resources/hit.tres" id="2_b2ymv"]
+[ext_resource type="Shader" path="res://shaders/combined.gdshader" id="3_g82jn"]
 [ext_resource type="Texture2D" uid="uid://clgrttyyuvr7e" path="res://art/damage.png" id="4_m3xde"]
 [ext_resource type="Texture2D" uid="uid://ci01gglxn7rpx" path="res://art/shield.png" id="5_icxvi"]
 
@@ -101,6 +102,21 @@ _data = {
 "flip_to_deck": SubResource("Animation_4aoah")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u6qec"]
+shader = ExtResource("3_g82jn")
+shader_parameter/fov = 60.0
+shader_parameter/x_rot = 0.0
+shader_parameter/y_rot = 0.0
+shader_parameter/inset = 0.0
+shader_parameter/mouse_screen_pos = Vector2(0, 0)
+shader_parameter/hovering = null
+shader_parameter/rand_trans_power = 20.0
+shader_parameter/rand_seed = null
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/width = 10.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+
 [node name="Card" type="Area2D"]
 script = ExtResource("1_t3xw1")
 card_info = ExtResource("2_b2ymv")
@@ -117,8 +133,10 @@ libraries = {
 [node name="BackBufferCopy" type="BackBufferCopy" parent="."]
 
 [node name="CanvasLayer" type="CanvasGroup" parent="BackBufferCopy"]
+use_mipmaps = true
 
 [node name="Sprite2D" type="Sprite2D" parent="BackBufferCopy/CanvasLayer"]
+material = SubResource("ShaderMaterial_u6qec")
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_4nbxh")
 

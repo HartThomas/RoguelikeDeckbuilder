@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 BattleManager="*res://BattleManager.gd"
 when_played_dictionary="*res://dictionaries/when_played_dictionary.gd"
+CampaignManager="*res://campaign_manager.gd"
 
 [rendering]
 
