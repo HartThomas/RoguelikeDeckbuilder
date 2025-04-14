@@ -21,6 +21,10 @@ BattleManager="*res://BattleManager.gd"
 when_played_dictionary="*res://dictionaries/when_played_dictionary.gd"
 CampaignManager="*res://campaign_manager.gd"
 
+[gui]
+
+theme/custom_font="res://art/pixel font.ttf"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

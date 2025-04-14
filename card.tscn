@@ -1,9 +1,9 @@
 [gd_scene load_steps=13 format=3 uid="uid://48qfybefw3aa"]
 
-[ext_resource type="Texture2D" uid="uid://cn1gh045dv4k5" path="res://art/card back.png" id="1_4nbxh"]
 [ext_resource type="Script" path="res://card.gd" id="1_t3xw1"]
 [ext_resource type="Resource" uid="uid://b1jsm7umavvtr" path="res://resources/hit.tres" id="2_b2ymv"]
 [ext_resource type="Shader" path="res://shaders/combined.gdshader" id="3_g82jn"]
+[ext_resource type="Texture2D" uid="uid://col3t6i8hj81b" path="res://art/pixel card back.png" id="4_2p27k"]
 [ext_resource type="Texture2D" uid="uid://clgrttyyuvr7e" path="res://art/damage.png" id="4_m3xde"]
 [ext_resource type="Texture2D" uid="uid://ci01gglxn7rpx" path="res://art/shield.png" id="5_icxvi"]
 
@@ -110,10 +110,10 @@ shader_parameter/y_rot = 0.0
 shader_parameter/inset = 0.0
 shader_parameter/mouse_screen_pos = Vector2(0, 0)
 shader_parameter/hovering = null
-shader_parameter/rand_trans_power = 20.0
+shader_parameter/rand_trans_power = 1.0
 shader_parameter/rand_seed = null
 shader_parameter/outline_color = Color(1, 1, 1, 1)
-shader_parameter/width = 10.0
+shader_parameter/width = 1.2
 shader_parameter/pattern = 0
 shader_parameter/inside = false
 
@@ -136,25 +136,28 @@ libraries = {
 use_mipmaps = true
 
 [node name="Sprite2D" type="Sprite2D" parent="BackBufferCopy/CanvasLayer"]
+texture_filter = 1
 material = SubResource("ShaderMaterial_u6qec")
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("1_4nbxh")
+scale = Vector2(1.05, 1.05)
+texture = ExtResource("4_2p27k")
 
-[node name="Name" type="Label" parent="BackBufferCopy/CanvasLayer/Sprite2D"]
-offset_left = -200.0
-offset_top = -290.0
-offset_right = 210.0
-offset_bottom = -80.0
-theme_override_font_sizes/font_size = 80
+[node name="Name" type="Label" parent="BackBufferCopy/CanvasLayer"]
+offset_left = -16.0
+offset_top = -18.0
+offset_right = 624.0
+offset_bottom = 202.0
+scale = Vector2(0.05, 0.05)
+theme_override_colors/font_color = Color(0.533333, 0, 0.0823529, 1)
+theme_override_font_sizes/font_size = 100
 horizontal_alignment = 1
 vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
 
-[node name="Damage" type="Sprite2D" parent="BackBufferCopy/CanvasLayer/Sprite2D"]
-position = Vector2(100, 180)
+[node name="Damage" type="Sprite2D" parent="BackBufferCopy/CanvasLayer"]
+position = Vector2(10, 18)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("4_m3xde")
 
-[node name="DamageLabel" type="Label" parent="BackBufferCopy/CanvasLayer/Sprite2D/Damage"]
+[node name="DamageLabel" type="Label" parent="BackBufferCopy/CanvasLayer/Damage"]
 offset_left = -50.0001
 offset_top = -50.0
 offset_right = 49.9999
@@ -165,11 +168,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Shield" type="Sprite2D" parent="BackBufferCopy/CanvasLayer/Sprite2D"]
-position = Vector2(-100, 180)
+[node name="Shield" type="Sprite2D" parent="BackBufferCopy/CanvasLayer"]
+position = Vector2(-10, 18)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("5_icxvi")
 
-[node name="ShieldLabel" type="Label" parent="BackBufferCopy/CanvasLayer/Sprite2D/Shield"]
+[node name="ShieldLabel" type="Label" parent="BackBufferCopy/CanvasLayer/Shield"]
 offset_left = -50.0
 offset_top = -50.0
 offset_right = 50.0

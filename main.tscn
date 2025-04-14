@@ -25,11 +25,11 @@ shader_parameter/noise_texture = SubResource("NoiseTexture2D_4oikn")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hcxlw"]
 shader = ExtResource("4_rwyqr")
 shader_parameter/resolution = Vector2(600, 400)
-shader_parameter/line_color = Color(0.1, 0.4, 0.2, 1)
+shader_parameter/line_color = Color(0.557871, 0.205858, 0.12254, 1)
 shader_parameter/octaves = 20
 shader_parameter/zoom_factor = 10.0
 shader_parameter/zoom_coef = 1.1
-shader_parameter/brightness = 10.0
+shader_parameter/brightness = 1.0
 shader_parameter/rotation_angle = 0.5
 
 [node name="Main" type="Node2D"]
@@ -43,6 +43,7 @@ upgrade_scene = ExtResource("5_gsa42")
 material = SubResource("ShaderMaterial_moiev")
 
 [node name="ColorRect" type="ColorRect" parent="Screen"]
+z_index = -2
 material = SubResource("ShaderMaterial_hcxlw")
 anchors_preset = 15
 anchor_right = 1.0

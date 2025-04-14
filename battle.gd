@@ -7,6 +7,7 @@ signal battle_over
 var enemy : Enemy 
 var conserved: bool = false
 @onready var color_rect: ColorRect = $ColorRect
+@onready var play_area_background: Sprite2D = $PlayAreaBackground
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -285,8 +286,8 @@ func conserve() -> void:
 func _on_play_area_entered(area: Area2D) -> void:
 	print(area)
 	if area.get('in_hand'):
-		color_rect.start_shader()
+		play_area_background.start_shader()
 
 
 func _on_play_area_exited(area: Area2D) -> void:
-	color_rect.stop_shader()
+	play_area_background.stop_shader()
