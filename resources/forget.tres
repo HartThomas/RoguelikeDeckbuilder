@@ -8,3 +8,4 @@ card_name = "Forget"
 attack = 0
 block = 0
 position = Vector2(103, 536)
+card_text = "Forget a rendom card in your hand"

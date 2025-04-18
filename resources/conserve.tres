@@ -8,3 +8,4 @@ card_name = "Conserve"
 attack = 0
 block = 0
 position = Vector2(103, 536)
+card_text = "Double your effort next turn"

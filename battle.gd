@@ -153,24 +153,24 @@ func start_battle()->void:
 		index += 1
 	BattleManager.effort = BattleManager.max_effort
 	BattleManager.enemy_health = BattleManager.enemy_max_health
-	$Player/HealthBar.max_value = BattleManager.player_max_health
-	$Player/HealthBar.value  = BattleManager.player_health
-	$Player/HealthBar/HealthLabel.text = str(BattleManager.player_health) + '/' + str(BattleManager.player_max_health)
-	$Player/BlockBar.value = BattleManager.player_block
+	$PlayerHealthBar.max_value = BattleManager.player_max_health
+	$PlayerHealthBar.value  = BattleManager.player_health
+	$PlayerHealthBar/PlayerHealthLabel.text = str(BattleManager.player_health) + '/' + str(BattleManager.player_max_health)
+	$PlayerBlockBar.value = BattleManager.player_block
 	if BattleManager.player_block > 0:
-		$Player/BlockBar/BlockLabel.text = str(BattleManager.player_block)
+		$PlayerBlockBar/PlayerBlockLabel.text = str(BattleManager.player_block)
 	else:
-		$Player/BlockBar/BlockLabel.text = ''
+		$PlayerBlockBar/PlayerBlockLabel.text = ''
 		
-	$Enemy/HealthBar.max_value = BattleManager.enemy_max_health
-	$Enemy/HealthBar.value = BattleManager.enemy_health
-	$Enemy/HealthBar/Label.text = str(BattleManager.enemy_health) + '/' + str(BattleManager.enemy_max_health)
-	$Enemy/BlockBar.value = BattleManager.enemy_block
+	$EnemyHealthBar.max_value = BattleManager.enemy_max_health
+	$EnemyHealthBar.value = BattleManager.enemy_health
+	$EnemyHealthBar/EnemyLabel.text = str(BattleManager.enemy_health) + '/' + str(BattleManager.enemy_max_health)
+	$EnemyBlockBar.value = BattleManager.enemy_block
 	if BattleManager.enemy_block > 0:
-		$Enemy/BlockBar/BlockLabel.text = str(BattleManager.enemy_block)
+		$EnemyBlockBar/EnemyBlockLabel.text = str(BattleManager.enemy_block)
 	else:
-		$Enemy/BlockBar/BlockLabel.text = ''
-	$EffortLevel/EffortLabel.text = str(BattleManager.effort) + '/' + str(BattleManager.max_effort)
+		$EnemyBlockBar/EnemyBlockLabel.text = ''
+	$EffortLabel.text = str(BattleManager.effort) + '/' + str(BattleManager.max_effort)
 	show()
 	await get_tree().create_timer(0.5).timeout
 	draw_hand()
@@ -185,17 +185,17 @@ func edit_player_health(amount) -> void:
 				amount -= BattleManager.player_block
 				BattleManager.player_block = 0
 				
-			$Player/BlockBar.value = BattleManager.player_block
+			$PlayerBlockBar.value = BattleManager.player_block
 			if BattleManager.player_block == 0:
-				$Player/BlockBar/BlockLabel.text = ''
+				$PlayerBlockBar/PlayerBlockLabel.text = ''
 			else:
-				$Player/BlockBar/BlockLabel.text = str(BattleManager.player_block)
+				$PlayerBlockBar/PlayerBlockLabel.text = str(BattleManager.player_block)
 	if BattleManager.player_health - amount > BattleManager.player_max_health:
 		BattleManager.player_health = BattleManager.player_max_health
 	else:
 		BattleManager.player_health -= amount
-	$Player/HealthBar.value = BattleManager.player_health
-	$Player/HealthBar/HealthLabel.text = str(BattleManager.player_health) + '/' + str(BattleManager.player_max_health)
+	$PlayerHealthBar.value = BattleManager.player_health
+	$PlayerHealthBar/PlayerHealthLabel.text = str(BattleManager.player_health) + '/' + str(BattleManager.player_max_health)
 
 func edit_enemy_health(amount) -> void:
 	if amount >= 0:
@@ -206,30 +206,30 @@ func edit_enemy_health(amount) -> void:
 			else:
 				amount -= BattleManager.enemy_block
 				BattleManager.enemy_block = 0
-			$Enemy/BlockBar.value = BattleManager.enemy_block
+			$EnemyBlockBar.value = BattleManager.enemy_block
 			if BattleManager.enemy_block == 0:
-				$Enemy/BlockBar/BlockLabel.text = ''
+				$EnemyBlockBar/EnemyBlockLabel.text = ''
 			else:
-				$Enemy/BlockBar/BlockLabel.text = str(BattleManager.enemy_block)
+				$EnemyBlockBar/EnemyBlockLabel.text = str(BattleManager.enemy_block)
 	if BattleManager.enemy_health - amount > BattleManager.enemy_max_health:
 		BattleManager.enemy_health = BattleManager.enemy_max_health
 	else:
 		BattleManager.enemy_health -= amount
-	$Enemy/HealthBar.value = BattleManager.enemy_health
-	$Enemy/HealthBar/Label.text = str(BattleManager.enemy_health) + '/' + str(BattleManager.enemy_max_health)
+	$EnemyHealthBar.value = BattleManager.enemy_health
+	$EnemyHealthBar/EnemyLabel.text = str(BattleManager.enemy_health) + '/' + str(BattleManager.enemy_max_health)
 
 func edit_player_block(amount) -> void:
 	BattleManager.player_block += amount
-	$Player/BlockBar.value = BattleManager.player_block
+	$PlayerBlockBar.value = BattleManager.player_block
 	if BattleManager.player_block ==0:
-		$Player/BlockBar/BlockLabel.text = ''
+		$PlayerBlockBar/PlayerBlockLabel.text = ''
 	else:
-		$Player/BlockBar/BlockLabel.text = str(BattleManager.player_block)
+		$PlayerBlockBar/PlayerBlockLabel.text = str(BattleManager.player_block)
 
 func edit_enemy_block(amount) -> void:
 	BattleManager.enemy_block += amount
-	$Enemy/BlockBar.value = BattleManager.enemy_block
-	$Enemy/BlockBar/BlockLabel.text = str(BattleManager.enemy_block)
+	$EnemyBlockBar.value = BattleManager.enemy_block
+	$EnemyBlockBar/EnemyBlockLabel.text = str(BattleManager.enemy_block)
 
 func end_battle()->void:
 	hide()
@@ -264,14 +264,14 @@ func end_turn() -> void:
 
 func use_effort(amount) -> void:
 	BattleManager.effort -= amount
-	$EffortLevel/EffortLabel.text = str(BattleManager.effort) + '/' + str(BattleManager.max_effort)
+	$EffortLabel.text = str(BattleManager.effort) + '/' + str(BattleManager.max_effort)
 
 func reset_effort() -> void:
 	if conserved:
 		BattleManager.effort = BattleManager.max_effort + 1
 	else:
 		BattleManager.effort = BattleManager.max_effort
-	$EffortLevel/EffortLabel.text = str(BattleManager.effort) + '/' + str(BattleManager.max_effort)
+	$EffortLabel.text = str(BattleManager.effort) + '/' + str(BattleManager.max_effort)
 	conserved = false
 
 func forget() -> void:
@@ -286,8 +286,10 @@ func conserve() -> void:
 func _on_play_area_entered(area: Area2D) -> void:
 	print(area)
 	if area.get('in_hand'):
-		play_area_background.start_shader()
+		#play_area_background.start_shader()
+		pass
 
 
 func _on_play_area_exited(area: Area2D) -> void:
-	play_area_background.stop_shader()
+	#play_area_background.stop_shader()
+	pass

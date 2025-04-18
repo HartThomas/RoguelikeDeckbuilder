@@ -1,57 +1,23 @@
-[gd_scene load_steps=33 format=3 uid="uid://by1bi0miuud7i"]
+[gd_scene load_steps=20 format=3 uid="uid://by1bi0miuud7i"]
 
 [ext_resource type="PackedScene" uid="uid://48qfybefw3aa" path="res://card.tscn" id="1_8fvkg"]
 [ext_resource type="Script" path="res://battle.gd" id="1_flmcs"]
 [ext_resource type="Shader" path="res://shaders/blur.gdshader" id="1_xgkp0"]
 [ext_resource type="Texture2D" uid="uid://di6egicjkh32r" path="res://art/card deck space.png" id="3_b0d62"]
-[ext_resource type="Texture2D" uid="uid://d1bskddfm5bji" path="res://art/Player.png" id="4_bpe10"]
-[ext_resource type="Texture2D" uid="uid://du61cbxifpvde" path="res://art/play area background.png" id="4_oxe1q"]
-[ext_resource type="Shader" path="res://shaders/blur_sprite.gdshader" id="4_vh4oj"]
-[ext_resource type="Texture2D" uid="uid://ccf6n26hnpsx7" path="res://art/Enemy.png" id="5_nqs84"]
+[ext_resource type="Texture2D" uid="uid://buy4w0t66rbmm" path="res://art/corridor.png" id="4_72ltl"]
+[ext_resource type="Texture2D" uid="uid://bah1vppwlt0hg" path="res://art/battle hud.png" id="5_m7ere"]
 [ext_resource type="Texture2D" uid="uid://bdky0m17w7ynf" path="res://art/effort.png" id="6_12q4i"]
-[ext_resource type="Script" path="res://play_area_background.gd" id="6_jjuid"]
 [ext_resource type="Shader" path="res://edge_glow.gdshader" id="8_8uf1w"]
+[ext_resource type="Texture2D" uid="uid://ban2271rvy2yk" path="res://art/constance 1.png" id="8_ug3xg"]
 [ext_resource type="Script" path="res://color_rect.gd" id="9_8ldaj"]
+[ext_resource type="Texture2D" uid="uid://bnvlocbq8hkwj" path="res://art/pixel player.png" id="9_q2efw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wimrh"]
 shader = ExtResource("1_xgkp0")
 shader_parameter/blur_power = 0.05
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_t7one"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_epoo6"]
-as_normal_map = true
-noise = SubResource("FastNoiseLite_t7one")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_uur6x"]
-shader = ExtResource("4_vh4oj")
-shader_parameter/glow_smoothness = 0.667
-shader_parameter/blur_power = 0.126
-shader_parameter/glow_color = Color(1, 1, 1, 1)
-shader_parameter/glow_strength = 5.0
-shader_parameter/glow_radius = 0.05
-shader_parameter/hovered = true
-shader_parameter/texture_albedo = ExtResource("4_oxe1q")
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_epoo6")
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rsbja"]
 size = Vector2(731, 204)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_lfnfc"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g5olw"]
-noise = SubResource("FastNoiseLite_lfnfc")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ds1ob"]
-shader = ExtResource("4_vh4oj")
-shader_parameter/glow_smoothness = 0.2
-shader_parameter/blur_power = 0.05
-shader_parameter/glow_color = Color(1, 1, 1, 1)
-shader_parameter/glow_strength = 5.0
-shader_parameter/glow_radius = 0.05
-shader_parameter/hovered = false
-shader_parameter/texture_albedo = ExtResource("4_bpe10")
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_g5olw")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mi3ks"]
 bg_color = Color(0.0943559, 0.253403, 0.275361, 0.996078)
@@ -63,38 +29,6 @@ bg_color = Color(0.997617, 0.102632, 0.073368, 1)
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1wdht"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_7e4ge"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vgvod"]
-noise = SubResource("FastNoiseLite_7e4ge")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_n51ba"]
-shader = ExtResource("4_vh4oj")
-shader_parameter/glow_smoothness = 0.2
-shader_parameter/blur_power = 0.05
-shader_parameter/glow_color = Color(1, 1, 1, 1)
-shader_parameter/glow_strength = 5.0
-shader_parameter/glow_radius = 0.05
-shader_parameter/hovered = false
-shader_parameter/texture_albedo = ExtResource("5_nqs84")
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_vgvod")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_csejj"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_550p5"]
-noise = SubResource("FastNoiseLite_csejj")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_j1dnk"]
-shader = ExtResource("4_vh4oj")
-shader_parameter/glow_smoothness = 0.2
-shader_parameter/blur_power = 0.05
-shader_parameter/glow_color = Color(1, 1, 1, 1)
-shader_parameter/glow_strength = 5.0
-shader_parameter/glow_radius = 0.05
-shader_parameter/hovered = false
-shader_parameter/texture_albedo = ExtResource("6_12q4i")
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_550p5")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ov0cb"]
 shader = ExtResource("8_8uf1w")
@@ -111,12 +45,20 @@ material = SubResource("ShaderMaterial_wimrh")
 script = ExtResource("1_flmcs")
 card_scene = ExtResource("1_8fvkg")
 
-[node name="PlayAreaBackground" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_uur6x")
-position = Vector2(588, 195)
-scale = Vector2(0.774423, 0.814286)
-texture = ExtResource("4_oxe1q")
-script = ExtResource("6_jjuid")
+[node name="BattleScene" type="TextureRect" parent="."]
+texture_filter = 1
+offset_left = 112.0
+offset_top = 7.0
+offset_right = 1030.0
+offset_bottom = 357.0
+texture = ExtResource("4_72ltl")
+
+[node name="BattleHUD" type="TextureRect" parent="."]
+texture_filter = 1
+offset_top = 1.0
+offset_right = 1173.0
+offset_bottom = 649.0
+texture = ExtResource("5_m7ere")
 
 [node name="Hand" type="Area2D" parent="."]
 
@@ -128,32 +70,30 @@ shape = SubResource("RectangleShape2D_rsbja")
 z_index = 1
 
 [node name="DeckPlacement" type="Sprite2D" parent="."]
+texture_filter = 1
 position = Vector2(103, 536)
-scale = Vector2(0.15, 0.15)
+scale = Vector2(1.2, 1.2)
 texture = ExtResource("3_b0d62")
 
 [node name="PlayedPlacement" type="Sprite2D" parent="."]
+texture_filter = 1
 position = Vector2(1048, 538)
-scale = Vector2(0.15, 0.15)
+scale = Vector2(1.2, 1.2)
 texture = ExtResource("3_b0d62")
 
-[node name="Player" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_ds1ob")
-position = Vector2(360, 200)
-texture = ExtResource("4_bpe10")
-
-[node name="HealthBar" type="ProgressBar" parent="Player"]
-offset_left = -83.0
-offset_top = -155.0
-offset_right = 66.0
-offset_bottom = -128.0
+[node name="PlayerHealthBar" type="ProgressBar" parent="."]
+offset_left = 277.0
+offset_top = 45.0
+offset_right = 426.0
+offset_bottom = 72.0
 theme_override_styles/background = SubResource("StyleBoxFlat_mi3ks")
 theme_override_styles/fill = SubResource("StyleBoxFlat_isxt2")
 max_value = 50.0
 value = 26.0
 show_percentage = false
 
-[node name="HealthLabel" type="Label" parent="Player/HealthBar"]
+[node name="PlayerHealthLabel" type="Label" parent="PlayerHealthBar"]
+texture_filter = 1
 layout_mode = 0
 offset_left = 57.0
 offset_top = 2.0
@@ -161,41 +101,43 @@ offset_right = 97.0
 offset_bottom = 25.0
 text = "50/50"
 
-[node name="BlockBar" type="ProgressBar" parent="Player"]
-offset_left = -81.0
-offset_top = -153.0
-offset_right = 66.0
-offset_bottom = -130.0
+[node name="PlayerBlockBar" type="ProgressBar" parent="."]
+offset_left = 279.0
+offset_top = 47.0
+offset_right = 426.0
+offset_bottom = 70.0
 theme_override_styles/background = SubResource("StyleBoxFlat_vrubk")
 theme_override_styles/fill = SubResource("StyleBoxFlat_1wdht")
 max_value = 50.0
 value = 20.0
 show_percentage = false
 
-[node name="BlockLabel" type="Label" parent="Player/BlockBar"]
+[node name="PlayerBlockLabel" type="Label" parent="PlayerBlockBar"]
+texture_filter = 1
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 
-[node name="Enemy" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_n51ba")
-position = Vector2(709, 197)
-scale = Vector2(0.556411, 0.546729)
-texture = ExtResource("5_nqs84")
+[node name="Player" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(360, 200)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("8_ug3xg")
 
-[node name="HealthBar" type="ProgressBar" parent="Enemy"]
-offset_left = -140.184
-offset_top = -276.188
-offset_right = 109.816
-offset_bottom = -223.188
+[node name="EnemyHealthBar" type="ProgressBar" parent="."]
+offset_left = 631.0
+offset_top = 46.0
+offset_right = 881.0
+offset_bottom = 99.0
 theme_override_styles/background = SubResource("StyleBoxFlat_mi3ks")
 theme_override_styles/fill = SubResource("StyleBoxFlat_isxt2")
 max_value = 50.0
 value = 26.0
 show_percentage = false
 
-[node name="Label" type="Label" parent="Enemy/HealthBar"]
+[node name="EnemyLabel" type="Label" parent="EnemyHealthBar"]
+texture_filter = 1
 layout_mode = 0
 offset_left = 89.8615
 offset_top = 3.65809
@@ -204,24 +146,31 @@ offset_bottom = 46.6581
 theme_override_font_sizes/font_size = 30
 text = "50/50"
 
-[node name="BlockBar" type="ProgressBar" parent="Enemy"]
-offset_left = -137.0
-offset_top = -274.0
-offset_right = 108.0
-offset_bottom = -227.0
+[node name="EnemyBlockBar" type="ProgressBar" parent="."]
+offset_left = 632.772
+offset_top = 47.1962
+offset_right = 877.772
+offset_bottom = 94.1962
 theme_override_styles/background = SubResource("StyleBoxFlat_vrubk")
 theme_override_styles/fill = SubResource("StyleBoxFlat_1wdht")
 max_value = 50.0
 value = 20.0
 show_percentage = false
 
-[node name="BlockLabel" type="Label" parent="Enemy/BlockBar"]
+[node name="EnemyBlockLabel" type="Label" parent="EnemyBlockBar"]
+texture_filter = 1
 layout_mode = 0
 offset_right = 87.0
 offset_bottom = 47.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 30
 vertical_alignment = 1
+
+[node name="Enemy" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(709, 197)
+scale = Vector2(3, 3)
+texture = ExtResource("9_q2efw")
 
 [node name="Button" type="Button" parent="."]
 offset_left = 541.0
@@ -231,18 +180,18 @@ offset_bottom = 633.0
 text = "End Turn"
 
 [node name="EffortLevel" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_j1dnk")
-position = Vector2(982, 67)
-scale = Vector2(0.1, 0.1)
+texture_filter = 1
+position = Vector2(962.25, 65.5)
+scale = Vector2(1.48438, 1.15625)
 texture = ExtResource("6_12q4i")
 
-[node name="EffortLabel" type="Label" parent="EffortLevel"]
-offset_left = -220.0
-offset_top = -230.0
-offset_right = 260.0
-offset_bottom = 240.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 200
+[node name="EffortLabel" type="Label" parent="."]
+texture_filter = 1
+offset_left = 940.0
+offset_top = 46.0
+offset_right = 985.0
+offset_bottom = 88.0
+theme_override_font_sizes/font_size = 16
 text = "1/1"
 horizontal_alignment = 1
 vertical_alignment = 1
