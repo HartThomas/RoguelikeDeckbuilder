@@ -9,6 +9,8 @@ var conserved: bool = false
 var augmented: bool = false
 @onready var color_rect: ColorRect = $ColorRect
 @onready var play_area_background: Sprite2D = $PlayAreaBackground
+@onready var effort_level: Sprite2D = $EffortLevel
+@onready var fire_effort: Sprite2D = $FireEffort
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -160,6 +162,7 @@ func start_battle()->void:
 		new_card.clicked.connect(_on_card_clicked)
 		new_card.released.connect(_on_card_released)
 		new_card.mouseEntered.connect(_on_card_entered)
+		new_card.forget_finished.connect(card_finished_forget)
 		deck.append(new_card)
 		add_child(new_card)
 		index += 1
@@ -289,14 +292,19 @@ func reset_effort() -> void:
 		BattleManager.physical_effort = BattleManager.max_physical_effort + 1
 	else:
 		BattleManager.physical_effort = BattleManager.max_physical_effort
+	
 	BattleManager.fire_effort = BattleManager.max_fire_effort
 	refresh_effort_values()
 	conserved = false
 
 func forget() -> void:
 	var card = hand.filter(func(c) : return c.card_info.card_name != 'Forget').pick_random()
+	card.forget_card()
+
+func card_finished_forget(card)-> void:
 	hand.erase(card)
 	card.queue_free()
+	arrange_hand_positions()
 
 func conserve() -> void:
 	conserved = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://by1bi0miuud7i"]
+[gd_scene load_steps=28 format=3 uid="uid://by1bi0miuud7i"]
 
 [ext_resource type="PackedScene" uid="uid://48qfybefw3aa" path="res://card.tscn" id="1_8fvkg"]
 [ext_resource type="Script" path="res://battle.gd" id="1_flmcs"]
@@ -11,6 +11,7 @@
 [ext_resource type="Shader" path="res://edge_glow.gdshader" id="8_8uf1w"]
 [ext_resource type="Script" path="res://color_rect.gd" id="9_8ldaj"]
 [ext_resource type="Texture2D" uid="uid://dm7l23rya1tdk" path="res://art/fire effort.png" id="11_dptdv"]
+[ext_resource type="Shader" path="res://effort.gdshader" id="11_n41il"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wimrh"]
 shader = ExtResource("1_xgkp0")
@@ -83,6 +84,13 @@ shader_parameter/hovered = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tjdb5"]
 size = Vector2(729, 212)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0hq57"]
+shader = ExtResource("11_n41il")
+shader_parameter/pop_colour = Color(1, 0.17, 0.17, 1)
+shader_parameter/radius = 0.0
+shader_parameter/softness = 0.0
+shader_parameter/fade = 0.0
 
 [node name="Battle" type="Node2D"]
 material = SubResource("ShaderMaterial_wimrh")
@@ -260,6 +268,7 @@ shape = SubResource("RectangleShape2D_tjdb5")
 
 [node name="FireEffort" type="Sprite2D" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_0hq57")
 position = Vector2(312, 348.5)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("11_dptdv")

@@ -8,6 +8,7 @@ signal clicked(input)
 signal released(input)
 signal add_to_deck(input)
 signal mouseEntered(input, entered)
+signal forget_finished(input)
 var in_hand : bool = true
 var in_deck : bool = true
 var temporary_instance : bool = true
@@ -41,6 +42,13 @@ func _ready() -> void:
 	sprite_2d.material.set('shader_parameter/width', 0)
 	var seed = randi() % 1000
 	sprite_2d.material.set('shader_parameter/rand_seed', seed)
+	var canvas_shader = load("res://shaders/burn.gdshader")
+	var duplicated_canvas_shader = canvas_shader.duplicate()
+	$BackBufferCopy/CanvasLayer.material = ShaderMaterial.new()
+	$BackBufferCopy/CanvasLayer.material.set('shader', duplicated_canvas_shader)
+	var noise = NoiseTexture2D.new()
+	noise.noise = FastNoiseLite.new()
+	$BackBufferCopy/CanvasLayer.material.set_shader_parameter('noise_texture', noise)
 
 func _process(delta: float) -> void:
 	if not is_dragging and self.has_meta("target_position") and self.get_meta("target_position") != self.position:
@@ -172,7 +180,7 @@ func _on_mouse_exited() -> void:
 
 func trigger_card_flip_animation()->void:
 	var tween = get_tree().create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	var shader_material = sprite_2d.get_material()
+	#var shader_material = sprite_2d.get_material()
 	tween.tween_method(set_shader_param_for_flip_up, 180.0, 0.0, 0.5)
 	#tween.finished.connect(card_flip)
 	#await tween.finished
@@ -214,3 +222,15 @@ func card_flip() -> void:
 		name_label.text = ''
 		damage.visible = false
 		shield.visible = false
+
+func forget_card() -> void:
+	var tween = get_tree().create_tween()
+	tween.tween_method(set_burn_amount,0.0,1.0,1.0)
+	await tween.finished
+	forget_finished.emit(self)
+
+func set_burn_amount(value):
+	var shader_material = $BackBufferCopy/CanvasLayer.get_material()
+	print(value)
+	print(shader_material)
+	shader_material.set_shader_parameter('burn_amount', value)
