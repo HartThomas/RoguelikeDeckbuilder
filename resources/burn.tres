@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CardStats" load_steps=2 format=3 uid="uid://doan0lk42ugx7"]
+
+[ext_resource type="Script" path="res://classnames/card.gd" id="1_m47yi"]
+
+[resource]
+script = ExtResource("1_m47yi")
+card_name = "Burn"
+attack = 0
+block = 0
+position = Vector2(103, 536)
+card_text = "Burn for 3"
+card_cost = {
+"fire_effort": 1,
+"physical_effort": 0
+}

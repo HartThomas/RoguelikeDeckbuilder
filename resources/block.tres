@@ -8,3 +8,8 @@ card_name = "Block"
 attack = 0
 block = 6
 position = Vector2(103, 536)
+card_text = ""
+cost = 0
+type = {
+"physical": 1
+}

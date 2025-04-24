@@ -1,16 +1,16 @@
-[gd_scene load_steps=20 format=3 uid="uid://by1bi0miuud7i"]
+[gd_scene load_steps=26 format=3 uid="uid://by1bi0miuud7i"]
 
 [ext_resource type="PackedScene" uid="uid://48qfybefw3aa" path="res://card.tscn" id="1_8fvkg"]
 [ext_resource type="Script" path="res://battle.gd" id="1_flmcs"]
 [ext_resource type="Shader" path="res://shaders/blur.gdshader" id="1_xgkp0"]
-[ext_resource type="Texture2D" uid="uid://di6egicjkh32r" path="res://art/card deck space.png" id="3_b0d62"]
 [ext_resource type="Texture2D" uid="uid://buy4w0t66rbmm" path="res://art/corridor.png" id="4_72ltl"]
 [ext_resource type="Texture2D" uid="uid://bah1vppwlt0hg" path="res://art/battle hud.png" id="5_m7ere"]
 [ext_resource type="Texture2D" uid="uid://bdky0m17w7ynf" path="res://art/effort.png" id="6_12q4i"]
+[ext_resource type="Texture2D" uid="uid://ce2jg61mhyshu" path="res://art/constance 1-Sheet.png" id="6_spr81"]
+[ext_resource type="Texture2D" uid="uid://b4lnllu7b4kov" path="res://art/enemy-Sheet.png" id="7_y4vs4"]
 [ext_resource type="Shader" path="res://edge_glow.gdshader" id="8_8uf1w"]
-[ext_resource type="Texture2D" uid="uid://ban2271rvy2yk" path="res://art/constance 1.png" id="8_ug3xg"]
 [ext_resource type="Script" path="res://color_rect.gd" id="9_8ldaj"]
-[ext_resource type="Texture2D" uid="uid://bnvlocbq8hkwj" path="res://art/pixel player.png" id="9_q2efw"]
+[ext_resource type="Texture2D" uid="uid://dm7l23rya1tdk" path="res://art/fire effort.png" id="11_dptdv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wimrh"]
 shader = ExtResource("1_xgkp0")
@@ -29,6 +29,50 @@ bg_color = Color(0.997617, 0.102632, 0.073368, 1)
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1wdht"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lgg8e"]
+atlas = ExtResource("6_spr81")
+region = Rect2(64, 0, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oxfji"]
+atlas = ExtResource("6_spr81")
+region = Rect2(0, 0, 64, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1nehs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lgg8e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oxfji")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_13hx8"]
+atlas = ExtResource("7_y4vs4")
+region = Rect2(0, 0, 51, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mtiur"]
+atlas = ExtResource("7_y4vs4")
+region = Rect2(51, 0, 51, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5vqsg"]
+animations = [{
+"frames": [{
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_13hx8")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_mtiur")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ov0cb"]
 shader = ExtResource("8_8uf1w")
@@ -73,13 +117,11 @@ z_index = 1
 texture_filter = 1
 position = Vector2(103, 536)
 scale = Vector2(1.2, 1.2)
-texture = ExtResource("3_b0d62")
 
 [node name="PlayedPlacement" type="Sprite2D" parent="."]
 texture_filter = 1
 position = Vector2(1048, 538)
 scale = Vector2(1.2, 1.2)
-texture = ExtResource("3_b0d62")
 
 [node name="PlayerHealthBar" type="ProgressBar" parent="."]
 offset_left = 277.0
@@ -119,11 +161,12 @@ offset_right = 40.0
 offset_bottom = 23.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 
-[node name="Player" type="Sprite2D" parent="."]
+[node name="Player" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 position = Vector2(360, 200)
 scale = Vector2(2.5, 2.5)
-texture = ExtResource("8_ug3xg")
+sprite_frames = SubResource("SpriteFrames_1nehs")
+frame_progress = 0.816152
 
 [node name="EnemyHealthBar" type="ProgressBar" parent="."]
 offset_left = 631.0
@@ -166,11 +209,12 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 30
 vertical_alignment = 1
 
-[node name="Enemy" type="Sprite2D" parent="."]
+[node name="Enemy" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 position = Vector2(709, 197)
 scale = Vector2(3, 3)
-texture = ExtResource("9_q2efw")
+sprite_frames = SubResource("SpriteFrames_5vqsg")
+frame_progress = 0.991957
 
 [node name="Button" type="Button" parent="."]
 offset_left = 541.0
@@ -181,17 +225,18 @@ text = "End Turn"
 
 [node name="EffortLevel" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(962.25, 65.5)
-scale = Vector2(1.48438, 1.15625)
+position = Vector2(273.75, 348.5)
+scale = Vector2(1.1, 1.1)
 texture = ExtResource("6_12q4i")
 
 [node name="EffortLabel" type="Label" parent="."]
 texture_filter = 1
-offset_left = 940.0
-offset_top = 46.0
-offset_right = 985.0
-offset_bottom = 88.0
-theme_override_font_sizes/font_size = 16
+offset_left = 264.0
+offset_top = 341.0
+offset_right = 287.0
+offset_bottom = 357.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
 text = "1/1"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -212,6 +257,24 @@ script = ExtResource("9_8ldaj")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ColorRect/PlayArea"]
 position = Vector2(364, 106)
 shape = SubResource("RectangleShape2D_tjdb5")
+
+[node name="FireEffort" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(312, 348.5)
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("11_dptdv")
+
+[node name="FireEffortLabel" type="Label" parent="."]
+texture_filter = 1
+offset_left = 301.0
+offset_top = 341.0
+offset_right = 324.0
+offset_bottom = 357.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "1/1"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="area_entered" from="Hand" to="." method="_on_hand_area_entered"]
 [connection signal="area_exited" from="Hand" to="." method="_on_hand_area_exited"]

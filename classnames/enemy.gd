@@ -8,6 +8,7 @@ class_name Enemy
 @export var max_health: int
 @export var starting_health: int
 @export var starting_block: int
+@export var burn_amount:int
 
 var action : Callable
 

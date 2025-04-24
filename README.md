@@ -5,6 +5,7 @@ Think Slay the Spire. The original idea is based on the player having a weapon i
 - if holding a sword all of your attacks deal 2 more damage
 - if holding a dagger every other attack gets played twice
 - if holding a spear at end of turn deal x damage where x is the number of attacks played that turn
+- if holding [unknown] each card costs double for each card you played before it but has double effect for each card played before it
 
 The char could also hold something in the off hand as well:
 

@@ -11,10 +11,13 @@ extends Node
 @export var enemy_health : int = 5
 @export var enemy_block : int = 0
 
-@export var max_effort :int = 1
-@export var effort :int = 1
+@export var max_physical_effort :int = 1
+@export var physical_effort :int = 1
 
-var card_array : Array[String] = ['Hit', 'Hit', 'Hit', 'Conserve', 'Block', 'Block', 'Block', 'Forget']
+@export var max_fire_effort: int = 0
+@export var fire_effort:int = 0
+
+var card_array : Array[String] = ['Hit', 'Hit', 'Burn', 'Conserve', 'Torch', 'Augment', 'Block', 'Forget']
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

@@ -6,6 +6,7 @@ var depleted : Array = []
 signal battle_over
 var enemy : Enemy 
 var conserved: bool = false
+var augmented: bool = false
 @onready var color_rect: ColorRect = $ColorRect
 @onready var play_area_background: Sprite2D = $PlayAreaBackground
 
@@ -14,8 +15,9 @@ func _ready() -> void:
 	$Card.queue_free()
 	var new_enemy = load("res://resources/triangle.tres")
 	enemy = new_enemy
+	$Enemy.play('default')
+	$Player.play('default')
 	hide()
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -38,19 +40,25 @@ func _on_card_released(card) -> void:
 	for clicked in clickedArray:
 		clicked.is_dragging = false
 	clickedArray.clear()
-	if BattleManager.effort > 0:
-		if not card.in_hand and hand.has(card):
-			print({'attack':card.card_info.attack, 'block':card.card_info.block})
+	if not card.in_hand and hand.has(card):
+		var can_card_be_played = true
+		for cost in card.card_info.card_cost:
+			if BattleManager[cost] < card.card_info.card_cost[cost]:
+				can_card_be_played=false
+		if can_card_be_played:
 			card.card_info.when_played()
-			edit_enemy_health(card.card_info.attack)
-			edit_player_block(card.card_info.block)
+			if card.card_info.attack > 0:
+				edit_enemy_health(card.card_info.attack + 2 if augmented else card.card_info.attack)
+			if card.card_info.block > 0:
+				edit_player_block(card.card_info.block)
 			depleted.append(card)
 			hand.erase(card)
 			arrange_depleted()
 			arrange_hand_positions()
 			if BattleManager.enemy_health <= 0:
 				battle_over.emit()
-			use_effort(1)
+			for cost in card.card_info.card_cost:
+				use_effort(card.card_info.card_cost[cost], cost)
 
 func _on_draw_button_down() -> void:
 	if deck.size() == 0:
@@ -64,7 +72,6 @@ func _on_draw_button_down() -> void:
 		depleted.clear()
 		deck.shuffle()
 		arrange_deck_positions()
-		print({'deck': deck.size(),'hand': hand.size(),'depleted': depleted.size(),})
 		await get_tree().create_timer(1.2).timeout
 		await _on_draw_button_down()
 	else:
@@ -139,7 +146,12 @@ func start_battle()->void:
 			new_card.card_info.effect = forget
 		if card.card_name == 'Conserve':
 			new_card.card_info.effect = conserve
-		#new_card.card_info.effect = func(): print(get_children())
+		if card.card_name == 'Torch':
+			new_card.card_info.effect = torch
+		if card.card_name == 'Burn':
+			new_card.card_info.effect = burn
+		if card.card_name == 'Augment':
+			new_card.card_info.effect = augment
 		new_card.position = new_card.card_info.position
 		new_card.position.y -= 20 * index
 		new_card.z_index = index + 1
@@ -151,7 +163,8 @@ func start_battle()->void:
 		deck.append(new_card)
 		add_child(new_card)
 		index += 1
-	BattleManager.effort = BattleManager.max_effort
+	BattleManager.physical_effort = BattleManager.max_physical_effort
+	BattleManager.fire_effort = BattleManager.max_fire_effort
 	BattleManager.enemy_health = BattleManager.enemy_max_health
 	$PlayerHealthBar.max_value = BattleManager.player_max_health
 	$PlayerHealthBar.value  = BattleManager.player_health
@@ -170,7 +183,8 @@ func start_battle()->void:
 		$EnemyBlockBar/EnemyBlockLabel.text = str(BattleManager.enemy_block)
 	else:
 		$EnemyBlockBar/EnemyBlockLabel.text = ''
-	$EffortLabel.text = str(BattleManager.effort) + '/' + str(BattleManager.max_effort)
+	$EffortLabel.text = str(BattleManager.physical_effort) + '/' + str(BattleManager.max_physical_effort)
+	$FireEffortLabel.text = str(BattleManager.fire_effort) + '/' + str(BattleManager.max_fire_effort)
 	show()
 	await get_tree().create_timer(0.5).timeout
 	draw_hand()
@@ -243,52 +257,76 @@ func draw_hand() -> void:
 	await _on_draw_button_down()
 
 func end_turn() -> void:
-	var enemy_action = enemy.which_action_shall_i_take()
-	print(enemy_action)
-	if enemy_action.has('hit'):
-		edit_player_health(enemy_action.get('hit'))
-	if enemy_action.has('heal'):
-		edit_enemy_health(-enemy_action.get('heal'))
-	if enemy_action.has('block'):
-		edit_enemy_block(enemy_action.get('block'))
-	await get_tree().create_timer(0.5).timeout
-	for card in hand:
-		depleted.append(card)
-	hand.clear()
-	arrange_depleted()
-	await get_tree().create_timer(0.5).timeout
-	arrange_hand_positions()
-	await get_tree().create_timer(0.5).timeout
-	draw_hand()
-	reset_effort()
+	trigger_burn_damage()
+	if BattleManager.enemy_health <= 0:
+		battle_over.emit()
+	else:
+		var enemy_action = enemy.which_action_shall_i_take()
+		print(enemy_action)
+		if enemy_action.has('hit'):
+			edit_player_health(enemy_action.get('hit'))
+		if enemy_action.has('heal'):
+			edit_enemy_health(-enemy_action.get('heal'))
+		if enemy_action.has('block'):
+			edit_enemy_block(enemy_action.get('block'))
+		await get_tree().create_timer(0.5).timeout
+		for card in hand:
+			depleted.append(card)
+		hand.clear()
+		arrange_depleted()
+		await get_tree().create_timer(0.5).timeout
+		arrange_hand_positions()
+		await get_tree().create_timer(0.5).timeout
+		draw_hand()
+		reset_effort()
 
-func use_effort(amount) -> void:
-	BattleManager.effort -= amount
-	$EffortLabel.text = str(BattleManager.effort) + '/' + str(BattleManager.max_effort)
+func use_effort(amount, type_of_effort) -> void:
+	BattleManager[type_of_effort] -= amount
+	refresh_effort_values()
 
 func reset_effort() -> void:
 	if conserved:
-		BattleManager.effort = BattleManager.max_effort + 1
+		BattleManager.physical_effort = BattleManager.max_physical_effort + 1
 	else:
-		BattleManager.effort = BattleManager.max_effort
-	$EffortLabel.text = str(BattleManager.effort) + '/' + str(BattleManager.max_effort)
+		BattleManager.physical_effort = BattleManager.max_physical_effort
+	BattleManager.fire_effort = BattleManager.max_fire_effort
+	refresh_effort_values()
 	conserved = false
 
 func forget() -> void:
 	var card = hand.filter(func(c) : return c.card_info.card_name != 'Forget').pick_random()
 	hand.erase(card)
 	card.queue_free()
-	print(hand)
 
 func conserve() -> void:
 	conserved = true
 
+func augment() ->  void:
+	augmented = true
+
+func torch() -> void:
+	BattleManager.max_fire_effort += 1
+	$FireEffortLabel.text = str(BattleManager.fire_effort) + '/' + str(BattleManager.max_fire_effort)
+
+func burn() ->  void:
+	burn_enemy(3)
+
+func burn_enemy (amount) -> void:
+	enemy.burn_amount += amount
+
+func trigger_burn_damage() -> void:
+	if enemy.burn_amount > 0:
+		edit_enemy_health(enemy.burn_amount)
+		enemy.burn_amount -= 1
+
+func refresh_effort_values() -> void:
+	$EffortLabel.text = str(BattleManager.physical_effort) + '/' + str(BattleManager.max_physical_effort)
+	$FireEffortLabel.text = str(BattleManager.fire_effort) + '/' + str(BattleManager.max_fire_effort)
+
 func _on_play_area_entered(area: Area2D) -> void:
-	print(area)
 	if area.get('in_hand'):
 		#play_area_background.start_shader()
 		pass
-
 
 func _on_play_area_exited(area: Area2D) -> void:
 	#play_area_background.stop_shader()
