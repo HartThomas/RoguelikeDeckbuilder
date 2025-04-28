@@ -231,6 +231,4 @@ func forget_card() -> void:
 
 func set_burn_amount(value):
 	var shader_material = $BackBufferCopy/CanvasLayer.get_material()
-	print(value)
-	print(shader_material)
 	shader_material.set_shader_parameter('burn_amount', value)

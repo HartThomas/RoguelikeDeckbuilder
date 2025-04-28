@@ -3,19 +3,20 @@ extends Node
 @export var card_resource : CardStats
 @export var cards_to_offer : Array[Resource]
 
-@export var player_max_health : int = 50
-@export var player_health : int = 50
-@export var player_block : int = 0
-
-@export var enemy_max_health : int = 5
-@export var enemy_health : int = 5
-@export var enemy_block : int = 0
+@export var player = {max_health = 50, health = 50, block = 0, status_list = []}
+@export var enemy = {max_health = 5, health = 5, block = 0, status_list = []}
 
 @export var max_physical_effort :int = 1
 @export var physical_effort :int = 1
 
 @export var max_fire_effort: int = 0
 @export var fire_effort:int = 0
+
+@export var max_holy_effort :int = 0
+@export var holy_effort :int = 0
+
+@export var max_blood_effort: int = 0
+@export var blood_effort:int = 0
 
 var card_array : Array[String] = ['Hit', 'Hit', 'Burn', 'Conserve', 'Torch', 'Augment', 'Block', 'Forget']
 
@@ -40,10 +41,10 @@ func form_new_deck() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func edit_enemy_stats(enemy: Enemy) -> void:
-	enemy_max_health = enemy.max_health
-	enemy_health = enemy.starting_health
-	enemy_block = enemy.starting_block
+func edit_enemy_stats(enemy_stats: Enemy) -> void:
+	enemy.max_health = enemy_stats.max_health
+	enemy.health = enemy_stats.starting_health
+	enemy.block = enemy_stats.starting_block
 
 func edit_cards_to_offer(cards: Array[String]) -> void :
 	cards_to_offer.clear()

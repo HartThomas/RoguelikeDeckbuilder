@@ -1,17 +1,20 @@
-[gd_scene load_steps=28 format=3 uid="uid://by1bi0miuud7i"]
+[gd_scene load_steps=32 format=3 uid="uid://by1bi0miuud7i"]
 
 [ext_resource type="PackedScene" uid="uid://48qfybefw3aa" path="res://card.tscn" id="1_8fvkg"]
 [ext_resource type="Script" path="res://battle.gd" id="1_flmcs"]
 [ext_resource type="Shader" path="res://shaders/blur.gdshader" id="1_xgkp0"]
-[ext_resource type="Texture2D" uid="uid://buy4w0t66rbmm" path="res://art/corridor.png" id="4_72ltl"]
+[ext_resource type="Texture2D" uid="uid://b2qi1lpcoojst" path="res://art/table with candle on it.png" id="4_562i3"]
 [ext_resource type="Texture2D" uid="uid://bah1vppwlt0hg" path="res://art/battle hud.png" id="5_m7ere"]
 [ext_resource type="Texture2D" uid="uid://bdky0m17w7ynf" path="res://art/effort.png" id="6_12q4i"]
 [ext_resource type="Texture2D" uid="uid://ce2jg61mhyshu" path="res://art/constance 1-Sheet.png" id="6_spr81"]
 [ext_resource type="Texture2D" uid="uid://b4lnllu7b4kov" path="res://art/enemy-Sheet.png" id="7_y4vs4"]
-[ext_resource type="Shader" path="res://edge_glow.gdshader" id="8_8uf1w"]
+[ext_resource type="Shader" path="res://shaders/edge_glow.gdshader" id="8_8uf1w"]
 [ext_resource type="Script" path="res://color_rect.gd" id="9_8ldaj"]
+[ext_resource type="Texture2D" uid="uid://d0nyeln2ol5cm" path="res://art/holy effort.png" id="10_kpfln"]
+[ext_resource type="Texture2D" uid="uid://d004j56mcloat" path="res://art/blood effort.png" id="11_cs2nd"]
 [ext_resource type="Texture2D" uid="uid://dm7l23rya1tdk" path="res://art/fire effort.png" id="11_dptdv"]
-[ext_resource type="Shader" path="res://effort.gdshader" id="11_n41il"]
+[ext_resource type="Shader" path="res://shaders/effort.gdshader" id="11_n41il"]
+[ext_resource type="PackedScene" uid="uid://08ueg2hq0i5m" path="res://status_bar.tscn" id="13_en37s"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wimrh"]
 shader = ExtResource("1_xgkp0")
@@ -75,6 +78,13 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qyywj"]
+shader = ExtResource("11_n41il")
+shader_parameter/pop_colour = Color(0.218072, 0.633275, 0.841755, 1)
+shader_parameter/radius = 0.0
+shader_parameter/softness = 0.0
+shader_parameter/fade = 0.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ov0cb"]
 shader = ExtResource("8_8uf1w")
 shader_parameter/glow_color = Color(1, 1, 1, 1)
@@ -89,7 +99,7 @@ size = Vector2(729, 212)
 shader = ExtResource("11_n41il")
 shader_parameter/pop_colour = Color(1, 0.17, 0.17, 1)
 shader_parameter/radius = 0.0
-shader_parameter/softness = 0.0
+shader_parameter/softness = 0.001
 shader_parameter/fade = 0.0
 
 [node name="Battle" type="Node2D"]
@@ -99,11 +109,11 @@ card_scene = ExtResource("1_8fvkg")
 
 [node name="BattleScene" type="TextureRect" parent="."]
 texture_filter = 1
-offset_left = 112.0
-offset_top = 7.0
-offset_right = 1030.0
-offset_bottom = 357.0
-texture = ExtResource("4_72ltl")
+offset_left = 197.0
+offset_top = 65.0
+offset_right = 776.0
+offset_bottom = 299.0
+texture = ExtResource("4_562i3")
 
 [node name="BattleHUD" type="TextureRect" parent="."]
 texture_filter = 1
@@ -179,8 +189,8 @@ frame_progress = 0.816152
 [node name="EnemyHealthBar" type="ProgressBar" parent="."]
 offset_left = 631.0
 offset_top = 46.0
-offset_right = 881.0
-offset_bottom = 99.0
+offset_right = 780.0
+offset_bottom = 73.0
 theme_override_styles/background = SubResource("StyleBoxFlat_mi3ks")
 theme_override_styles/fill = SubResource("StyleBoxFlat_isxt2")
 max_value = 50.0
@@ -190,18 +200,17 @@ show_percentage = false
 [node name="EnemyLabel" type="Label" parent="EnemyHealthBar"]
 texture_filter = 1
 layout_mode = 0
-offset_left = 89.8615
-offset_top = 3.65809
-offset_right = 169.862
-offset_bottom = 46.6581
-theme_override_font_sizes/font_size = 30
+offset_left = 52.8615
+offset_top = 1.65809
+offset_right = 101.862
+offset_bottom = 24.6581
 text = "50/50"
 
 [node name="EnemyBlockBar" type="ProgressBar" parent="."]
 offset_left = 632.772
 offset_top = 47.1962
-offset_right = 877.772
-offset_bottom = 94.1962
+offset_right = 779.772
+offset_bottom = 70.1962
 theme_override_styles/background = SubResource("StyleBoxFlat_vrubk")
 theme_override_styles/fill = SubResource("StyleBoxFlat_1wdht")
 max_value = 50.0
@@ -211,10 +220,9 @@ show_percentage = false
 [node name="EnemyBlockLabel" type="Label" parent="EnemyBlockBar"]
 texture_filter = 1
 layout_mode = 0
-offset_right = 87.0
-offset_bottom = 47.0
+offset_right = 40.0
+offset_bottom = 23.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 30
 vertical_alignment = 1
 
 [node name="Enemy" type="AnimatedSprite2D" parent="."]
@@ -233,6 +241,7 @@ text = "End Turn"
 
 [node name="EffortLevel" type="Sprite2D" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_qyywj")
 position = Vector2(273.75, 348.5)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("6_12q4i")
@@ -243,6 +252,44 @@ offset_left = 264.0
 offset_top = 341.0
 offset_right = 287.0
 offset_bottom = 357.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "1/1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HolyEffort" type="Sprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_qyywj")
+position = Vector2(350.6, 348.5)
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("10_kpfln")
+
+[node name="HolyEffortLabel" type="Label" parent="."]
+texture_filter = 1
+offset_left = 340.85
+offset_top = 341.1
+offset_right = 363.85
+offset_bottom = 357.1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "1/1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BloodEffort" type="Sprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_qyywj")
+position = Vector2(389.6, 348.6)
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("11_cs2nd")
+
+[node name="BloodEffortLabel" type="Label" parent="."]
+texture_filter = 1
+offset_left = 379.85
+offset_top = 341.2
+offset_right = 402.85
+offset_bottom = 357.2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 12
 text = "1/1"
@@ -284,6 +331,8 @@ theme_override_font_sizes/font_size = 12
 text = "1/1"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="StatusBar" parent="." instance=ExtResource("13_en37s")]
 
 [connection signal="area_entered" from="Hand" to="." method="_on_hand_area_entered"]
 [connection signal="area_exited" from="Hand" to="." method="_on_hand_area_exited"]

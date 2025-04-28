@@ -11,6 +11,7 @@ var augmented: bool = false
 @onready var play_area_background: Sprite2D = $PlayAreaBackground
 @onready var effort_level: Sprite2D = $EffortLevel
 @onready var fire_effort: Sprite2D = $FireEffort
+@onready var status_bar: Node2D = $StatusBar
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -57,7 +58,7 @@ func _on_card_released(card) -> void:
 			hand.erase(card)
 			arrange_depleted()
 			arrange_hand_positions()
-			if BattleManager.enemy_health <= 0:
+			if BattleManager.enemy.health <= 0:
 				battle_over.emit()
 			for cost in card.card_info.card_cost:
 				use_effort(card.card_info.card_cost[cost], cost)
@@ -168,85 +169,86 @@ func start_battle()->void:
 		index += 1
 	BattleManager.physical_effort = BattleManager.max_physical_effort
 	BattleManager.fire_effort = BattleManager.max_fire_effort
-	BattleManager.enemy_health = BattleManager.enemy_max_health
-	$PlayerHealthBar.max_value = BattleManager.player_max_health
-	$PlayerHealthBar.value  = BattleManager.player_health
-	$PlayerHealthBar/PlayerHealthLabel.text = str(BattleManager.player_health) + '/' + str(BattleManager.player_max_health)
-	$PlayerBlockBar.value = BattleManager.player_block
-	if BattleManager.player_block > 0:
-		$PlayerBlockBar/PlayerBlockLabel.text = str(BattleManager.player_block)
+	BattleManager.holy_effort = BattleManager.max_holy_effort
+	BattleManager.blood_effort = BattleManager.max_blood_effort
+	BattleManager.enemy.health = BattleManager.enemy.max_health
+	$PlayerHealthBar.max_value = BattleManager.player.max_health
+	$PlayerHealthBar.value  = BattleManager.player.health
+	$PlayerHealthBar/PlayerHealthLabel.text = str(BattleManager.player.health) + '/' + str(BattleManager.player.max_health)
+	$PlayerBlockBar.value = BattleManager.player.block
+	if BattleManager.player.block > 0:
+		$PlayerBlockBar/PlayerBlockLabel.text = str(BattleManager.player.block)
 	else:
 		$PlayerBlockBar/PlayerBlockLabel.text = ''
 		
-	$EnemyHealthBar.max_value = BattleManager.enemy_max_health
-	$EnemyHealthBar.value = BattleManager.enemy_health
-	$EnemyHealthBar/EnemyLabel.text = str(BattleManager.enemy_health) + '/' + str(BattleManager.enemy_max_health)
-	$EnemyBlockBar.value = BattleManager.enemy_block
-	if BattleManager.enemy_block > 0:
-		$EnemyBlockBar/EnemyBlockLabel.text = str(BattleManager.enemy_block)
+	$EnemyHealthBar.max_value = BattleManager.enemy.max_health
+	$EnemyHealthBar.value = BattleManager.enemy.health
+	$EnemyHealthBar/EnemyLabel.text = str(BattleManager.enemy.health) + '/' + str(BattleManager.enemy.max_health)
+	$EnemyBlockBar.value = BattleManager.enemy.block
+	if BattleManager.enemy.block > 0:
+		$EnemyBlockBar/EnemyBlockLabel.text = str(BattleManager.enemy.block)
 	else:
 		$EnemyBlockBar/EnemyBlockLabel.text = ''
-	$EffortLabel.text = str(BattleManager.physical_effort) + '/' + str(BattleManager.max_physical_effort)
-	$FireEffortLabel.text = str(BattleManager.fire_effort) + '/' + str(BattleManager.max_fire_effort)
+	refresh_effort_values()
 	show()
 	await get_tree().create_timer(0.5).timeout
 	draw_hand()
 
 func edit_player_health(amount) -> void:
 	if amount >= 0:
-		if BattleManager.player_block > 0:
-			if BattleManager.player_block >= amount:
-				BattleManager.player_block -= amount
+		if BattleManager.player.block > 0:
+			if BattleManager.player.block >= amount:
+				BattleManager.player.block -= amount
 				amount = 0
 			else:
-				amount -= BattleManager.player_block
-				BattleManager.player_block = 0
+				amount -= BattleManager.player.block
+				BattleManager.player.block = 0
 				
-			$PlayerBlockBar.value = BattleManager.player_block
-			if BattleManager.player_block == 0:
+			$PlayerBlockBar.value = BattleManager.player.block
+			if BattleManager.player.block == 0:
 				$PlayerBlockBar/PlayerBlockLabel.text = ''
 			else:
-				$PlayerBlockBar/PlayerBlockLabel.text = str(BattleManager.player_block)
-	if BattleManager.player_health - amount > BattleManager.player_max_health:
-		BattleManager.player_health = BattleManager.player_max_health
+				$PlayerBlockBar/PlayerBlockLabel.text = str(BattleManager.player.block)
+	if BattleManager.player.health - amount > BattleManager.player.max_health:
+		BattleManager.player.health = BattleManager.player.max_health
 	else:
-		BattleManager.player_health -= amount
-	$PlayerHealthBar.value = BattleManager.player_health
-	$PlayerHealthBar/PlayerHealthLabel.text = str(BattleManager.player_health) + '/' + str(BattleManager.player_max_health)
+		BattleManager.player.health -= amount
+	$PlayerHealthBar.value = BattleManager.player.health
+	$PlayerHealthBar/PlayerHealthLabel.text = str(BattleManager.player.health) + '/' + str(BattleManager.player.max_health)
 
 func edit_enemy_health(amount) -> void:
 	if amount >= 0:
-		if BattleManager.enemy_block > 0:
-			if BattleManager.enemy_block >= amount:
-				BattleManager.enemy_block -= amount
+		if BattleManager.enemy.block > 0:
+			if BattleManager.enemy.block >= amount:
+				BattleManager.enemy.block -= amount
 				amount = 0
 			else:
-				amount -= BattleManager.enemy_block
-				BattleManager.enemy_block = 0
-			$EnemyBlockBar.value = BattleManager.enemy_block
-			if BattleManager.enemy_block == 0:
+				amount -= BattleManager.enemy.block
+				BattleManager.enemy.block = 0
+			$EnemyBlockBar.value = BattleManager.enemy.block
+			if BattleManager.enemy.block == 0:
 				$EnemyBlockBar/EnemyBlockLabel.text = ''
 			else:
-				$EnemyBlockBar/EnemyBlockLabel.text = str(BattleManager.enemy_block)
-	if BattleManager.enemy_health - amount > BattleManager.enemy_max_health:
-		BattleManager.enemy_health = BattleManager.enemy_max_health
+				$EnemyBlockBar/EnemyBlockLabel.text = str(BattleManager.enemy.block)
+	if BattleManager.enemy.health - amount > BattleManager.enemy.max_health:
+		BattleManager.enemy.health = BattleManager.enemy.max_health
 	else:
-		BattleManager.enemy_health -= amount
-	$EnemyHealthBar.value = BattleManager.enemy_health
-	$EnemyHealthBar/EnemyLabel.text = str(BattleManager.enemy_health) + '/' + str(BattleManager.enemy_max_health)
+		BattleManager.enemy.health -= amount
+	$EnemyHealthBar.value = BattleManager.enemy.health
+	$EnemyHealthBar/EnemyLabel.text = str(BattleManager.enemy.health) + '/' + str(BattleManager.enemy.max_health)
 
 func edit_player_block(amount) -> void:
-	BattleManager.player_block += amount
-	$PlayerBlockBar.value = BattleManager.player_block
-	if BattleManager.player_block ==0:
+	BattleManager.player.block += amount
+	$PlayerBlockBar.value = BattleManager.player.block
+	if BattleManager.player.block ==0:
 		$PlayerBlockBar/PlayerBlockLabel.text = ''
 	else:
-		$PlayerBlockBar/PlayerBlockLabel.text = str(BattleManager.player_block)
+		$PlayerBlockBar/PlayerBlockLabel.text = str(BattleManager.player.block)
 
 func edit_enemy_block(amount) -> void:
-	BattleManager.enemy_block += amount
-	$EnemyBlockBar.value = BattleManager.enemy_block
-	$EnemyBlockBar/EnemyBlockLabel.text = str(BattleManager.enemy_block)
+	BattleManager.enemy.block += amount
+	$EnemyBlockBar.value = BattleManager.enemy.block
+	$EnemyBlockBar/EnemyBlockLabel.text = str(BattleManager.enemy.block)
 
 func end_battle()->void:
 	hide()
@@ -261,7 +263,7 @@ func draw_hand() -> void:
 
 func end_turn() -> void:
 	trigger_burn_damage()
-	if BattleManager.enemy_health <= 0:
+	if BattleManager.enemy.health <= 0:
 		battle_over.emit()
 	else:
 		var enemy_action = enemy.which_action_shall_i_take()
@@ -288,14 +290,38 @@ func use_effort(amount, type_of_effort) -> void:
 	refresh_effort_values()
 
 func reset_effort() -> void:
-	if conserved:
-		BattleManager.physical_effort = BattleManager.max_physical_effort + 1
-	else:
-		BattleManager.physical_effort = BattleManager.max_physical_effort
-	
-	BattleManager.fire_effort = BattleManager.max_fire_effort
+	if BattleManager.max_physical_effort > 0 :
+		
+		if conserved:
+			BattleManager.physical_effort = BattleManager.max_physical_effort + 1
+		else:
+			BattleManager.physical_effort = BattleManager.max_physical_effort
+		animate_effort_reset($EffortLevel)
+	if BattleManager.max_fire_effort > 0:
+		BattleManager.fire_effort = BattleManager.max_fire_effort
+		animate_effort_reset($FireEffort)
+	if BattleManager.max_holy_effort > 0:
+		BattleManager.holy_effort = BattleManager.max_holy_effort
+		animate_effort_reset($HolyEffort)
+	if BattleManager.max_blood_effort > 0:
+		BattleManager.blood_effort = BattleManager.max_blood_effort
+		animate_effort_reset($BloodEffort)
 	refresh_effort_values()
 	conserved = false
+
+func animate_effort_reset(sprite) -> void:
+	var shader = sprite.get_material()
+	shader.set_shader_parameter('softness', 0.1)
+	var tween = get_tree().create_tween()
+	tween.tween_method(set_shader_radius.bind(shader),0.0, 0.5, 0.25)
+	tween.tween_method(set_shader_fade.bind(shader), 0.0, 1.0, 0.5)
+
+func set_shader_radius(value, shader) -> void:
+	shader.set_shader_parameter('radius', value)
+
+func set_shader_fade( value,shader) -> void:
+	shader.set_shader_parameter('fade', value)
+ 
 
 func forget() -> void:
 	var card = hand.filter(func(c) : return c.card_info.card_name != 'Forget').pick_random()
@@ -318,6 +344,9 @@ func torch() -> void:
 
 func burn() ->  void:
 	burn_enemy(3)
+	if not BattleManager.enemy.status_list.has('flame'):
+		BattleManager.enemy.status_list.append('flame')
+		status_bar.refresh_status_bar()
 
 func burn_enemy (amount) -> void:
 	enemy.burn_amount += amount
@@ -326,10 +355,16 @@ func trigger_burn_damage() -> void:
 	if enemy.burn_amount > 0:
 		edit_enemy_health(enemy.burn_amount)
 		enemy.burn_amount -= 1
+	if enemy.burn_amount < 1:
+		BattleManager.enemy.status_list.erase('flame')
+		print(BattleManager.enemy.status_list)
+		status_bar.refresh_status_bar()
 
 func refresh_effort_values() -> void:
 	$EffortLabel.text = str(BattleManager.physical_effort) + '/' + str(BattleManager.max_physical_effort)
 	$FireEffortLabel.text = str(BattleManager.fire_effort) + '/' + str(BattleManager.max_fire_effort)
+	$HolyEffortLabel.text = str(BattleManager.holy_effort) + '/' + str(BattleManager.max_holy_effort)
+	$BloodEffortLabel.text = str(BattleManager.blood_effort) + '/' + str(BattleManager.max_blood_effort)
 
 func _on_play_area_entered(area: Area2D) -> void:
 	if area.get('in_hand'):

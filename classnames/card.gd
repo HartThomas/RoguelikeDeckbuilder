@@ -7,7 +7,7 @@ class_name CardStats
 @export var position: Vector2 = Vector2(103, 536)
 @export var texture: CompressedTexture2D
 @export var card_text: String
-@export var card_cost: Dictionary = {physical_effort = 1, fire_effort = 0}
+@export var card_cost: Dictionary = {physical_effort = 1, fire_effort = 0, holy_effort = 0, blood_effort = 0}
 var effect: Callable = func(): pass
 
 
