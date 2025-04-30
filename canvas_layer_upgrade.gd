@@ -11,7 +11,6 @@ func _ready() -> void:
 	var card_scene = load("res://card.tscn")
 	
 	var total_cards = BattleManager.battleInfo.deck.filter(func(card) : return card.attack != 0 or card.block != 0).size()
-	print(BattleManager.battleInfo.deck.filter(func(card) : return card.attack != 0 or card.block != 0))
 	if total_cards == 0:
 		return
 	

@@ -23,6 +23,7 @@ func route_chosen(route_stats: Route) -> void :
 	else:
 		BattleManager.edit_enemy_stats(route_stats.enemy)
 		$Screen/Adventure.start_battle()
+		$Screen/Battle.enemy = route_stats.enemy
 		$Screen/Battle.start_battle()
 		$Screen/Battle.battle_over.connect(end_battle_blur)
 
@@ -36,10 +37,6 @@ func battle_over()->void:
 	var new_scene = victory_scene.instantiate()
 	new_scene.card_picked.connect(card_picked)
 	add_child(new_scene)
-	#print(battle.get_children())
-	#for card in battle.get_children().filter(func(child): return child.get('card_info')):
-		#print(card)
-		#pause_scene(card)
 
 
 func end_battle_blur() -> void:

@@ -371,7 +371,6 @@ func trigger_burn_damage() -> void:
 		enemy.burn_amount -= 1
 	if enemy.burn_amount < 1:
 		BattleManager.enemy.status_list.erase('flame')
-		print(BattleManager.enemy.status_list)
 		status_bar.refresh_status_bar()
 
 func refresh_effort_values() -> void:
