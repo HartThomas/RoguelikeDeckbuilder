@@ -151,7 +151,7 @@ use_mipmaps = true
 [node name="Sprite2D" type="Sprite2D" parent="BackBufferCopy/CanvasLayer"]
 texture_filter = 1
 material = SubResource("ShaderMaterial_u6qec")
-scale = Vector2(1.05, 1.05)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_2p27k")
 
 [node name="Name" type="Label" parent="BackBufferCopy/CanvasLayer"]

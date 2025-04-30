@@ -155,6 +155,18 @@ func start_battle()->void:
 			new_card.card_info.effect = burn
 		if card.card_name == 'Augment':
 			new_card.card_info.effect = augment
+		if card.card_name == 'Pray':
+			new_card.card_info.effect = pray
+		if card.card_name == 'Conviction':
+			new_card.card_info.effect = conviction
+		if card.card_name == 'Fleam':
+			new_card.card_info.effect = fleam
+		if card.card_name == 'Adrenaline':
+			new_card.card_info.effect = adrenaline
+		if card.card_name == 'Psionics':
+			new_card.card_info.effect = psionics
+		if card.card_name == 'Refresh':
+			new_card.card_info.effect = refresh
 		new_card.position = new_card.card_info.position
 		new_card.position.y -= 20 * index
 		new_card.z_index = index + 1
@@ -167,10 +179,12 @@ func start_battle()->void:
 		deck.append(new_card)
 		add_child(new_card)
 		index += 1
+	return_effort_to_starting_values()
 	BattleManager.physical_effort = BattleManager.max_physical_effort
 	BattleManager.fire_effort = BattleManager.max_fire_effort
 	BattleManager.holy_effort = BattleManager.max_holy_effort
 	BattleManager.blood_effort = BattleManager.max_blood_effort
+	BattleManager.mental_effort = BattleManager.max_mental_effort
 	BattleManager.enemy.health = BattleManager.enemy.max_health
 	$PlayerHealthBar.max_value = BattleManager.player.max_health
 	$PlayerHealthBar.value  = BattleManager.player.health
@@ -365,6 +379,11 @@ func refresh_effort_values() -> void:
 	$FireEffortLabel.text = str(BattleManager.fire_effort) + '/' + str(BattleManager.max_fire_effort)
 	$HolyEffortLabel.text = str(BattleManager.holy_effort) + '/' + str(BattleManager.max_holy_effort)
 	$BloodEffortLabel.text = str(BattleManager.blood_effort) + '/' + str(BattleManager.max_blood_effort)
+	$MentalEffortLabel.text = str(BattleManager.mental_effort) + '/' + str(BattleManager.max_mental_effort)
+
+func return_effort_to_starting_values() -> void:
+	for effort in BattleManager.starting_effort_values:
+		BattleManager[effort] = BattleManager.starting_effort_values[effort]
 
 func _on_play_area_entered(area: Area2D) -> void:
 	if area.get('in_hand'):
@@ -374,3 +393,28 @@ func _on_play_area_entered(area: Area2D) -> void:
 func _on_play_area_exited(area: Area2D) -> void:
 	#play_area_background.stop_shader()
 	pass
+
+func pray() -> void:
+	BattleManager.max_holy_effort += 1
+	$HolyEffortLabel.text = str(BattleManager.holy_effort) + '/' + str(BattleManager.max_holy_effort)
+
+func conviction() -> void:
+	BattleManager.max_mental_effort += 1
+	$MentalEffortLabel.text = str(BattleManager.mental_effort) + '/' + str(BattleManager.max_mental_effort)
+
+func fleam() ->  void:
+	BattleManager.max_blood_effort += 1
+	$BloodEffortLabel.text = str(BattleManager.blood_effort) + '/' + str(BattleManager.max_blood_effort)
+
+func adrenaline() ->  void:
+	BattleManager.physical_effort += 1
+	$EffortLabel.text = str(BattleManager.physical_effort) + '/' + str(BattleManager.max_physical_effort)
+
+func psionics() -> void:
+	if BattleManager.enemy.health < 5:
+		battle_over.emit()
+
+func refresh() -> void:
+	BattleManager.physical_effort += 1
+	$EffortLabel.text = str(BattleManager.physical_effort) + '/' + str(BattleManager.max_physical_effort)
+	_on_draw_button_down()

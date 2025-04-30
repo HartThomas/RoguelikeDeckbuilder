@@ -7,7 +7,7 @@ var target_position = Vector2(171,-24)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	BattleManager.edit_cards_to_offer([])
+	BattleManager.edit_cards_to_offer(BattleManager.random_cards(3))
 	var card_scene = load("res://card.tscn")
 	var index = 0
 	for i in BattleManager.cards_to_offer:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://by1bi0miuud7i"]
+[gd_scene load_steps=36 format=3 uid="uid://by1bi0miuud7i"]
 
 [ext_resource type="PackedScene" uid="uid://48qfybefw3aa" path="res://card.tscn" id="1_8fvkg"]
 [ext_resource type="Script" path="res://battle.gd" id="1_flmcs"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://d004j56mcloat" path="res://art/blood effort.png" id="11_cs2nd"]
 [ext_resource type="Texture2D" uid="uid://dm7l23rya1tdk" path="res://art/fire effort.png" id="11_dptdv"]
 [ext_resource type="Shader" path="res://shaders/effort.gdshader" id="11_n41il"]
+[ext_resource type="Texture2D" uid="uid://ct2ykt1a5gpiy" path="res://art/mental effort.png" id="12_5bdmd"]
 [ext_resource type="PackedScene" uid="uid://08ueg2hq0i5m" path="res://status_bar.tscn" id="13_en37s"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wimrh"]
@@ -80,7 +81,28 @@ animations = [{
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qyywj"]
 shader = ExtResource("11_n41il")
-shader_parameter/pop_colour = Color(0.218072, 0.633275, 0.841755, 1)
+shader_parameter/pop_colour = Color(0.22, 0.363, 1, 1)
+shader_parameter/radius = 0.0
+shader_parameter/softness = 0.0
+shader_parameter/fade = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7gl4m"]
+shader = ExtResource("11_n41il")
+shader_parameter/pop_colour = Color(1, 1, 1, 1)
+shader_parameter/radius = 0.0
+shader_parameter/softness = 0.0
+shader_parameter/fade = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_piruy"]
+shader = ExtResource("11_n41il")
+shader_parameter/pop_colour = Color(0.912, 1, 0.34, 1)
+shader_parameter/radius = 0.0
+shader_parameter/softness = 0.0
+shader_parameter/fade = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c7ipj"]
+shader = ExtResource("11_n41il")
+shader_parameter/pop_colour = Color(0.2, 0.119733, 0.028, 1)
 shader_parameter/radius = 0.0
 shader_parameter/softness = 0.0
 shader_parameter/fade = 0.0
@@ -260,7 +282,7 @@ vertical_alignment = 1
 
 [node name="HolyEffort" type="Sprite2D" parent="."]
 texture_filter = 1
-material = SubResource("ShaderMaterial_qyywj")
+material = SubResource("ShaderMaterial_7gl4m")
 position = Vector2(350.6, 348.5)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("10_kpfln")
@@ -279,7 +301,7 @@ vertical_alignment = 1
 
 [node name="BloodEffort" type="Sprite2D" parent="."]
 texture_filter = 1
-material = SubResource("ShaderMaterial_qyywj")
+material = SubResource("ShaderMaterial_piruy")
 position = Vector2(389.6, 348.6)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("11_cs2nd")
@@ -290,6 +312,25 @@ offset_left = 379.85
 offset_top = 341.2
 offset_right = 402.85
 offset_bottom = 357.2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "1/1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MentalEffort" type="Sprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_c7ipj")
+position = Vector2(428.58, 348.716)
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("12_5bdmd")
+
+[node name="MentalEffortLabel" type="Label" parent="."]
+texture_filter = 1
+offset_left = 417.58
+offset_top = 340.716
+offset_right = 440.58
+offset_bottom = 356.716
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 12
 text = "1/1"

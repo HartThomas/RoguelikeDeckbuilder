@@ -73,7 +73,7 @@ func generate_texture(card: CardStats) -> ImageTexture:
 	var base_image = Image.new()
 	base_image.load('res://art/pixel card.png')
 	var label_image = await make_label_image(card.card_name)
-	var max_label_width = 40
+	var max_label_width = 80
 	if label_image.get_width() > max_label_width:
 		var scaled_image = Image.new()
 		scaled_image.copy_from(label_image)
@@ -81,30 +81,29 @@ func generate_texture(card: CardStats) -> ImageTexture:
 		label_image = scaled_image
 	var image_texture = ImageTexture.create_from_image(label_image)
 	var label_pos_x = 13 + ((base_image.get_width() - label_image.get_width()) / 2.0) - (base_image.get_width() / 2.0 - 13)
-	var name_position = Vector2(13, 15) 
+	var name_position = Vector2(15, 0)
 	base_image.blend_rect(label_image, Rect2(Vector2.ZERO, label_image.get_size()), name_position)
 	if card.attack != 0:
 		var attack_texture = Image.new()
 		attack_texture.load("res://art/attack.png")
-		base_image.blend_rect(attack_texture, Rect2(Vector2.ZERO, attack_texture.get_size()), Vector2(24,32 ))
-		var attack_amount_label = await make_label_image(str(card.attack))
-		base_image.blend_rect(attack_amount_label, Rect2(Vector2.ZERO, attack_amount_label.get_size()), Vector2(28,31 ))
+		base_image.blend_rect(attack_texture, Rect2(Vector2.ZERO, attack_texture.get_size()), Vector2(48,64 ))
+		var attack_amount_label = await make_label_image(str(card.attack), 10, true)
+		base_image.blend_rect(attack_amount_label, Rect2(Vector2.ZERO, attack_amount_label.get_size()), Vector2(56,62 ))
 	if card.block != 0:
 		var block_texture = Image.new()
 		block_texture.load('res://art/block.png')
-		base_image.blend_rect(block_texture, Rect2(Vector2.ZERO, block_texture.get_size()), Vector2(9,32 ))
-		var block_amount_label = await make_label_image(str(card.block))
-		base_image.blend_rect(block_amount_label, Rect2(Vector2.ZERO, block_amount_label.get_size()), Vector2(13,31 ))
+		base_image.blend_rect(block_texture, Rect2(Vector2.ZERO, block_texture.get_size()), Vector2(18,64 ))
+		var block_amount_label = await make_label_image(str(card.block), 10, true)
+		base_image.blend_rect(block_amount_label, Rect2(Vector2.ZERO, block_amount_label.get_size()), Vector2(26,62 ))
 	if card.card_text.length() > 0:
-		var card_text = await make_label_image(card.card_text, 5)
-		print(card_text.get_size())
-		base_image.blend_rect(card_text, Rect2(Vector2.ZERO, card_text.get_size()),Vector2(7,0 ))
+		var card_text = await make_label_image(card.card_text, 10 )
+		base_image.blend_rect(card_text, Rect2(Vector2.ZERO, card_text.get_size()),Vector2(15,45 ))
 		
 	#base_image.flip_x()
 	var tex = ImageTexture.create_from_image(base_image)
 	return tex
 
-func make_label_image(text: String, font_size : int = 10) -> Image:
+func make_label_image(text: String, font_size : int = 10, small = false) -> Image:
 	var label = Label.new()
 	label.text = text
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -112,29 +111,18 @@ func make_label_image(text: String, font_size : int = 10) -> Image:
 	label.add_theme_color_override('font_color', Color.DARK_RED)
 	label.add_theme_font_size_override('font_size', font_size)
 	label.set_texture_filter(CanvasItem.TEXTURE_FILTER_NEAREST)
-	# Measure text size using FontMetrics
+	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+
 	var temp_font = label.get_theme_font("font")
 	var text_size = temp_font.get_string_size(text)
+	label.custom_minimum_size = Vector2(70,80)
 	
-	if font_size != 10:
-		label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		label.custom_minimum_size = Vector2(35,80)
-	# Figure out if we need to scale horizontally
-	#var target_width = max_width
-	#if text_size.x > target_width:
-		#var scale_x = target_width / text_size.x
-		#label.scale = Vector2(scale_x * 0.7, 0.3)
-	#else:
-		#label.scale = Vector2(0.3, 0.3)
-#
-	## Set container size to base width, text height
-	#var container_width = target_width
-	#var container_height = int(text_size.y * 0.3) + 2  # give a bit of breathing room
-	#label.custom_minimum_size = Vector2(container_width, container_height)
+	if small:
+		label.custom_minimum_size = Vector2(10,10)
 	
 	var viewport = SubViewport.new()
 	viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
-	viewport.size = Vector2(35,80)
+	viewport.size = Vector2(70,80)
 	viewport.transparent_bg = true
 	viewport.add_child(label)
 	add_child(viewport)
@@ -180,12 +168,7 @@ func _on_mouse_exited() -> void:
 
 func trigger_card_flip_animation()->void:
 	var tween = get_tree().create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	#var shader_material = sprite_2d.get_material()
 	tween.tween_method(set_shader_param_for_flip_up, 180.0, 0.0, 0.5)
-	#tween.finished.connect(card_flip)
-	#await tween.finished
-	#var tween2 = get_tree().create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	#tween2.tween_method(set_shader_param_for_flip_up, 90.0, 0.0, 0.5)
 
 func set_shader_param_for_flip_up(value):
 	var shader_material = sprite_2d.get_material()

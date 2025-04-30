@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CardStats" load_steps=2 format=3 uid="uid://crvrg4mlr53fk"]
+
+[ext_resource type="Script" path="res://classnames/card.gd" id="1_cu4oa"]
+
+[resource]
+script = ExtResource("1_cu4oa")
+card_name = "Fleam"
+attack = 0
+block = 0
+position = Vector2(103, 536)
+card_text = "Adds 1 blood effort a turn"
+card_cost = {
+"blood_effort": 0,
+"fire_effort": 0,
+"holy_effort": 0,
+"mental_effort": 0,
+"physical_effort": 1
+}
+effect = null

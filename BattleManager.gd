@@ -18,7 +18,14 @@ extends Node
 @export var max_blood_effort: int = 0
 @export var blood_effort:int = 0
 
+@export var max_mental_effort: int = 0
+@export var mental_effort: int = 0
+
+@export var starting_effort_values: Dictionary = {max_physical_effort = 1, max_fire_effort = 0, max_holy_effort = 0, max_blood_effort= 0, max_mental_effort = 0}
+
 var card_array : Array[String] = ['Hit', 'Hit', 'Burn', 'Conserve', 'Torch', 'Augment', 'Block', 'Forget']
+
+var all_cards: Array[String] = ['Hit', 'Burn', 'Conserve', 'Torch', 'Augment', 'Block', 'Forget', 'Pray', 'Conviction', 'Fleam', 'Adrenaline', 'Psionics']
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -55,3 +62,9 @@ func edit_cards_to_offer(cards: Array[String]) -> void :
 		var new_card = load(resource_path)
 		new_card.set_local_to_scene(true)
 		cards_to_offer.push_back(new_card)
+
+func random_cards(number:int) -> Array[String]:
+	var cards: Array[String] = []
+	for i in number:
+		cards.append(all_cards.pick_random()) 
+	return cards

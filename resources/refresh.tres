@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CardStats" load_steps=2 format=3 uid="uid://ppvkgk80bwm6"]
+
+[ext_resource type="Script" path="res://classnames/card.gd" id="1_qucao"]
+
+[resource]
+script = ExtResource("1_qucao")
+card_name = "Refresh"
+attack = 0
+block = 0
+position = Vector2(103, 536)
+card_text = "Add 1 physical effort and draw a card"
+card_cost = {
+"blood_effort": 0,
+"fire_effort": 0,
+"holy_effort": 0,
+"mental_effort": 1,
+"physical_effort": 0
+}
+effect = null

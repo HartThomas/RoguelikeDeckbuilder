@@ -34,3 +34,7 @@ Victorian era person attempts to leave their apartment. First monster they meet 
 Fun place name to be your destination is Lower Sooting, perhaps you are trying to reach a friend or relative there.
 
 ---
+
+Another thought on the effort system is to have 2 efforts that people start with naturally, physical and mental, and then some of the other efforts could interract with those efforts so holy effort would create mental effort eg. your faith causes you to have greater motivation and blood effort could create physical effort eg. no pain no gain
+
+---
