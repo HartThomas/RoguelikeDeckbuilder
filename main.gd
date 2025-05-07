@@ -45,6 +45,7 @@ func end_battle_blur() -> void:
 
 func card_picked() -> void:
 	$Screen/Battle.end_battle()
+	$Screen/Adventure.stage += 1
 	$Screen/Adventure.end_battle()
 	var tween = get_tree().create_tween()
 	tween.tween_property(screen.get_material(), "shader_parameter/blur_power", 0.0, 1.0)

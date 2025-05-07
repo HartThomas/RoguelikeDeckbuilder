@@ -13,5 +13,11 @@ class_name Enemy
 var action : Callable
 
 func which_action_shall_i_take() -> Dictionary:
-	var possible_actions : Array = [{'hit':hit}, {'block':block}, {'heal':heal}]
+	var possible_actions : Array = []
+	if hit > 0:
+		possible_actions.append({'hit':hit})
+	if block > 0:
+		possible_actions.append({'block':block})
+	if heal > 0:
+		possible_actions.append({'heal':heal})
 	return  possible_actions.pick_random()

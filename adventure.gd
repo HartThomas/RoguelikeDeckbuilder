@@ -22,4 +22,8 @@ func start_battle()->void:
 	hide()
 
 func end_battle()->void:
+	var route_children = get_children().filter(func (child) : return child.name != 'AdventureBackground' and child.name != 'Player')
+	for route in route_children:
+		route.queue_free()
+	_ready()
 	show()

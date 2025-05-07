@@ -8,7 +8,7 @@ var enemy : Enemy
 var conserved: bool = false
 var augmented: bool = false
 @onready var color_rect: ColorRect = $ColorRect
-@onready var play_area_background: Sprite2D = $PlayAreaBackground
+#@onready var play_area_background: Sprite2D = $PlayAreaBackground
 @onready var effort_level: Sprite2D = $EffortLevel
 @onready var fire_effort: Sprite2D = $FireEffort
 @onready var status_bar: Node2D = $StatusBar

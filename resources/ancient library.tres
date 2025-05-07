@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Route" load_steps=4 format=3 uid="uid://buj7icpdgltew"]
+
+[ext_resource type="Script" path="res://classnames/merchant.gd" id="1_handf"]
+[ext_resource type="Script" path="res://classnames/route.gd" id="1_npe0p"]
+
+[sub_resource type="Resource" id="Resource_adsd2"]
+script = ExtResource("1_handf")
+add_card_available = true
+remove_card_available = false
+upgrade_card_available = false
+merchant_name = "Librarian"
+heal_amount = 0
+
+[resource]
+script = ExtResource("1_npe0p")
+route_name = "Ancient Library"
+helpful = true
+merchant = SubResource("Resource_adsd2")
