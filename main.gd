@@ -12,7 +12,7 @@ func _ready() -> void:
 	$Screen/Battle.battle_over.connect(battle_over)
 	var shader = screen.get_material()
 	shader.set_shader_parameter('blur_power', 0.0)
-	
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
@@ -56,6 +56,7 @@ func merchant_route_clicked(route_stats: Route)-> void:
 	new_scene.add.connect(merchant_add_card_clicked)
 	new_scene.remove.connect(merchant_remove_card_clicked)
 	new_scene.upgrade.connect(merchant_upgrade_card_clicked)
+	new_scene.heal.connect(merchant_heal_clicked)
 	add_child(new_scene)
 	merchant_ref = new_scene
 
@@ -80,3 +81,7 @@ func merchant_upgrade_card_clicked() -> void:
 	var new_scene = upgrade_scene.instantiate()
 	new_scene.card_picked.connect(merchant_card_picked)
 	add_child(new_scene)
+
+func merchant_heal_clicked() -> void:
+	$Screen/Adventure.show()
+	merchant_ref.queue_free()

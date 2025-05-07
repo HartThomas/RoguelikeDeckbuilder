@@ -29,6 +29,14 @@ offset_bottom = 469.0
 text = "Upgrade a card in your deck
 "
 
+[node name="HealButton" type="Button" parent="."]
+offset_left = 243.0
+offset_top = 412.0
+offset_right = 857.0
+offset_bottom = 469.0
+text = "Heal for "
+
 [connection signal="button_down" from="RemoveButton" to="." method="_on_remove_button_button_down"]
 [connection signal="button_down" from="AddButton" to="." method="_on_add_button_button_down"]
 [connection signal="button_down" from="UpgradeButton" to="." method="_on_upgrade_button_button_down"]
+[connection signal="button_down" from="HealButton" to="." method="_on_heal_button_button_down"]
