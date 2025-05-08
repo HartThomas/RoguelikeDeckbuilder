@@ -1,5 +1,6 @@
 extends Area2D
 var is_dragging : bool = false
+var is_shaking : bool = false
 var mouse_offset :Vector2
 var delay = 0
 @export var card_info : Resource
@@ -51,7 +52,7 @@ func _ready() -> void:
 	$BackBufferCopy/CanvasLayer.material.set_shader_parameter('noise_texture', noise)
 
 func _process(delta: float) -> void:
-	if not is_dragging and self.has_meta("target_position") and self.get_meta("target_position") != self.position:
+	if not is_dragging and self.has_meta("target_position") and self.get_meta("target_position") != self.position and not is_shaking:
 		self.position = self.position.lerp(self.get_meta("target_position"), 5 * delta)
 	if not in_deck:
 		if get_parent().hand.has(self):
@@ -71,7 +72,8 @@ func _process(delta: float) -> void:
 
 func generate_texture(card: CardStats) -> ImageTexture:
 	var base_image = Image.new()
-	base_image.load('res://art/pixel card.png')
+	var card_route = 'res://art/%s card.png' % [ 'fire' if card.card_cost.fire_effort > 0 else 'blood' if card.card_cost.blood_effort > 0 else 'holy' if card.card_cost.holy_effort > 0 else 'mental' if card.card_cost.mental_effort > 0 else 'physical' ]
+	base_image.load(card_route)
 	var label_image = await make_label_image(card.card_name)
 	var max_label_width = 80
 	if label_image.get_width() > max_label_width:
@@ -98,7 +100,6 @@ func generate_texture(card: CardStats) -> ImageTexture:
 	if card.card_text.length() > 0:
 		var card_text = await make_label_image(card.card_text, 10 )
 		base_image.blend_rect(card_text, Rect2(Vector2.ZERO, card_text.get_size()),Vector2(15,45 ))
-		
 	#base_image.flip_x()
 	var tex = ImageTexture.create_from_image(base_image)
 	return tex
@@ -215,3 +216,15 @@ func forget_card() -> void:
 func set_burn_amount(value):
 	var shader_material = $BackBufferCopy/CanvasLayer.get_material()
 	shader_material.set_shader_parameter('burn_amount', value)
+
+func shake_card():
+	is_shaking = true
+	var original_position = position
+	var tween = get_tree().create_tween()
+	var shake_strength = 10
+	var duration = 0.05
+	await tween.tween_property(self, "position:x", original_position.x - shake_strength, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	await tween.tween_property(self, "position:x", original_position.x + shake_strength, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	await tween.tween_property(self, "position:x", original_position.x, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	await tween.finished
+	is_shaking = false

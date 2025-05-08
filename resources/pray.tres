@@ -16,3 +16,4 @@ card_cost = {
 "mental_effort": 0,
 "physical_effort": 1
 }
+effect = null

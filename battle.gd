@@ -40,6 +40,7 @@ func _on_card_clicked(card) -> void:
 		i += 1
 
 func _on_card_released(card) -> void:
+	card.mouse_hovering = false
 	for clicked in clickedArray:
 		clicked.is_dragging = false
 	clickedArray.clear()
@@ -62,6 +63,8 @@ func _on_card_released(card) -> void:
 				battle_over.emit()
 			for cost in card.card_info.card_cost:
 				use_effort(card.card_info.card_cost[cost], cost)
+		else:
+			card.shake_card()
 
 func _on_draw_button_down() -> void:
 	if deck.size() == 0:
@@ -284,10 +287,27 @@ func end_turn() -> void:
 		print(enemy_action)
 		if enemy_action.has('hit'):
 			edit_player_health(enemy_action.get('hit'))
+			var attack_sprite = Sprite2D.new()
+			attack_sprite.texture = load("res://art/attack.png")
+			attack_sprite.position = Vector2(0, 0)
+			$Player.add_child(attack_sprite)
+			var tween = get_tree().create_tween()
+			tween.tween_property(attack_sprite, "modulate:a", 0.0, 1.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+			await tween.finished
+			attack_sprite.queue_free()
 		if enemy_action.has('heal'):
 			edit_enemy_health(-enemy_action.get('heal'))
+			show_heal_effect($Enemy, enemy_action.get('heal')) 
 		if enemy_action.has('block'):
 			edit_enemy_block(enemy_action.get('block'))
+			var block_sprite = Sprite2D.new()
+			block_sprite.texture = load("res://art/block.png")
+			block_sprite.position = Vector2(0, 0)
+			$Enemy.add_child(block_sprite)
+			var tween = get_tree().create_tween()
+			tween.tween_property(block_sprite, "modulate:a", 0.0, 1.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+			await tween.finished
+			block_sprite.queue_free()
 		await get_tree().create_timer(0.5).timeout
 		for card in hand:
 			depleted.append(card)
@@ -339,7 +359,8 @@ func set_shader_fade( value,shader) -> void:
 
 func forget() -> void:
 	var card = hand.filter(func(c) : return c.card_info.card_name != 'Forget').pick_random()
-	card.forget_card()
+	if card:
+		card.forget_card()
 
 func card_finished_forget(card)-> void:
 	hand.erase(card)
@@ -417,3 +438,37 @@ func refresh() -> void:
 	BattleManager.physical_effort += 1
 	$EffortLabel.text = str(BattleManager.physical_effort) + '/' + str(BattleManager.max_physical_effort)
 	_on_draw_button_down()
+
+func show_heal_effect(target_node: Node2D, amount := 5):
+	for i in amount:
+		create_heal_cross(target_node)
+		await get_tree().create_timer(0.1).timeout
+
+func create_heal_cross(target_node: Node2D) -> void:
+	var cross := Node2D.new()
+	var size := 4.0
+	var thickness := 2.0
+	var color := Color(0, 1, 0, 1)
+	
+	var vert := ColorRect.new()
+	vert.color = color
+	vert.size = Vector2(thickness, size * 2)
+	vert.position = Vector2(-thickness / 2, -size)
+	cross.add_child(vert)
+	
+	var hori := ColorRect.new()
+	hori.color = color
+	hori.size = Vector2(size * 2, thickness)
+	hori.position = Vector2(-size, -thickness / 2)
+	cross.add_child(hori)
+	
+	var offset = Vector2(randf_range(-10, 10), randf_range(-10, 10))
+	cross.position = offset
+	target_node.add_child(cross)
+	var tween = get_tree().create_tween()
+	var final_pos = offset + Vector2(0, -30)
+	tween.tween_property(cross, "position", final_pos, 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property(vert, "modulate:a", 0.0, 0.5)
+	tween.tween_property(hori, "modulate:a", 0.0, 0.5)
+	await tween.finished
+	cross.queue_free()

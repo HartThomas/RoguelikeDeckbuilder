@@ -13,7 +13,7 @@ card_cost = {
 "blood_effort": 0,
 "fire_effort": 0,
 "holy_effort": 0,
-"mental_effort": 0,
-"physical_effort": 1
+"mental_effort": 1,
+"physical_effort": 0
 }
 effect = null
