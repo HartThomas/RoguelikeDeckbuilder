@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://cvfn06wc6ytja"]
+
+[node name="EffortTooltip" type="Label"]
+offset_right = 40.0
+offset_bottom = 16.0

@@ -12,6 +12,11 @@ var augmented: bool = false
 @onready var effort_level: Sprite2D = $EffortLevel
 @onready var fire_effort: Sprite2D = $FireEffort
 @onready var status_bar: Node2D = $StatusBar
+@onready var effort_label: Label = $EffortLabel
+@onready var holy_effort_label: Label = $HolyEffortLabel
+@onready var blood_effort_label: Label = $BloodEffortLabel
+@onready var mental_effort_label: Label = $MentalEffortLabel
+@onready var fire_effort_label: Label = $FireEffortLabel
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -21,6 +26,7 @@ func _ready() -> void:
 	$Enemy.play('default')
 	$Player.play('default')
 	hide()
+	attach_script_to_efforts()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -53,8 +59,12 @@ func _on_card_released(card) -> void:
 			card.card_info.when_played()
 			if card.card_info.attack > 0:
 				edit_enemy_health(card.card_info.attack + 2 if augmented else card.card_info.attack)
+				augmented = false
+				var attack_sprite = Sprite2D.new()
+				play_attack_effect($Enemy)
 			if card.card_info.block > 0:
 				edit_player_block(card.card_info.block)
+				play_block_effect($Player)
 			depleted.append(card)
 			hand.erase(card)
 			arrange_depleted()
@@ -287,27 +297,13 @@ func end_turn() -> void:
 		print(enemy_action)
 		if enemy_action.has('hit'):
 			edit_player_health(enemy_action.get('hit'))
-			var attack_sprite = Sprite2D.new()
-			attack_sprite.texture = load("res://art/attack.png")
-			attack_sprite.position = Vector2(0, 0)
-			$Player.add_child(attack_sprite)
-			var tween = get_tree().create_tween()
-			tween.tween_property(attack_sprite, "modulate:a", 0.0, 1.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-			await tween.finished
-			attack_sprite.queue_free()
+			play_attack_effect($Player)
 		if enemy_action.has('heal'):
 			edit_enemy_health(-enemy_action.get('heal'))
 			show_heal_effect($Enemy, enemy_action.get('heal')) 
 		if enemy_action.has('block'):
 			edit_enemy_block(enemy_action.get('block'))
-			var block_sprite = Sprite2D.new()
-			block_sprite.texture = load("res://art/block.png")
-			block_sprite.position = Vector2(0, 0)
-			$Enemy.add_child(block_sprite)
-			var tween = get_tree().create_tween()
-			tween.tween_property(block_sprite, "modulate:a", 0.0, 1.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-			await tween.finished
-			block_sprite.queue_free()
+			play_block_effect($Enemy)
 		await get_tree().create_timer(0.5).timeout
 		for card in hand:
 			depleted.append(card)
@@ -472,3 +468,30 @@ func create_heal_cross(target_node: Node2D) -> void:
 	tween.tween_property(hori, "modulate:a", 0.0, 0.5)
 	await tween.finished
 	cross.queue_free()
+
+func play_block_effect(target_node: Node2D):
+	var block_sprite = Sprite2D.new()
+	block_sprite.texture = load("res://art/block.png")
+	block_sprite.position = Vector2(0, 0)
+	target_node.add_child(block_sprite)
+	var tween = get_tree().create_tween()
+	tween.tween_property(block_sprite, "modulate:a", 0.0, 1.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	await tween.finished
+	block_sprite.queue_free()
+
+func play_attack_effect(target_node: Node2D):
+	var attack_sprite = Sprite2D.new()
+	attack_sprite.texture = load("res://art/attack.png")
+	attack_sprite.position = Vector2(0, 0)
+	target_node.add_child(attack_sprite)
+	var tween = get_tree().create_tween()
+	tween.tween_property(attack_sprite, "modulate:a", 0.0, 1.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	await tween.finished
+	attack_sprite.queue_free()
+
+func attach_script_to_efforts() -> void:
+	var efforts = [effort_label, holy_effort_label, blood_effort_label, mental_effort_label, fire_effort_label]
+	for effort in efforts:
+		var script = load("res://effort_label.gd")
+		effort.set_script(script)
+		effort.connect_signals()
