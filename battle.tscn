@@ -268,7 +268,7 @@ position = Vector2(273.75, 348.5)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("6_12q4i")
 
-[node name="EffortLabel" type="Label" parent="."]
+[node name="PhysicalEffortLabel" type="Label" parent="."]
 texture_filter = 1
 offset_left = 264.0
 offset_top = 341.0

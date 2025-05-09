@@ -9,10 +9,10 @@ var conserved: bool = false
 var augmented: bool = false
 @onready var color_rect: ColorRect = $ColorRect
 #@onready var play_area_background: Sprite2D = $PlayAreaBackground
-@onready var effort_level: Sprite2D = $EffortLevel
+#@onready var effort_level: Sprite2D = $EffortLevel
 @onready var fire_effort: Sprite2D = $FireEffort
 @onready var status_bar: Node2D = $StatusBar
-@onready var effort_label: Label = $EffortLabel
+@onready var effort_label: Label = $PhysicalEffortLabel
 @onready var holy_effort_label: Label = $HolyEffortLabel
 @onready var blood_effort_label: Label = $BloodEffortLabel
 @onready var mental_effort_label: Label = $MentalEffortLabel
@@ -65,6 +65,8 @@ func _on_card_released(card) -> void:
 			if card.card_info.block > 0:
 				edit_player_block(card.card_info.block)
 				play_block_effect($Player)
+			if card.card_info.card_name == 'Torch':
+				await card.forget_card()
 			depleted.append(card)
 			hand.erase(card)
 			arrange_depleted()
@@ -391,7 +393,7 @@ func trigger_burn_damage() -> void:
 		status_bar.refresh_status_bar()
 
 func refresh_effort_values() -> void:
-	$EffortLabel.text = str(BattleManager.physical_effort) + '/' + str(BattleManager.max_physical_effort)
+	$PhysicalEffortLabel.text = str(BattleManager.physical_effort) + '/' + str(BattleManager.max_physical_effort)
 	$FireEffortLabel.text = str(BattleManager.fire_effort) + '/' + str(BattleManager.max_fire_effort)
 	$HolyEffortLabel.text = str(BattleManager.holy_effort) + '/' + str(BattleManager.max_holy_effort)
 	$BloodEffortLabel.text = str(BattleManager.blood_effort) + '/' + str(BattleManager.max_blood_effort)

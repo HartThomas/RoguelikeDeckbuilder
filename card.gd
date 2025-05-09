@@ -1,6 +1,7 @@
 extends Area2D
 var is_dragging : bool = false
 var is_shaking : bool = false
+var is_forgetting : bool = false
 var mouse_offset :Vector2
 var delay = 0
 @export var card_info : Resource
@@ -52,7 +53,7 @@ func _ready() -> void:
 	$BackBufferCopy/CanvasLayer.material.set_shader_parameter('noise_texture', noise)
 
 func _process(delta: float) -> void:
-	if not is_dragging and self.has_meta("target_position") and self.get_meta("target_position") != self.position and not is_shaking:
+	if not is_dragging and self.has_meta("target_position") and self.get_meta("target_position") != self.position and not is_shaking and not is_forgetting:
 		self.position = self.position.lerp(self.get_meta("target_position"), 5 * delta)
 	if not in_deck:
 		if get_parent().hand.has(self):
@@ -100,7 +101,16 @@ func generate_texture(card: CardStats) -> ImageTexture:
 	if card.card_text.length() > 0:
 		var card_text = await make_label_image(card.card_text, 10 )
 		base_image.blend_rect(card_text, Rect2(Vector2.ZERO, card_text.get_size()),Vector2(15,45 ))
-	#base_image.flip_x()
+	for cost in card.card_cost:
+		print({cost= card.card_cost[cost]}, cost)
+		if card.card_cost[cost] > 0:
+			var effort_path = cost.replace('_', ' ')
+			var effort_texture = Image.new()
+			effort_texture.load("res://art/%s.png" % [effort_path])
+			var target_size = Vector2i(24, 24)
+			effort_texture.resize(target_size.x, target_size.y, Image.INTERPOLATE_LANCZOS)
+			print("res://art/%s.png" % [effort_path], effort_path)
+			base_image.blend_rect(effort_texture, Rect2(Vector2.ZERO, effort_texture.get_size()), Vector2(68,10 ))
 	var tex = ImageTexture.create_from_image(base_image)
 	return tex
 
@@ -151,7 +161,6 @@ func _physics_process(delta):
 	if is_dragging:
 		var tween = get_tree().create_tween()
 		tween.tween_property(self, "position", get_global_mouse_position()-mouse_offset, delay * delta)
-
 
 func _on_mouse_entered() -> void:
 	if not temporary_instance:
@@ -208,9 +217,11 @@ func card_flip() -> void:
 		shield.visible = false
 
 func forget_card() -> void:
+	is_forgetting = true
 	var tween = get_tree().create_tween()
 	tween.tween_method(set_burn_amount,0.0,1.0,1.0)
 	await tween.finished
+	is_forgetting = false
 	forget_finished.emit(self)
 
 func set_burn_amount(value):
