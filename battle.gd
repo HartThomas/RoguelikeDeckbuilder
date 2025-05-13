@@ -67,7 +67,8 @@ func _on_card_released(card) -> void:
 				play_block_effect($Player)
 			if card.card_info.card_name == 'Torch':
 				await card.forget_card()
-			depleted.append(card)
+			else:
+				depleted.append(card)
 			hand.erase(card)
 			arrange_depleted()
 			arrange_hand_positions()
@@ -218,6 +219,7 @@ func start_battle()->void:
 		$EnemyBlockBar/EnemyBlockLabel.text = str(BattleManager.enemy.block)
 	else:
 		$EnemyBlockBar/EnemyBlockLabel.text = ''
+	enemy.burn_amount = 0
 	refresh_effort_values()
 	show()
 	await get_tree().create_timer(0.5).timeout

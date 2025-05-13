@@ -1,0 +1,63 @@
+[gd_scene load_steps=3 format=3 uid="uid://cy60l18oom7t4"]
+
+[ext_resource type="Script" path="res://landing_page.gd" id="1_svxo4"]
+[ext_resource type="Texture2D" uid="uid://cny4ejqkxoswr" path="res://art/landing screen.png" id="2_v3fm6"]
+
+[node name="LandingPage" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_svxo4")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("2_v3fm6")
+
+[node name="PlayButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 147.0
+offset_top = 122.0
+offset_right = 243.0
+offset_bottom = 157.0
+text = "Play"
+
+[node name="CardListButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 147.0
+offset_top = 207.0
+offset_right = 243.0
+offset_bottom = 242.0
+text = "Binder"
+
+[node name="OptionsButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 147.0
+offset_top = 284.0
+offset_right = 243.0
+offset_bottom = 319.0
+text = "Options
+"
+
+[node name="StatisticsButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 147.0
+offset_top = 366.0
+offset_right = 243.0
+offset_bottom = 401.0
+text = "Statistics
+"
+
+[node name="QuitButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 147.0
+offset_top = 477.0
+offset_right = 243.0
+offset_bottom = 512.0
+text = "Quit"
+
+[connection signal="button_down" from="QuitButton" to="." method="_on_quit_button_button_down"]

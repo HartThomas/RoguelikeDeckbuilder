@@ -1,24 +1,46 @@
-[gd_scene load_steps=7 format=3 uid="uid://dfrdfyeyubmgf"]
+[gd_scene load_steps=9 format=3 uid="uid://dfrdfyeyubmgf"]
 
 [ext_resource type="Script" path="res://adventure.gd" id="1_jxl1m"]
 [ext_resource type="PackedScene" uid="uid://dn0bmuvdapvbf" path="res://route.tscn" id="2_vf6ap"]
 [ext_resource type="Shader" path="res://shaders/pixelate.gdshader" id="3_hb3g7"]
 [ext_resource type="Texture2D" uid="uid://dpohjwl56xrww" path="res://art/marsden lane.jpg" id="3_sbst1"]
 [ext_resource type="Texture2D" uid="uid://ban2271rvy2yk" path="res://art/constance 1.png" id="4_7exgi"]
+[ext_resource type="VideoStream" path="res://art/canal scene.ogv" id="5_h7fyv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vexhy"]
 shader = ExtResource("3_hb3g7")
 shader_parameter/amount = 150
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p6qf3"]
+shader = ExtResource("3_hb3g7")
+shader_parameter/amount = 200
 
 [node name="Adventure" type="Node2D"]
 script = ExtResource("1_jxl1m")
 route_scene = ExtResource("2_vf6ap")
 
 [node name="AdventureBackground" type="Sprite2D" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_vexhy")
 scale = Vector2(0.876046, 0.655172)
 texture = ExtResource("3_sbst1")
 centered = false
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+offset_right = 1152.0
+offset_bottom = 649.0
+stretch_mode = 3
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="AspectRatioContainer"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_p6qf3")
+layout_mode = 2
+mouse_filter = 2
+stream = ExtResource("5_h7fyv")
+volume_db = -80.0
+autoplay = true
+expand = true
+loop = true
 
 [node name="Player" type="Sprite2D" parent="."]
 texture_filter = 1
