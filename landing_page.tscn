@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cy60l18oom7t4"]
+[gd_scene load_steps=4 format=3 uid="uid://cy60l18oom7t4"]
 
 [ext_resource type="Script" path="res://landing_page.gd" id="1_svxo4"]
+[ext_resource type="PackedScene" uid="uid://c514b3r6vchf6" path="res://starter_choice.tscn" id="2_msw7s"]
 [ext_resource type="Texture2D" uid="uid://cny4ejqkxoswr" path="res://art/landing screen.png" id="2_v3fm6"]
 
 [node name="LandingPage" type="Control"]
@@ -10,13 +11,25 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_svxo4")
+starter_scene = ExtResource("2_msw7s")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 648.0
+mouse_filter = 2
 texture = ExtResource("2_v3fm6")
+
+[node name="ChoseStarter" type="BoxContainer" parent="."]
+layout_mode = 0
+offset_left = 335.0
+offset_top = 61.0
+offset_right = 1111.0
+offset_bottom = 254.0
+mouse_filter = 2
+theme_override_constants/separation = 170
 
 [node name="PlayButton" type="Button" parent="."]
 layout_mode = 0
@@ -59,13 +72,6 @@ offset_top = 477.0
 offset_right = 243.0
 offset_bottom = 512.0
 text = "Quit"
-
-[node name="ChoseStarter" type="BoxContainer" parent="."]
-layout_mode = 0
-offset_left = 335.0
-offset_top = 61.0
-offset_right = 1111.0
-offset_bottom = 254.0
 
 [connection signal="button_down" from="PlayButton" to="." method="_on_play_button_button_down"]
 [connection signal="button_down" from="QuitButton" to="." method="_on_quit_button_button_down"]

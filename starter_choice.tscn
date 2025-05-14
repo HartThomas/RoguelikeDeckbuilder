@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://c514b3r6vchf6"]
+[gd_scene load_steps=7 format=3 uid="uid://c514b3r6vchf6"]
 
 [ext_resource type="Script" path="res://starter_choice.gd" id="1_63vtn"]
 [ext_resource type="PackedScene" uid="uid://48qfybefw3aa" path="res://card.tscn" id="2_3wync"]
@@ -112,19 +112,14 @@ _data = {
 "hover": SubResource("Animation_2kiod")
 }
 
-[node name="StarterChoice" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -985.0
-offset_bottom = -526.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hkwgi"]
+size = Vector2(162, 111)
+
+[node name="StarterChoice" type="Area2D"]
 script = ExtResource("1_63vtn")
 
 [node name="CardContainer" type="Control" parent="."]
+layout_mode = 3
 anchors_preset = 0
 offset_right = 161.0
 offset_bottom = 116.0
@@ -155,6 +150,10 @@ horizontal_alignment = 1
 libraries = {
 "": SubResource("AnimationLibrary_un45d")
 }
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(82, 55.5)
+shape = SubResource("RectangleShape2D_hkwgi")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

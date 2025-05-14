@@ -1,5 +1,7 @@
 extends Control
 
+@export var starter_scene : PackedScene
+@onready var chose_starter: BoxContainer = $ChoseStarter
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,4 +18,8 @@ func _on_quit_button_button_down() -> void:
 
 
 func _on_play_button_button_down() -> void:
-	pass # Replace with function body.
+	for i in 3:
+		var control = Control.new()
+		var new_starter = starter_scene.instantiate()
+		control.add_child(new_starter)
+		chose_starter.add_child(control)
