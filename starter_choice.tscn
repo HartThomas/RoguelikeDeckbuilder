@@ -1,0 +1,160 @@
+[gd_scene load_steps=6 format=3 uid="uid://c514b3r6vchf6"]
+
+[ext_resource type="Script" path="res://starter_choice.gd" id="1_63vtn"]
+[ext_resource type="PackedScene" uid="uid://48qfybefw3aa" path="res://card.tscn" id="2_3wync"]
+
+[sub_resource type="Animation" id="Animation_2kiod"]
+resource_name = "hover"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CardContainer/Card:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.523599, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CardContainer/Card:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(114, 57), Vector2(130, 48)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CardContainer/Card3:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.523599, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CardContainer/Card3:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(46, 60), Vector2(26, 48)]
+}
+
+[sub_resource type="Animation" id="Animation_rqgul"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CardContainer/Card:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.523599]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CardContainer/Card:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(114, 57)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CardContainer/Card3:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.523599]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CardContainer/Card3:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(46, 60)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_un45d"]
+_data = {
+"RESET": SubResource("Animation_rqgul"),
+"hover": SubResource("Animation_2kiod")
+}
+
+[node name="StarterChoice" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -985.0
+offset_bottom = -526.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_63vtn")
+
+[node name="CardContainer" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 161.0
+offset_bottom = 116.0
+mouse_filter = 2
+
+[node name="Card" parent="CardContainer" instance=ExtResource("2_3wync")]
+position = Vector2(114, 57)
+rotation = 0.523599
+
+[node name="Card2" parent="CardContainer" instance=ExtResource("2_3wync")]
+position = Vector2(78, 48)
+
+[node name="Card3" parent="CardContainer" instance=ExtResource("2_3wync")]
+position = Vector2(46, 60)
+rotation = -0.523599
+
+[node name="ChoiceLabel" type="Label" parent="CardContainer"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 60.0
+offset_top = 90.0
+offset_right = 100.0
+offset_bottom = 106.0
+text = "Fire"
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_un45d")
+}
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

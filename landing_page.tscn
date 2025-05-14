@@ -60,4 +60,12 @@ offset_right = 243.0
 offset_bottom = 512.0
 text = "Quit"
 
+[node name="ChoseStarter" type="BoxContainer" parent="."]
+layout_mode = 0
+offset_left = 335.0
+offset_top = 61.0
+offset_right = 1111.0
+offset_bottom = 254.0
+
+[connection signal="button_down" from="PlayButton" to="." method="_on_play_button_button_down"]
 [connection signal="button_down" from="QuitButton" to="." method="_on_quit_button_button_down"]

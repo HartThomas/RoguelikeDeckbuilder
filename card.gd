@@ -102,14 +102,12 @@ func generate_texture(card: CardStats) -> ImageTexture:
 		var card_text = await make_label_image(card.card_text, 10 )
 		base_image.blend_rect(card_text, Rect2(Vector2.ZERO, card_text.get_size()),Vector2(15,45 ))
 	for cost in card.card_cost:
-		print({cost= card.card_cost[cost]}, cost)
 		if card.card_cost[cost] > 0:
 			var effort_path = cost.replace('_', ' ')
 			var effort_texture = Image.new()
 			effort_texture.load("res://art/%s.png" % [effort_path])
 			var target_size = Vector2i(24, 24)
 			effort_texture.resize(target_size.x, target_size.y, Image.INTERPOLATE_LANCZOS)
-			print("res://art/%s.png" % [effort_path], effort_path)
 			base_image.blend_rect(effort_texture, Rect2(Vector2.ZERO, effort_texture.get_size()), Vector2(68,10 ))
 	var tex = ImageTexture.create_from_image(base_image)
 	return tex
