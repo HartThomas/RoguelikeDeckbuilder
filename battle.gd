@@ -340,6 +340,9 @@ func reset_effort() -> void:
 	if BattleManager.max_blood_effort > 0:
 		BattleManager.blood_effort = BattleManager.max_blood_effort
 		animate_effort_reset($BloodEffort)
+	if BattleManager.max_mental_effort > 0:
+		BattleManager.mental_effort = BattleManager.max_mental_effort
+		animate_effort_reset($MentalEffort)
 	refresh_effort_values()
 	conserved = false
 
@@ -428,7 +431,8 @@ func fleam() ->  void:
 
 func adrenaline() ->  void:
 	BattleManager.physical_effort += 1
-	$EffortLabel.text = str(BattleManager.physical_effort) + '/' + str(BattleManager.max_physical_effort)
+	$PhysicalEffortLabel.text = str(BattleManager.physical_effort) + '/' + str(BattleManager.max_physical_effort)
+	_on_draw_button_down()
 
 func psionics() -> void:
 	if BattleManager.enemy.health < 5:
@@ -436,7 +440,7 @@ func psionics() -> void:
 
 func refresh() -> void:
 	BattleManager.physical_effort += 1
-	$EffortLabel.text = str(BattleManager.physical_effort) + '/' + str(BattleManager.max_physical_effort)
+	$PhysicalEffortLabel.text = str(BattleManager.physical_effort) + '/' + str(BattleManager.max_physical_effort)
 	_on_draw_button_down()
 
 func show_heal_effect(target_node: Node2D, amount := 5):

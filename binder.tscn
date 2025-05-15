@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://df2bkr58sc5dq"]
+
+[ext_resource type="Script" path="res://binder.gd" id="1_6c31o"]
+[ext_resource type="PackedScene" uid="uid://48qfybefw3aa" path="res://card.tscn" id="2_abnqc"]
+
+[node name="Binder" type="ScrollContainer"]
+clip_contents = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 664.0
+offset_top = 229.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6c31o")
+card_scene = ExtResource("2_abnqc")
+
+[node name="BinderContainer" type="GridContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 125
+theme_override_constants/v_separation = 150
+columns = 4

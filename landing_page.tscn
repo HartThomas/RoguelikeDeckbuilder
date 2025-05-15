@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cy60l18oom7t4"]
+[gd_scene load_steps=6 format=3 uid="uid://cy60l18oom7t4"]
 
 [ext_resource type="Script" path="res://landing_page.gd" id="1_svxo4"]
 [ext_resource type="PackedScene" uid="uid://c514b3r6vchf6" path="res://starter_choice.tscn" id="2_msw7s"]
 [ext_resource type="Texture2D" uid="uid://cny4ejqkxoswr" path="res://art/landing screen.png" id="2_v3fm6"]
+[ext_resource type="PackedScene" uid="uid://85e2cixv0tag" path="res://main.tscn" id="3_6p4vw"]
+[ext_resource type="PackedScene" uid="uid://df2bkr58sc5dq" path="res://binder.tscn" id="4_3r04l"]
 
 [node name="LandingPage" type="Control"]
 layout_mode = 3
@@ -14,6 +16,8 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_svxo4")
 starter_scene = ExtResource("2_msw7s")
+main_scene = ExtResource("3_6p4vw")
+binder_scene = ExtResource("4_3r04l")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 0
@@ -74,4 +78,5 @@ offset_bottom = 512.0
 text = "Quit"
 
 [connection signal="button_down" from="PlayButton" to="." method="_on_play_button_button_down"]
+[connection signal="button_down" from="CardListButton" to="." method="_on_card_list_button_button_down"]
 [connection signal="button_down" from="QuitButton" to="." method="_on_quit_button_button_down"]

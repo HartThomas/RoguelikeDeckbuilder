@@ -1,59 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://c514b3r6vchf6"]
+[gd_scene load_steps=8 format=3 uid="uid://c514b3r6vchf6"]
 
 [ext_resource type="Script" path="res://starter_choice.gd" id="1_63vtn"]
 [ext_resource type="PackedScene" uid="uid://48qfybefw3aa" path="res://card.tscn" id="2_3wync"]
-
-[sub_resource type="Animation" id="Animation_2kiod"]
-resource_name = "hover"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CardContainer/Card:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.523599, 0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CardContainer/Card:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(114, 57), Vector2(130, 48)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CardContainer/Card3:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [-0.523599, 0.0]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("CardContainer/Card3:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(46, 60), Vector2(26, 48)]
-}
+[ext_resource type="Texture2D" uid="uid://ckawylw8446rd" path="res://art/frame.png" id="2_p1s6q"]
 
 [sub_resource type="Animation" id="Animation_rqgul"]
 length = 0.001
@@ -106,6 +55,58 @@ tracks/3/keys = {
 "values": [Vector2(46, 60)]
 }
 
+[sub_resource type="Animation" id="Animation_2kiod"]
+resource_name = "hover"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CardContainer/Card:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.523599, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CardContainer/Card:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(114, 57), Vector2(138, 48)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CardContainer/Card3:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.523599, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CardContainer/Card3:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(55, 60), Vector2(34, 48)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_un45d"]
 _data = {
 "RESET": SubResource("Animation_rqgul"),
@@ -113,15 +114,17 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hkwgi"]
-size = Vector2(162, 111)
+size = Vector2(157, 100)
 
 [node name="StarterChoice" type="Area2D"]
 script = ExtResource("1_63vtn")
 
 [node name="CardContainer" type="Control" parent="."]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 0
-offset_right = 161.0
+offset_left = 1.0
+offset_right = 174.0
 offset_bottom = 116.0
 mouse_filter = 2
 
@@ -130,7 +133,7 @@ position = Vector2(114, 57)
 rotation = 0.523599
 
 [node name="Card2" parent="CardContainer" instance=ExtResource("2_3wync")]
-position = Vector2(78, 48)
+position = Vector2(86, 48)
 
 [node name="Card3" parent="CardContainer" instance=ExtResource("2_3wync")]
 position = Vector2(46, 60)
@@ -139,12 +142,20 @@ rotation = -0.523599
 [node name="ChoiceLabel" type="Label" parent="CardContainer"]
 texture_filter = 1
 layout_mode = 0
-offset_left = 60.0
+offset_left = 68.0
 offset_top = 90.0
-offset_right = 100.0
+offset_right = 108.0
 offset_bottom = 106.0
 text = "Fire"
 horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+texture_filter = 1
+offset_right = 174.0
+offset_bottom = 116.0
+mouse_filter = 2
+texture = ExtResource("2_p1s6q")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -152,8 +163,9 @@ libraries = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(82, 55.5)
+position = Vector2(87.5, 58)
 shape = SubResource("RectangleShape2D_hkwgi")
 
+[connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

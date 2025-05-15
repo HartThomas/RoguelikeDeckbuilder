@@ -23,7 +23,9 @@ extends Node
 
 @export var starting_effort_values: Dictionary = {max_physical_effort = 1, max_fire_effort = 0, max_holy_effort = 0, max_blood_effort= 0, max_mental_effort = 0}
 
-var card_array : Array[String] = ['Hit', 'Hit', 'Burn', 'Conserve', 'Torch', 'Augment', 'Block', 'Block']
+var starter_options : Array[Dictionary] = [{name = 'Fire', cards = ['Torch', 'Burn', 'Augment']}, {name = 'Holy', cards = ['Pray', 'Conviction', 'Psionics']}, {name = 'Blood', cards = ['Fleam', 'Adrenaline', 'Conserve']}]
+
+@export var card_array : Array[String] = ['Hit', 'Hit', 'Block', 'Block']
 
 var all_cards: Array[String] = ['Hit', 'Burn', 'Conserve', 'Torch', 'Augment', 'Block', 'Forget', 'Pray', 'Conviction', 'Fleam', 'Adrenaline', 'Psionics']
 
@@ -32,7 +34,7 @@ func _ready() -> void:
 	form_new_deck()
 	add_cards_to_deck(card_array)
 
-func add_cards_to_deck(array: Array[String])-> void :
+func add_cards_to_deck(array)-> void :
 	for card in array:
 		var resource_path = "res://resources/%s.tres" % [card.to_lower()]
 		var new_card = load(resource_path).duplicate()
