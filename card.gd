@@ -14,6 +14,7 @@ signal forget_finished(input)
 var in_hand : bool = true
 var in_deck : bool = true
 var in_binder: bool = false
+var in_card_zoom: bool = false
 var temporary_instance : bool = true
 var face_up : bool = false
 var face_up_texture = preload('res://art/pixel card.png')
@@ -55,6 +56,9 @@ func _ready() -> void:
 	if in_binder:
 		card_flip()
 		scale = Vector2(2,2)
+	if in_card_zoom:
+		card_flip()
+		scale = Vector2(3,3)
 
 func _process(delta: float) -> void:
 	if not is_dragging and self.has_meta("target_position") and self.get_meta("target_position") != self.position and not is_shaking and not is_forgetting:

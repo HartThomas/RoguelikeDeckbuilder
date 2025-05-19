@@ -53,7 +53,6 @@ func starter_picked(choice) -> void:
 	BattleManager.add_cards_to_deck(choice.cards)
 	get_tree().change_scene_to_packed(main_scene)
 
-
 func _on_card_list_button_button_down() -> void:
 	binder_showing = !binder_showing
 	if starter_options_showing and binder_showing:
