@@ -18,8 +18,8 @@ func _on_mouse_entered():
 	tooltip_instance = tooltip_scene.instantiate()
 	tooltip_instance.text = label_text
 	var global_pos = get_global_position()
-	tooltip_instance.global_position = global_pos + Vector2(0, -30)  # Adjust as needed
-	get_tree().root.add_child(tooltip_instance)  # Add to root so it floats
+	tooltip_instance.global_position = global_pos + Vector2(0, -30) 
+	get_tree().root.add_child(tooltip_instance)  
 
 func _on_mouse_exited():
 	if tooltip_instance:

@@ -11,6 +11,7 @@ signal released(input)
 signal add_to_deck(input)
 signal mouseEntered(input, entered)
 signal forget_finished(input)
+signal card_zoom(input)
 var in_hand : bool = true
 var in_deck : bool = true
 var in_binder: bool = false
@@ -53,6 +54,7 @@ func _ready() -> void:
 	var noise = NoiseTexture2D.new()
 	noise.noise = FastNoiseLite.new()
 	$BackBufferCopy/CanvasLayer.material.set_shader_parameter('noise_texture', noise)
+	card_zoom.connect(BattleManager.card_zoom)
 	if in_binder:
 		card_flip()
 		scale = Vector2(2,2)
@@ -158,10 +160,12 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 			else:
 				clicked.emit(self)
 				mouse_offset = get_global_mouse_position() - global_position
-			
 		else:
 			released.emit(self)
 			is_dragging = false
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
+		if event.pressed and not in_card_zoom:
+			card_zoom.emit(self)
 
 func _physics_process(delta):
 	if is_dragging:

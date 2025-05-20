@@ -1,15 +1,39 @@
-[gd_scene load_steps=3 format=3 uid="uid://d12f5mxx8r0h2"]
+[gd_scene load_steps=4 format=3 uid="uid://d12f5mxx8r0h2"]
 
 [ext_resource type="Script" path="res://card_zoom.gd" id="1_gs1xe"]
 [ext_resource type="PackedScene" uid="uid://48qfybefw3aa" path="res://card.tscn" id="1_w2cdj"]
+[ext_resource type="Texture2D" uid="uid://da1wabljsl6ti" path="res://art/card zoom background.png" id="3_wv42t"]
 
 [node name="CardZoom" type="Control"]
+z_index = 10
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+mouse_filter = 1
 script = ExtResource("1_gs1xe")
 card_scene = ExtResource("1_w2cdj")
+
+[node name="Background" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 154.0
+offset_top = 46.0
+offset_right = 1109.0
+offset_bottom = 556.0
+mouse_filter = 2
+texture = ExtResource("3_wv42t")
+expand_mode = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_left = 501.0
+offset_top = 89.0
+offset_right = 1073.0
+offset_bottom = 519.0
+
+[node name="BoxContainer" type="BoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+alignment = 1

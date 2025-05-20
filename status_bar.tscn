@@ -8,7 +8,8 @@ script = ExtResource("1_8i5w0")
 
 [node name="BarSprite" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(705, 291)
+position = Vector2(697, 319.5)
+scale = Vector2(3.17895, 3.375)
 texture = ExtResource("2_2pn4p")
 
 [node name="BoxContainer" type="BoxContainer" parent="BarSprite"]

@@ -2,6 +2,7 @@ extends Node
 @export var battleInfo : BattleInfo
 @export var card_resource : CardStats
 @export var cards_to_offer : Array[Resource]
+@export var card_zoom_scene = preload("res://card_zoom.tscn")
 
 @export var player = {max_health = 50, health = 50, block = 0, status_list = []}
 @export var enemy = {max_health = 5, health = 5, block = 0, status_list = []}
@@ -9,8 +10,8 @@ extends Node
 @export var max_physical_effort :int = 1
 @export var physical_effort :int = 1
 
-@export var max_fire_effort: int = 0
-@export var fire_effort:int = 0
+@export var max_fire_effort: int = 1
+@export var fire_effort:int = 1
 
 @export var max_holy_effort :int = 0
 @export var holy_effort :int = 0
@@ -21,7 +22,7 @@ extends Node
 @export var max_mental_effort: int = 0
 @export var mental_effort: int = 0
 
-@export var starting_effort_values: Dictionary = {max_physical_effort = 1, max_fire_effort = 0, max_holy_effort = 0, max_blood_effort= 0, max_mental_effort = 0}
+@export var starting_effort_values: Dictionary = {max_physical_effort = 1, max_fire_effort = 1, max_holy_effort = 0, max_blood_effort= 0, max_mental_effort = 0}
 
 var starter_options : Array[Dictionary] = [{name = 'Fire', cards = ['Torch', 'Burn', 'Augment']}, {name = 'Holy', cards = ['Pray', 'Conviction', 'Psionics']}, {name = 'Blood', cards = ['Fleam', 'Adrenaline', 'Conserve']}]
 
@@ -70,3 +71,8 @@ func random_cards(number:int) -> Array[String]:
 	for i in number:
 		cards.append(all_cards.pick_random()) 
 	return cards
+
+func card_zoom(card)-> void:
+	var zoom_overlay = card_zoom_scene.instantiate()
+	zoom_overlay.card_stats = card.card_info
+	get_tree().current_scene.add_child(zoom_overlay)

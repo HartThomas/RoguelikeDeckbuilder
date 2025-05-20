@@ -136,6 +136,7 @@ offset_top = 65.0
 offset_right = 776.0
 offset_bottom = 299.0
 texture = ExtResource("4_562i3")
+metadata/_edit_use_anchors_ = true
 
 [node name="BattleHUD" type="TextureRect" parent="."]
 texture_filter = 1
@@ -143,6 +144,7 @@ offset_top = 1.0
 offset_right = 1173.0
 offset_bottom = 649.0
 texture = ExtResource("5_m7ere")
+metadata/_edit_use_anchors_ = true
 
 [node name="Hand" type="Area2D" parent="."]
 
@@ -173,6 +175,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_isxt2")
 max_value = 50.0
 value = 26.0
 show_percentage = false
+metadata/_edit_use_anchors_ = true
 
 [node name="PlayerHealthLabel" type="Label" parent="PlayerHealthBar"]
 texture_filter = 1
@@ -182,6 +185,7 @@ offset_top = 2.0
 offset_right = 97.0
 offset_bottom = 25.0
 text = "50/50"
+metadata/_edit_use_anchors_ = true
 
 [node name="PlayerBlockBar" type="ProgressBar" parent="."]
 offset_left = 279.0
@@ -193,6 +197,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_1wdht")
 max_value = 50.0
 value = 20.0
 show_percentage = false
+metadata/_edit_use_anchors_ = true
 
 [node name="PlayerBlockLabel" type="Label" parent="PlayerBlockBar"]
 texture_filter = 1
@@ -200,6 +205,7 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="Player" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -218,6 +224,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_isxt2")
 max_value = 50.0
 value = 26.0
 show_percentage = false
+metadata/_edit_use_anchors_ = true
 
 [node name="EnemyLabel" type="Label" parent="EnemyHealthBar"]
 texture_filter = 1
@@ -227,6 +234,7 @@ offset_top = 1.65809
 offset_right = 101.862
 offset_bottom = 24.6581
 text = "50/50"
+metadata/_edit_use_anchors_ = true
 
 [node name="EnemyBlockBar" type="ProgressBar" parent="."]
 offset_left = 632.772
@@ -238,6 +246,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_1wdht")
 max_value = 50.0
 value = 20.0
 show_percentage = false
+metadata/_edit_use_anchors_ = true
 
 [node name="EnemyBlockLabel" type="Label" parent="EnemyBlockBar"]
 texture_filter = 1
@@ -246,6 +255,7 @@ offset_right = 40.0
 offset_bottom = 23.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Enemy" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -260,6 +270,7 @@ offset_top = 597.0
 offset_right = 619.0
 offset_bottom = 633.0
 text = "End Turn"
+metadata/_edit_use_anchors_ = true
 
 [node name="EffortLevel" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -280,6 +291,7 @@ theme_override_font_sizes/font_size = 12
 text = "1/1"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="HolyEffort" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -300,6 +312,7 @@ theme_override_font_sizes/font_size = 12
 text = "1/1"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="BloodEffort" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -320,6 +333,7 @@ theme_override_font_sizes/font_size = 12
 text = "1/1"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="MentalEffort" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -340,6 +354,7 @@ theme_override_font_sizes/font_size = 12
 text = "1/1"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_ov0cb")
@@ -351,6 +366,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color(1, 1, 1, 0)
 script = ExtResource("9_8ldaj")
+metadata/_edit_use_anchors_ = true
 
 [node name="PlayArea" type="Area2D" parent="ColorRect"]
 
@@ -377,6 +393,7 @@ theme_override_font_sizes/font_size = 12
 text = "1/1"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="StatusBar" parent="." instance=ExtResource("13_en37s")]
 
