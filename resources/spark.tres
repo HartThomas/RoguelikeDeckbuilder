@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CardStats" load_steps=2 format=3 uid="uid://c3ejdm2ka52g2"]
+
+[ext_resource type="Script" path="res://classnames/card.gd" id="1_obk3u"]
+
+[resource]
+script = ExtResource("1_obk3u")
+card_name = "Spark"
+attack = 0
+block = 0
+position = Vector2(103, 536)
+card_text = "Burns for 2 and draw a card"
+card_cost = {
+"blood_effort": 0,
+"fire_effort": 1,
+"holy_effort": 0,
+"mental_effort": 0,
+"physical_effort": 0
+}
+effect = null

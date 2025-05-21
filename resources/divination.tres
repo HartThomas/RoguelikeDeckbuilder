@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CardStats" load_steps=2 format=3 uid="uid://bnomj8pj5a842"]
+
+[ext_resource type="Script" path="res://classnames/card.gd" id="1_nqvys"]
+
+[resource]
+script = ExtResource("1_nqvys")
+card_name = "Divination"
+attack = 0
+block = 0
+position = Vector2(103, 536)
+card_text = "Draw 2 cards"
+card_cost = {
+"blood_effort": 0,
+"fire_effort": 0,
+"holy_effort": 1,
+"mental_effort": 0,
+"physical_effort": 0
+}
+effect = null

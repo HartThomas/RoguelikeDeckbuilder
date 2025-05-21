@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CardStats" load_steps=2 format=3 uid="uid://cyja3warmfxxq"]
+
+[ext_resource type="Script" path="res://classnames/card.gd" id="1_jvtfd"]
+
+[resource]
+script = ExtResource("1_jvtfd")
+card_name = "Stun"
+attack = 0
+block = 0
+position = Vector2(103, 536)
+card_text = "Stun enemy for 1 turn"
+card_cost = {
+"blood_effort": 0,
+"fire_effort": 0,
+"holy_effort": 0,
+"mental_effort": 1,
+"physical_effort": 0
+}
+effect = null

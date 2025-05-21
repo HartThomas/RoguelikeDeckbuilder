@@ -7,6 +7,8 @@ signal battle_over
 var enemy : Enemy 
 var conserved: bool = false
 var augmented: bool = false
+var coagulated: bool = false
+var smiting: bool = false
 @onready var color_rect: ColorRect = $ColorRect
 #@onready var play_area_background: Sprite2D = $PlayAreaBackground
 #@onready var effort_level: Sprite2D = $EffortLevel
@@ -63,7 +65,8 @@ func _on_card_released(card) -> void:
 				var attack_sprite = Sprite2D.new()
 				play_attack_effect($Enemy)
 			if card.card_info.block > 0:
-				edit_player_block(card.card_info.block)
+				edit_player_block(card.card_info.block * 2 if coagulated else card.card_info.block)
+				coagulated = false
 				play_block_effect($Player)
 			if card.card_info.card_name == 'Torch':
 				await card.forget_card()
@@ -183,6 +186,22 @@ func start_battle()->void:
 			new_card.card_info.effect = psionics
 		if card.card_name == 'Refresh':
 			new_card.card_info.effect = refresh
+		if card.card_name == 'Brand':
+			new_card.card_info.effect = brand
+		if card.card_name == 'Spark':
+			new_card.card_info.effect = spark
+		if card.card_name == 'Coagulate':
+			new_card.card_info.effect = coagulate
+		if card.card_name == 'Scab':
+			new_card.card_info.effect = scab
+		if card.card_name == 'Leech':
+			new_card.card_info.effect = leech
+		if card.card_name == 'Smite':
+			new_card.card_info.effect = smite
+		if card.card_name == 'Divination':
+			new_card.card_info.effect = divination
+		if card.card_name == 'Stun':
+			new_card.card_info.effect = stun
 		new_card.position = new_card.card_info.position
 		new_card.position.y -= 20 * index
 		new_card.z_index = index + 1
@@ -221,6 +240,7 @@ func start_battle()->void:
 		$EnemyBlockBar/EnemyBlockLabel.text = ''
 	enemy.burn_amount = 0
 	refresh_effort_values()
+	status_bar.refresh_status_bar()
 	show()
 	await get_tree().create_timer(0.5).timeout
 	draw_hand()
@@ -250,12 +270,13 @@ func edit_player_health(amount) -> void:
 func edit_enemy_health(amount) -> void:
 	if amount >= 0:
 		if BattleManager.enemy.block > 0:
-			if BattleManager.enemy.block >= amount:
-				BattleManager.enemy.block -= amount
-				amount = 0
-			else:
-				amount -= BattleManager.enemy.block
-				BattleManager.enemy.block = 0
+			if not smiting:
+				if BattleManager.enemy.block >= amount:
+					BattleManager.enemy.block -= amount
+					amount = 0
+				else:
+					amount -= BattleManager.enemy.block
+					BattleManager.enemy.block = 0
 			$EnemyBlockBar.value = BattleManager.enemy.block
 			if BattleManager.enemy.block == 0:
 				$EnemyBlockBar/EnemyBlockLabel.text = ''
@@ -297,17 +318,24 @@ func end_turn() -> void:
 	if BattleManager.enemy.health <= 0:
 		battle_over.emit()
 	else:
-		var enemy_action = enemy.which_action_shall_i_take()
-		print(enemy_action)
-		if enemy_action.has('hit'):
-			edit_player_health(enemy_action.get('hit'))
-			play_attack_effect($Player)
-		if enemy_action.has('heal'):
-			edit_enemy_health(-enemy_action.get('heal'))
-			show_heal_effect($Enemy, enemy_action.get('heal')) 
-		if enemy_action.has('block'):
-			edit_enemy_block(enemy_action.get('block'))
-			play_block_effect($Enemy)
+		if not BattleManager.enemy.status_list.has('stun'):
+			var enemy_action = enemy.which_action_shall_i_take()
+			print(enemy_action)
+			if enemy_action.has('hit'):
+				edit_player_health(enemy_action.get('hit'))
+				play_attack_effect($Player)
+			if enemy_action.has('heal'):
+				edit_enemy_health(-enemy_action.get('heal'))
+				show_heal_effect($Enemy, enemy_action.get('heal')) 
+			if enemy_action.has('block'):
+				edit_enemy_block(enemy_action.get('block'))
+				play_block_effect($Enemy)
+		else:
+			enemy.stun_amount -= 1
+			status_bar.refresh_status_bar()
+			if enemy.stun_amount < 1:
+				BattleManager.enemy.status_list.erase('stun')
+				status_bar.refresh_status_bar()
 		await get_tree().create_timer(0.5).timeout
 		for card in hand:
 			depleted.append(card)
@@ -389,10 +417,14 @@ func burn() ->  void:
 func burn_enemy (amount) -> void:
 	enemy.burn_amount += amount
 
+func stun_enemy (amount) -> void:
+	enemy.stun_amount += amount
+
 func trigger_burn_damage() -> void:
 	if enemy.burn_amount > 0:
 		edit_enemy_health(enemy.burn_amount)
 		enemy.burn_amount -= 1
+		status_bar.refresh_status_bar()
 	if enemy.burn_amount < 1:
 		BattleManager.enemy.status_list.erase('flame')
 		status_bar.refresh_status_bar()
@@ -437,6 +469,40 @@ func adrenaline() ->  void:
 func psionics() -> void:
 	if BattleManager.enemy.health < 5:
 		battle_over.emit()
+
+func brand() -> void:
+	burn_enemy(2)
+	if not BattleManager.enemy.status_list.has('flame'):
+		BattleManager.enemy.status_list.append('flame')
+		status_bar.refresh_status_bar()
+
+func spark() -> void:
+	burn_enemy(2)
+	_on_draw_button_down()
+
+func coagulate() -> void:
+	coagulated = true
+
+func scab() -> void:
+	edit_player_health(2)
+
+func leech() -> void:
+	edit_player_health(3)
+	_on_draw_button_down()
+	_on_draw_button_down()
+
+func smite() -> void:
+	smiting = true
+
+func divination() -> void:
+	_on_draw_button_down()
+	_on_draw_button_down()
+
+func stun() -> void:
+	stun_enemy(1)
+	if not BattleManager.enemy.status_list.has('stun'):
+		BattleManager.enemy.status_list.append('stun')
+		status_bar.refresh_status_bar()
 
 func refresh() -> void:
 	BattleManager.physical_effort += 1

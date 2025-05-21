@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CardStats" load_steps=2 format=3 uid="uid://d0sxtmn6tr4fu"]
+
+[ext_resource type="Script" path="res://classnames/card.gd" id="1_y0gs8"]
+
+[resource]
+script = ExtResource("1_y0gs8")
+card_name = "Leech"
+attack = 0
+block = 0
+position = Vector2(103, 536)
+card_text = "Take 3 to draw 2"
+card_cost = {
+"blood_effort": 1,
+"fire_effort": 0,
+"holy_effort": 0,
+"mental_effort": 0,
+"physical_effort": 0
+}
+effect = null

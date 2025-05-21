@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CardStats" load_steps=2 format=3 uid="uid://dbauu5d7chptg"]
+
+[ext_resource type="Script" path="res://classnames/card.gd" id="1_qrng3"]
+
+[resource]
+script = ExtResource("1_qrng3")
+card_name = "Smite"
+attack = 5
+block = 0
+position = Vector2(103, 536)
+card_text = "Ignores block"
+card_cost = {
+"blood_effort": 0,
+"fire_effort": 0,
+"holy_effort": 1,
+"mental_effort": 0,
+"physical_effort": 0
+}
+effect = null

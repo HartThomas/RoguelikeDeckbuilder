@@ -28,7 +28,7 @@ var starter_options : Array[Dictionary] = [{name = 'Fire', cards = ['Torch', 'Bu
 
 @export var card_array : Array[String] = ['Hit', 'Hit', 'Block', 'Block']
 
-var all_cards: Array[String] = ['Hit', 'Burn', 'Conserve', 'Torch', 'Augment', 'Block', 'Forget', 'Pray', 'Conviction', 'Fleam', 'Adrenaline', 'Psionics']
+var all_cards: Array[String] = ['Hit', 'Burn', 'Conserve', 'Torch', 'Augment', 'Block', 'Forget', 'Pray', 'Conviction', 'Fleam', 'Adrenaline', 'Psionics', 'Brand', 'Spark','Coagulate','Scab','Leech','Smite','Divination','Stun']
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

@@ -15,10 +15,11 @@ grow_vertical = 2
 script = ExtResource("1_6c31o")
 card_scene = ExtResource("2_abnqc")
 
-[node name="BinderContainer" type="GridContainer" parent="."]
+[node name="FlowContainer" type="FlowContainer" parent="."]
+layout_mode = 2
+
+[node name="BinderContainer" type="GridContainer" parent="FlowContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/h_separation = 125
-theme_override_constants/v_separation = 150
 columns = 4
