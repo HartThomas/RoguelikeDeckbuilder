@@ -202,6 +202,10 @@ func start_battle()->void:
 			new_card.card_info.effect = divination
 		if card.card_name == 'Stun':
 			new_card.card_info.effect = stun
+		if card.card_name == 'Unravel':
+			new_card.card_info.effect = unravel
+		if card.card_name == 'Possess':
+			new_card.card_info.effect = possess
 		new_card.position = new_card.card_info.position
 		new_card.position.y -= 20 * index
 		new_card.z_index = index + 1
@@ -503,6 +507,21 @@ func stun() -> void:
 	if not BattleManager.enemy.status_list.has('stun'):
 		BattleManager.enemy.status_list.append('stun')
 		status_bar.refresh_status_bar()
+
+func unravel() -> void:
+	enemy.remove_action()
+
+func possess() -> void:
+	var enemy_action = enemy.which_action_shall_i_take()
+	if enemy_action.has('hit'):
+		edit_enemy_health(enemy_action.get('hit'))
+		play_attack_effect($Enemy)
+	if enemy_action.has('heal'):
+		edit_player_health(-enemy_action.get('heal'))
+		show_heal_effect($Player, enemy_action.get('heal')) 
+	if enemy_action.has('block'):
+		edit_player_block(enemy_action.get('block'))
+		play_block_effect($Player)
 
 func refresh() -> void:
 	BattleManager.physical_effort += 1

@@ -129,7 +129,8 @@ func make_label_image(text: String, font_size : int = 10, small = false) -> Imag
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	label.add_theme_color_override('font_color', Color.DARK_RED)
 	label.add_theme_font_size_override('font_size', font_size)
-	label.set_texture_filter(CanvasItem.TEXTURE_FILTER_NEAREST)
+	label.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	#label.set_texture_filter(CanvasItem.TEXTURE_FILTER_NEAREST)
 	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 
 	var temp_font = label.get_theme_font("font")

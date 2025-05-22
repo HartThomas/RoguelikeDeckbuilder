@@ -22,3 +22,24 @@ func which_action_shall_i_take() -> Dictionary:
 	if heal > 0:
 		possible_actions.append({'heal':heal})
 	return  possible_actions.pick_random()
+
+func remove_action() -> void:
+	var possible_actions : Array = []
+	if hit > 0:
+		possible_actions.append('hit')
+	if block > 0:
+		possible_actions.append('block')
+	if heal > 0:
+		possible_actions.append('heal')
+	print(possible_actions, '1st')
+	if possible_actions.is_empty():
+		print("No actions to remove.")
+		return
+	var picked_action = possible_actions.pick_random()
+	match picked_action:
+		"hit":
+			hit = 0
+		"block":
+			block = 0
+		"heal":
+			heal = 0

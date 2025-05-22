@@ -26,9 +26,9 @@ extends Node
 
 var starter_options : Array[Dictionary] = [{name = 'Fire', cards = ['Torch', 'Burn', 'Augment']}, {name = 'Holy', cards = ['Pray', 'Conviction', 'Psionics']}, {name = 'Blood', cards = ['Fleam', 'Adrenaline', 'Conserve']}]
 
-@export var card_array : Array[String] = ['Hit', 'Hit', 'Block', 'Block']
+@export var card_array : Array[String] = ['Hit', 'Hit', 'Block', 'Block', 'Unravel']
 
-var all_cards: Array[String] = ['Hit', 'Burn', 'Conserve', 'Torch', 'Augment', 'Block', 'Forget', 'Pray', 'Conviction', 'Fleam', 'Adrenaline', 'Psionics', 'Brand', 'Spark','Coagulate','Scab','Leech','Smite','Divination','Stun']
+var all_cards: Array[String] = ['Hit', 'Burn', 'Conserve', 'Torch', 'Augment', 'Block', 'Forget', 'Pray', 'Conviction', 'Fleam', 'Adrenaline', 'Psionics', 'Brand', 'Spark','Coagulate','Scab','Leech','Smite','Divination','Stun','Possess','Unravel']
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
