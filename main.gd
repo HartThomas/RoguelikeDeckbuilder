@@ -5,6 +5,9 @@ extends Node2D
 @export var merchant_scene : PackedScene
 @export var remove_scene : PackedScene
 @export var upgrade_scene : PackedScene
+@export var death_scene : PackedScene
+@export var landing_page_scene : PackedScene
+
 var merchant_ref 
 
 # Called when the node enters the scene tree for the first time.
@@ -12,6 +15,7 @@ func _ready() -> void:
 	$Screen/Battle.battle_over.connect(battle_over)
 	var shader = screen.get_material()
 	shader.set_shader_parameter('blur_power', 0.0)
+	battle.death.connect(death)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -38,6 +42,15 @@ func battle_over()->void:
 	new_scene.card_picked.connect(card_picked)
 	add_child(new_scene)
 
+func death() -> void:
+	end_battle_blur()
+	pause_scene(battle)
+	var new_scene = death_scene.instantiate()
+	new_scene.menu_button_clicked.connect(restart)
+	add_child(new_scene)
+
+func restart() -> void:
+	get_tree().change_scene_to_packed(landing_page_scene)
 
 func end_battle_blur() -> void:
 	var tween = get_tree().create_tween()

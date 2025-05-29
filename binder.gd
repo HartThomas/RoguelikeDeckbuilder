@@ -5,7 +5,7 @@ extends ScrollContainer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var card_types = ['Physical', 'Mental', 'Fire', 'Holy', 'Blood']
+	var card_types = ['Physical', 'Fire', 'Holy', 'Blood', 'Mental']
 	for type in card_types:
 		var group_container = VBoxContainer.new()
 		group_container.custom_minimum_size = Vector2(400, 0)

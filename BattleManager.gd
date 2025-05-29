@@ -4,14 +4,14 @@ extends Node
 @export var cards_to_offer : Array[Resource]
 @export var card_zoom_scene = preload("res://card_zoom.tscn")
 
-@export var player = {max_health = 50, health = 50, block = 0, status_list = []}
+@export var player = {max_health = 1, health = 1, block = 0, status_list = []}
 @export var enemy = {max_health = 5, health = 5, block = 0, status_list = []}
 
 @export var max_physical_effort :int = 1
 @export var physical_effort :int = 1
 
-@export var max_fire_effort: int = 1
-@export var fire_effort:int = 1
+@export var max_fire_effort: int = 0
+@export var fire_effort:int = 0
 
 @export var max_holy_effort :int = 0
 @export var holy_effort :int = 0
@@ -22,13 +22,13 @@ extends Node
 @export var max_mental_effort: int = 0
 @export var mental_effort: int = 0
 
-@export var starting_effort_values: Dictionary = {max_physical_effort = 1, max_fire_effort = 1, max_holy_effort = 0, max_blood_effort= 0, max_mental_effort = 0}
+@export var starting_effort_values: Dictionary = {max_physical_effort = 1, max_fire_effort = 0, max_holy_effort = 0, max_blood_effort= 0, max_mental_effort = 0}
 
 var starter_options : Array[Dictionary] = [{name = 'Fire', cards = ['Torch', 'Burn', 'Augment']}, {name = 'Holy', cards = ['Pray', 'Conviction', 'Psionics']}, {name = 'Blood', cards = ['Fleam', 'Adrenaline', 'Conserve']}]
 
-@export var card_array : Array[String] = ['Hit', 'Hit', 'Block', 'Block', 'Unravel']
+@export var card_array : Array[String] = ['Hit', 'Hit', 'Block', 'Block']
 
-var all_cards: Array[String] = ['Hit', 'Burn', 'Conserve', 'Torch', 'Augment', 'Block', 'Forget', 'Pray', 'Conviction', 'Fleam', 'Adrenaline', 'Psionics', 'Brand', 'Spark','Coagulate','Scab','Leech','Smite','Divination','Stun','Possess','Unravel']
+var all_cards: Array[String] = ['Hit', 'Burn', 'Conserve', 'Torch', 'Augment', 'Block', 'Forget', 'Pray', 'Conviction', 'Fleam', 'Adrenaline', 'Psionics', 'Brand', 'Spark','Coagulate','Scab','Leech','Smite','Divination','Stun','Possess','Unravel', 'Hemorrhage']
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

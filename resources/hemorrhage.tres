@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CardStats" load_steps=2 format=3 uid="uid://cckcl2wq8cp2x"]
+
+[ext_resource type="Script" path="res://classnames/card.gd" id="1_to6ur"]
+
+[resource]
+script = ExtResource("1_to6ur")
+card_name = "Hemorrhage"
+attack = 0
+block = 0
+position = Vector2(103, 536)
+card_text = "Take 1 to deal 1 extra per attack. Ongoing. Doubles each turn"
+card_cost = {
+"blood_effort": 1,
+"fire_effort": 0,
+"holy_effort": 0,
+"mental_effort": 0,
+"physical_effort": 0
+}
+effect = null

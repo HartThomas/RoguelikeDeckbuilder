@@ -4,11 +4,14 @@ var hand : Array = []
 var deck : Array = []
 var depleted : Array = []
 signal battle_over
+signal death
 var enemy : Enemy 
 var conserved: bool = false
 var augmented: bool = false
 var coagulated: bool = false
 var smiting: bool = false
+var number_of_times_hemorrhage_has_been_played : int = 0
+var hemorrhage_amount: int = 0
 @onready var color_rect: ColorRect = $ColorRect
 #@onready var play_area_background: Sprite2D = $PlayAreaBackground
 #@onready var effort_level: Sprite2D = $EffortLevel
@@ -29,6 +32,7 @@ func _ready() -> void:
 	$Player.play('default')
 	hide()
 	attach_script_to_efforts()
+	$PlayerStatusBar.owner_of_status_bar = 'player'
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -60,7 +64,7 @@ func _on_card_released(card) -> void:
 		if can_card_be_played:
 			card.card_info.when_played()
 			if card.card_info.attack > 0:
-				edit_enemy_health(card.card_info.attack + 2 if augmented else card.card_info.attack)
+				edit_enemy_health((card.card_info.attack + 2 if augmented else card.card_info.attack) + hemorrhage_amount)
 				augmented = false
 				var attack_sprite = Sprite2D.new()
 				play_attack_effect($Enemy)
@@ -206,6 +210,8 @@ func start_battle()->void:
 			new_card.card_info.effect = unravel
 		if card.card_name == 'Possess':
 			new_card.card_info.effect = possess
+		if card.card_name == 'Hemorrhage':
+			new_card.card_info.effect = hemorrhage
 		new_card.position = new_card.card_info.position
 		new_card.position.y -= 20 * index
 		new_card.z_index = index + 1
@@ -270,6 +276,8 @@ func edit_player_health(amount) -> void:
 		BattleManager.player.health -= amount
 	$PlayerHealthBar.value = BattleManager.player.health
 	$PlayerHealthBar/PlayerHealthLabel.text = str(BattleManager.player.health) + '/' + str(BattleManager.player.max_health)
+	if BattleManager.player.health < 1:
+		death.emit()
 
 func edit_enemy_health(amount) -> void:
 	if amount >= 0:
@@ -350,6 +358,8 @@ func end_turn() -> void:
 		await get_tree().create_timer(0.5).timeout
 		draw_hand()
 		reset_effort()
+		for i in number_of_times_hemorrhage_has_been_played:
+			hemorrhage_tick()
 
 func use_effort(amount, type_of_effort) -> void:
 	BattleManager[type_of_effort] -= amount
@@ -522,6 +532,17 @@ func possess() -> void:
 	if enemy_action.has('block'):
 		edit_player_block(enemy_action.get('block'))
 		play_block_effect($Player)
+
+func hemorrhage() -> void:
+	number_of_times_hemorrhage_has_been_played += 1
+	if not BattleManager.player.status_list.has('hemorrhage'):
+		BattleManager.player.status_list.append('hemorrhage')
+		$PlayerStatusBar.refresh_status_bar()
+	hemorrhage_tick()
+
+func hemorrhage_tick() -> void:
+	hemorrhage_amount += 1
+	edit_player_health(hemorrhage_amount)
 
 func refresh() -> void:
 	BattleManager.physical_effort += 1

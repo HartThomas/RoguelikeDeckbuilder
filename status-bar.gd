@@ -39,6 +39,7 @@ func refresh_status_bar() -> void:
 		box_container.add_child(control)
 	tooltip_text = 'Burn: %s' % [get_parent().enemy.burn_amount] if BattleManager[owner_of_status_bar].status_list.has('flame') else '' 
 	tooltip_text += '  Stunned: %s turn' % [get_parent().enemy.stun_amount] if BattleManager[owner_of_status_bar].status_list.has('stun') else ''
+	tooltip_text += '  Hemorrhage: %s' % [get_parent().hemorrhage_amount] if BattleManager[owner_of_status_bar].status_list.has('hemorrhage') else ''
 
 func _on_box_container_mouse_entered() -> void:
 	var tooltip_scene = preload("res://effort_tooltip.tscn")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://85e2cixv0tag"]
+[gd_scene load_steps=16 format=3 uid="uid://85e2cixv0tag"]
 
 [ext_resource type="PackedScene" uid="uid://dfrdfyeyubmgf" path="res://adventure.tscn" id="1_ou14v"]
 [ext_resource type="Script" path="res://main.gd" id="1_xddkn"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://dle1xv5jikblv" path="res://remove.tscn" id="4_4df1i"]
 [ext_resource type="Shader" path="res://shaders/plexus.gdshader" id="4_rwyqr"]
 [ext_resource type="PackedScene" uid="uid://cod7mpkgaporu" path="res://upgrade.tscn" id="5_gsa42"]
+[ext_resource type="PackedScene" uid="uid://cmc47giudpcps" path="res://death.tscn" id="6_af3ru"]
+[ext_resource type="PackedScene" uid="uid://cy60l18oom7t4" path="res://landing_page.tscn" id="7_4fx7h"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_cnfgj"]
 
@@ -38,6 +40,8 @@ victory_scene = ExtResource("2_6qd8h")
 merchant_scene = ExtResource("3_8htm7")
 remove_scene = ExtResource("4_4df1i")
 upgrade_scene = ExtResource("5_gsa42")
+death_scene = ExtResource("6_af3ru")
+landing_page_scene = ExtResource("7_4fx7h")
 
 [node name="Screen" type="CanvasGroup" parent="."]
 material = SubResource("ShaderMaterial_moiev")
