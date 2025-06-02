@@ -41,3 +41,6 @@ func upgrade_card(card: CardStats, number: int) -> void:
 		deck[index].attack += number
 	if deck[index].block > 0:
 		deck[index].block += number
+
+func reset_deck() -> void:
+	deck.clear()

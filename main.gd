@@ -6,7 +6,7 @@ extends Node2D
 @export var remove_scene : PackedScene
 @export var upgrade_scene : PackedScene
 @export var death_scene : PackedScene
-@export var landing_page_scene : PackedScene
+
 
 var merchant_ref 
 
@@ -50,7 +50,9 @@ func death() -> void:
 	add_child(new_scene)
 
 func restart() -> void:
-	get_tree().change_scene_to_packed(landing_page_scene)
+	var landing_page = load('res://landing_page.tscn')
+	get_tree().change_scene_to_packed(landing_page)
+	BattleManager.reset_stats()
 
 func end_battle_blur() -> void:
 	var tween = get_tree().create_tween()

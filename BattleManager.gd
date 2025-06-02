@@ -4,7 +4,7 @@ extends Node
 @export var cards_to_offer : Array[Resource]
 @export var card_zoom_scene = preload("res://card_zoom.tscn")
 
-@export var player = {max_health = 1, health = 1, block = 0, status_list = []}
+@export var player = {max_health = 50, health = 50, block = 0, status_list = []}
 @export var enemy = {max_health = 5, health = 5, block = 0, status_list = []}
 
 @export var max_physical_effort :int = 1
@@ -76,3 +76,21 @@ func card_zoom(card)-> void:
 	var zoom_overlay = card_zoom_scene.instantiate()
 	zoom_overlay.card_stats = card.card_info
 	get_tree().current_scene.add_child(zoom_overlay)
+
+func reset_stats() -> void:
+	card_array = ['Hit', 'Hit', 'Block', 'Block']
+	starting_effort_values = {max_physical_effort = 1, max_fire_effort = 0, max_holy_effort = 0, max_blood_effort= 0, max_mental_effort = 0}
+	enemy = {max_health = 5, health = 5, block = 0, status_list = []}
+	player = {max_health = 50, health = 50, block = 0, status_list = []}
+	max_physical_effort  = 1
+	physical_effort  = 1
+	max_fire_effort = 0
+	fire_effort = 0
+	max_holy_effort  = 0
+	holy_effort  = 0
+	max_blood_effort = 0
+	blood_effort = 0
+	max_mental_effort = 0
+	mental_effort = 0
+	battleInfo.reset_deck()
+	add_cards_to_deck(card_array)

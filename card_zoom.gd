@@ -17,6 +17,14 @@ func _ready() -> void:
 		var new_label = Label.new()
 		new_label.text = "Burn: Deals damage at the end of each turn then reduces by 1."
 		box_container.add_child(new_label)
+	if card_stats and card_stats.card_text.contains('Stun'):
+		var new_label = Label.new()
+		new_label.text = "Stun: Enemy skips their turns while stunned"
+		box_container.add_child(new_label)
+	if card_stats and card_stats.card_text.contains('action'):
+		var new_label = Label.new()
+		new_label.text = "Action: enemy uses an action at the end of your turn"
+		box_container.add_child(new_label)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
