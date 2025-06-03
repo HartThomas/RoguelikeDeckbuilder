@@ -1,0 +1,134 @@
+[gd_scene load_steps=5 format=3 uid="uid://cuvdm3ijqqg5a"]
+
+[ext_resource type="Script" path="res://game_finished.gd" id="1_pfdqo"]
+
+[sub_resource type="Animation" id="Animation_2c62d"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_gxoyf"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.966667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d3jop"]
+_data = {
+"RESET": SubResource("Animation_2c62d"),
+"fade_in": SubResource("Animation_gxoyf")
+}
+
+[node name="GameFinished" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pfdqo")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -412.0
+offset_top = -59.0
+offset_right = 412.0
+offset_bottom = 563.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -195.5
+offset_top = -25.5
+offset_right = 195.5
+offset_bottom = 25.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+text = "You WON! GG WP"
+
+[node name="Button" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -58.0
+offset_top = -84.0
+offset_right = 58.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Back to menu"
+
+[node name="AnimationTree" type="AnimationPlayer" parent="Panel/Button"]
+libraries = {
+"": SubResource("AnimationLibrary_d3jop")
+}
+
+[node name="Label2" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.5
+offset_top = 35.0
+offset_right = 46.5
+offset_bottom = 51.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Tell Thomas"
+
+[node name="CopyDeckButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 381.0
+offset_right = 722.0
+offset_bottom = 405.0
+text = "Please click to copy you deck to clipboard. Please could you send it to Thomas :)"
+
+[node name="Label3" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 131.0
+offset_right = 20.0
+offset_bottom = 147.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="button_down" from="Panel/CopyDeckButton" to="." method="_on_copy_deck_button_button_down"]

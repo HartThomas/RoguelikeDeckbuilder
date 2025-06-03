@@ -6,6 +6,7 @@ extends Node2D
 @export var remove_scene : PackedScene
 @export var upgrade_scene : PackedScene
 @export var death_scene : PackedScene
+@export var game_finished_scene : PackedScene
 
 
 var merchant_ref 
@@ -16,6 +17,7 @@ func _ready() -> void:
 	var shader = screen.get_material()
 	shader.set_shader_parameter('blur_power', 0.0)
 	battle.death.connect(death)
+	battle.game_finished.connect(game_finished)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -49,9 +51,16 @@ func death() -> void:
 	new_scene.menu_button_clicked.connect(restart)
 	add_child(new_scene)
 
+func game_finished() -> void:
+	end_battle_blur()
+	pause_scene(battle)
+	var new_scene = game_finished_scene.instantiate()
+	new_scene.menu_button_clicked.connect(restart)
+	add_child(new_scene)
+
 func restart() -> void:
-	var landing_page = load('res://landing_page.tscn')
-	get_tree().change_scene_to_packed(landing_page)
+	#var landing_page = load('res://landing_page.tscn')
+	get_tree().change_scene_to_file('res://landing_page.tscn')
 	BattleManager.reset_stats()
 
 func end_battle_blur() -> void:

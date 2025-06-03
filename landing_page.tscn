@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://landing_page.gd" id="1_svxo4"]
 [ext_resource type="PackedScene" uid="uid://c514b3r6vchf6" path="res://starter_choice.tscn" id="2_msw7s"]
 [ext_resource type="Texture2D" uid="uid://cny4ejqkxoswr" path="res://art/landing screen.png" id="2_v3fm6"]
-[ext_resource type="PackedScene" uid="uid://85e2cixv0tag" path="res://main.tscn" id="3_6p4vw"]
+[ext_resource type="PackedScene" uid="uid://85e2cixv0tag" path="res://main.tscn" id="3_etoe6"]
 [ext_resource type="PackedScene" uid="uid://df2bkr58sc5dq" path="res://binder.tscn" id="4_3r04l"]
 
 [node name="LandingPage" type="Control"]
@@ -16,7 +16,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_svxo4")
 starter_scene = ExtResource("2_msw7s")
-main_scene = ExtResource("3_6p4vw")
+main_scene = ExtResource("3_etoe6")
 binder_scene = ExtResource("4_3r04l")
 
 [node name="TextureRect" type="TextureRect" parent="."]

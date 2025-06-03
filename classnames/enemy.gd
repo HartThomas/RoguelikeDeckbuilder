@@ -10,6 +10,7 @@ class_name Enemy
 @export var starting_block: int
 @export var burn_amount:int = 0
 @export var stun_amount:int = 0
+@export var final_boss:bool = false
 
 var action : Callable
 

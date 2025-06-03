@@ -13,6 +13,7 @@ max_health = 20
 starting_health = 20
 starting_block = 3
 burn_amount = 0
+stun_amount = 0
 
 [resource]
 script = ExtResource("1_4p374")

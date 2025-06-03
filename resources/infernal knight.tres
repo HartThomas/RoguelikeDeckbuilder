@@ -13,6 +13,8 @@ max_health = 50
 starting_health = 50
 starting_block = 10
 burn_amount = 0
+stun_amount = 0
+final_boss = true
 
 [resource]
 script = ExtResource("1_sgcf8")

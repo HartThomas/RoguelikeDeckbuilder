@@ -5,6 +5,7 @@ var deck : Array = []
 var depleted : Array = []
 signal battle_over
 signal death
+signal game_finished
 var enemy : Enemy 
 var conserved: bool = false
 var augmented: bool = false
@@ -80,7 +81,10 @@ func _on_card_released(card) -> void:
 			arrange_depleted()
 			arrange_hand_positions()
 			if BattleManager.enemy.health <= 0:
-				battle_over.emit()
+				if enemy.final_boss:
+					game_finished.emit()
+				else:
+					battle_over.emit()
 			for cost in card.card_info.card_cost:
 				use_effort(card.card_info.card_cost[cost], cost)
 		else:

@@ -66,11 +66,14 @@ func edit_cards_to_offer(cards: Array[String]) -> void :
 		new_card.set_local_to_scene(true)
 		cards_to_offer.push_back(new_card)
 
-func random_cards(number:int) -> Array[String]:
-	var cards: Array[String] = []
-	for i in number:
-		cards.append(all_cards.pick_random()) 
-	return cards
+func random_cards(number: int, card_array: Array[String]) -> Array[String]:
+	var copy_array = card_array.duplicate()
+	var result : Array[String] = []
+	for i in range(min(number, copy_array.size())):
+		var card = copy_array.pick_random()
+		result.append(card)
+		copy_array.erase(card)
+	return result
 
 func card_zoom(card)-> void:
 	var zoom_overlay = card_zoom_scene.instantiate()
