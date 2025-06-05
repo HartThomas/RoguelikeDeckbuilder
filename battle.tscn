@@ -1,8 +1,8 @@
 [gd_scene load_steps=41 format=3 uid="uid://by1bi0miuud7i"]
 
 [ext_resource type="PackedScene" uid="uid://48qfybefw3aa" path="res://card.tscn" id="1_8fvkg"]
-[ext_resource type="Script" path="res://battle.gd" id="1_flmcs"]
-[ext_resource type="Shader" path="res://shaders/blur.gdshader" id="1_xgkp0"]
+[ext_resource type="Script" uid="uid://cqgn75w1ugndd" path="res://battle.gd" id="1_flmcs"]
+[ext_resource type="Shader" uid="uid://be25rvab5vif4" path="res://shaders/blur.gdshader" id="1_xgkp0"]
 [ext_resource type="Texture2D" uid="uid://b2qi1lpcoojst" path="res://art/table with candle on it.png" id="4_562i3"]
 [ext_resource type="Texture2D" uid="uid://sfmoec5x7y2" path="res://art/victorian panelling.png" id="4_edr1t"]
 [ext_resource type="Texture2D" uid="uid://b1ve41b7fdwt6" path="res://art/floor panel.png" id="5_4i2rh"]
@@ -10,12 +10,12 @@
 [ext_resource type="Texture2D" uid="uid://bdky0m17w7ynf" path="res://art/effort.png" id="6_12q4i"]
 [ext_resource type="Texture2D" uid="uid://ce2jg61mhyshu" path="res://art/constance 1-Sheet.png" id="6_spr81"]
 [ext_resource type="Texture2D" uid="uid://b4lnllu7b4kov" path="res://art/enemy-Sheet.png" id="7_y4vs4"]
-[ext_resource type="Shader" path="res://shaders/edge_glow.gdshader" id="8_8uf1w"]
-[ext_resource type="Script" path="res://color_rect.gd" id="9_8ldaj"]
+[ext_resource type="Shader" uid="uid://dp8selpe8qdin" path="res://shaders/edge_glow.gdshader" id="8_8uf1w"]
+[ext_resource type="Script" uid="uid://dqkwsgr8vv0m6" path="res://color_rect.gd" id="9_8ldaj"]
 [ext_resource type="Texture2D" uid="uid://d0nyeln2ol5cm" path="res://art/holy effort.png" id="10_kpfln"]
 [ext_resource type="Texture2D" uid="uid://d004j56mcloat" path="res://art/blood effort.png" id="11_cs2nd"]
 [ext_resource type="Texture2D" uid="uid://dm7l23rya1tdk" path="res://art/fire effort.png" id="11_dptdv"]
-[ext_resource type="Shader" path="res://shaders/effort.gdshader" id="11_n41il"]
+[ext_resource type="Shader" uid="uid://cdakcikg4ihok" path="res://shaders/effort.gdshader" id="11_n41il"]
 [ext_resource type="Texture2D" uid="uid://ct2ykt1a5gpiy" path="res://art/mental effort.png" id="12_5bdmd"]
 [ext_resource type="PackedScene" uid="uid://08ueg2hq0i5m" path="res://status_bar.tscn" id="13_en37s"]
 
@@ -115,8 +115,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4ja55"]
 _data = {
-"RESET": SubResource("Animation_7d5ul"),
-"death": SubResource("Animation_s6suy")
+&"RESET": SubResource("Animation_7d5ul"),
+&"death": SubResource("Animation_s6suy")
 }
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_13hx8"]
@@ -296,7 +296,7 @@ frame_progress = 0.816152
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
 libraries = {
-"": SubResource("AnimationLibrary_4ja55")
+&"": SubResource("AnimationLibrary_4ja55")
 }
 
 [node name="EnemyHealthBar" type="ProgressBar" parent="."]

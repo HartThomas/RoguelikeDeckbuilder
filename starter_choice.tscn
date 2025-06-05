@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://c514b3r6vchf6"]
 
-[ext_resource type="Script" path="res://starter_choice.gd" id="1_63vtn"]
+[ext_resource type="Script" uid="uid://huqac8jattnm" path="res://starter_choice.gd" id="1_63vtn"]
 [ext_resource type="PackedScene" uid="uid://48qfybefw3aa" path="res://card.tscn" id="2_3wync"]
 [ext_resource type="Texture2D" uid="uid://ckawylw8446rd" path="res://art/frame.png" id="2_p1s6q"]
 
@@ -109,8 +109,8 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_un45d"]
 _data = {
-"RESET": SubResource("Animation_rqgul"),
-"hover": SubResource("Animation_2kiod")
+&"RESET": SubResource("Animation_rqgul"),
+&"hover": SubResource("Animation_2kiod")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hkwgi"]

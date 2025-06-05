@@ -1,9 +1,9 @@
 [gd_scene load_steps=17 format=3 uid="uid://48qfybefw3aa"]
 
-[ext_resource type="Script" path="res://card.gd" id="1_t3xw1"]
+[ext_resource type="Script" uid="uid://ksa7we4bu0e8" path="res://card.gd" id="1_t3xw1"]
 [ext_resource type="Resource" uid="uid://b1jsm7umavvtr" path="res://resources/hit.tres" id="2_b2ymv"]
-[ext_resource type="Shader" path="res://shaders/combined.gdshader" id="3_g82jn"]
-[ext_resource type="Shader" path="res://shaders/burn.gdshader" id="3_hu1q2"]
+[ext_resource type="Shader" uid="uid://em1qhaea32f4" path="res://shaders/combined.gdshader" id="3_g82jn"]
+[ext_resource type="Shader" uid="uid://dit7pw65mjhr" path="res://shaders/burn.gdshader" id="3_hu1q2"]
 [ext_resource type="Texture2D" uid="uid://col3t6i8hj81b" path="res://art/pixel card back.png" id="4_2p27k"]
 [ext_resource type="Texture2D" uid="uid://clgrttyyuvr7e" path="res://art/damage.png" id="4_m3xde"]
 [ext_resource type="Texture2D" uid="uid://ci01gglxn7rpx" path="res://art/shield.png" id="5_icxvi"]
@@ -98,9 +98,9 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_83wxg"]
 _data = {
-"RESET": SubResource("Animation_w6tm1"),
-"flip": SubResource("Animation_6tt1t"),
-"flip_to_deck": SubResource("Animation_4aoah")
+&"RESET": SubResource("Animation_w6tm1"),
+&"flip": SubResource("Animation_6tt1t"),
+&"flip_to_deck": SubResource("Animation_4aoah")
 }
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_hk702"]
@@ -110,9 +110,9 @@ noise = SubResource("FastNoiseLite_hk702")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mxslp"]
 shader = ExtResource("3_hu1q2")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_mn6r0")
 shader_parameter/burn_amount = 0.0
 shader_parameter/burn_colour = Color(0.8, 0.4, 0.2, 1)
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_mn6r0")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u6qec"]
 shader = ExtResource("3_g82jn")
@@ -121,9 +121,9 @@ shader_parameter/x_rot = 0.0
 shader_parameter/y_rot = 0.0
 shader_parameter/inset = 0.0
 shader_parameter/mouse_screen_pos = Vector2(0, 0)
-shader_parameter/hovering = null
+shader_parameter/hovering = 0.0
 shader_parameter/rand_trans_power = 1.0
-shader_parameter/rand_seed = null
+shader_parameter/rand_seed = 0.0
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 shader_parameter/width = 1.2
 shader_parameter/pattern = 0
@@ -139,7 +139,7 @@ shape = SubResource("RectangleShape2D_uxrx6")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_83wxg")
+&"": SubResource("AnimationLibrary_83wxg")
 }
 
 [node name="BackBufferCopy" type="BackBufferCopy" parent="."]

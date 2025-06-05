@@ -1,9 +1,11 @@
 [gd_resource type="Resource" script_class="Merchant" load_steps=2 format=3 uid="uid://dfuueuf40f6d5"]
 
-[ext_resource type="Script" path="res://classnames/merchant.gd" id="1_2rbbk"]
+[ext_resource type="Script" uid="uid://8cmyxxt7jw61" path="res://classnames/merchant.gd" id="1_2rbbk"]
 
 [resource]
 script = ExtResource("1_2rbbk")
 add_card_available = true
 remove_card_available = true
+upgrade_card_available = false
 merchant_name = "Helpful"
+heal_amount = 0

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Route" load_steps=4 format=3 uid="uid://dw2mvbutsmwvc"]
 
-[ext_resource type="Script" path="res://classnames/route.gd" id="1_4p374"]
-[ext_resource type="Script" path="res://classnames/enemy.gd" id="1_wi2wl"]
+[ext_resource type="Script" uid="uid://cpwu7wcsgpq13" path="res://classnames/route.gd" id="1_4p374"]
+[ext_resource type="Script" uid="uid://b6einrxvm4vwf" path="res://classnames/enemy.gd" id="1_wi2wl"]
 
 [sub_resource type="Resource" id="Resource_ibjb3"]
 script = ExtResource("1_wi2wl")
@@ -14,6 +14,7 @@ starting_health = 20
 starting_block = 3
 burn_amount = 0
 stun_amount = 0
+final_boss = false
 
 [resource]
 script = ExtResource("1_4p374")

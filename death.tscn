@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cmc47giudpcps"]
 
-[ext_resource type="Script" path="res://death.gd" id="1_heyts"]
+[ext_resource type="Script" uid="uid://chq7c2gyl58ql" path="res://death.gd" id="1_heyts"]
 
 [sub_resource type="Animation" id="Animation_2c62d"]
 length = 0.001
@@ -34,8 +34,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_d3jop"]
 _data = {
-"RESET": SubResource("Animation_2c62d"),
-"fade_in": SubResource("Animation_gxoyf")
+&"RESET": SubResource("Animation_2c62d"),
+&"fade_in": SubResource("Animation_gxoyf")
 }
 
 [node name="Death" type="Control"]
@@ -89,7 +89,7 @@ text = "Back to menu"
 
 [node name="AnimationTree" type="AnimationPlayer" parent="Panel/Button"]
 libraries = {
-"": SubResource("AnimationLibrary_d3jop")
+&"": SubResource("AnimationLibrary_d3jop")
 }
 
 [connection signal="button_down" from="Panel/Button" to="." method="_on_button_button_down"]

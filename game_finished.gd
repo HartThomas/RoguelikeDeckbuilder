@@ -16,7 +16,6 @@ func _ready() -> void:
 	panel.position = Vector2(171,-300)
 	button.modulate.a = 0
 
-
 func _process(delta: float) -> void:
 	panel.position = panel.position.lerp(target_position, 5 * delta)
 	if panel.position.distance_to(target_position) < 1.0 and finishing:
@@ -25,7 +24,6 @@ func _process(delta: float) -> void:
 
 func _on_button_button_down() -> void:
 	menu_button_clicked.emit()
-
 
 func _on_copy_deck_button_button_down() -> void:
 	var deck_data = []

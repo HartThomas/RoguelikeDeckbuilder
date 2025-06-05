@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cod7mpkgaporu"]
 
-[ext_resource type="Script" path="res://upgrade.gd" id="1_kg4yy"]
-[ext_resource type="Script" path="res://canvas_layer_upgrade.gd" id="1_vws5v"]
+[ext_resource type="Script" uid="uid://b2brvxg368lx3" path="res://upgrade.gd" id="1_kg4yy"]
+[ext_resource type="Script" uid="uid://wsltd3yiljg1" path="res://canvas_layer_upgrade.gd" id="1_vws5v"]
 
 [node name="Upgrade" type="Control"]
 layout_mode = 3

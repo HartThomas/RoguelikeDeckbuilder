@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Route" load_steps=3 format=3 uid="uid://bl12xg0vsmscf"]
 
-[ext_resource type="Script" path="res://classnames/route.gd" id="1_3fuqu"]
+[ext_resource type="Script" uid="uid://cpwu7wcsgpq13" path="res://classnames/route.gd" id="1_3fuqu"]
 [ext_resource type="Resource" uid="uid://bmymygifraho6" path="res://resources/double_triangle.tres" id="1_x14el"]
 
 [resource]

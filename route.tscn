@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://dn0bmuvdapvbf"]
 
-[ext_resource type="Shader" path="res://shaders/arrow.gdshader" id="1_lmc1t"]
+[ext_resource type="Shader" uid="uid://c1qqxsu38pbe5" path="res://shaders/arrow.gdshader" id="1_lmc1t"]
 [ext_resource type="Texture2D" uid="uid://bipan5d128y3c" path="res://art/Arrow.png" id="2_hey77"]
-[ext_resource type="Script" path="res://route.gd" id="3_la4yp"]
+[ext_resource type="Script" uid="uid://ddn3a4kp6eljn" path="res://route.gd" id="3_la4yp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_otu6f"]
 shader = ExtResource("1_lmc1t")
@@ -45,8 +45,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_75x5h"]
 _data = {
-"RESET": SubResource("Animation_k76mm"),
-"bounce": SubResource("Animation_14v5s")
+&"RESET": SubResource("Animation_k76mm"),
+&"bounce": SubResource("Animation_14v5s")
 }
 
 [node name="Route" type="Sprite2D"]

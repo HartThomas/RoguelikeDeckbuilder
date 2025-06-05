@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dle1xv5jikblv"]
 
-[ext_resource type="Script" path="res://canvas_layer_remove.gd" id="1_gg1xl"]
-[ext_resource type="Script" path="res://remove.gd" id="1_pf0yd"]
+[ext_resource type="Script" uid="uid://ct75pkgxfioqo" path="res://canvas_layer_remove.gd" id="1_gg1xl"]
+[ext_resource type="Script" uid="uid://c7l1cl4qta2g8" path="res://remove.gd" id="1_pf0yd"]
 
 [node name="Remove" type="Control"]
 layout_mode = 3

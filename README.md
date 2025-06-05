@@ -38,3 +38,7 @@ Fun place name to be your destination is Lower Sooting, perhaps you are trying t
 Another thought on the effort system is to have 2 efforts that people start with naturally, physical and mental, and then some of the other efforts could interract with those efforts so holy effort would create mental effort eg. your faith causes you to have greater motivation and blood effort could create physical effort eg. no pain no gain
 
 ---
+
+For a differnet take on a mana system think hearthstone mana system but have another layer of mana. For example turn 1 recieve 1 mana, turn 2 get 2 then on turn 3 get 3 mana but 1 of a secondary type of mana. This secondary type doesn't refresh each turn but on every third turn. The cards that use that type are more powerful. We could even take this another step and have another type of mana every 5 or 6 turns.
+
+---

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Route" load_steps=3 format=3 uid="uid://dr3rvb1pt2q8r"]
 
-[ext_resource type="Script" path="res://classnames/route.gd" id="1_5joum"]
+[ext_resource type="Script" uid="uid://cpwu7wcsgpq13" path="res://classnames/route.gd" id="1_5joum"]
 [ext_resource type="Resource" uid="uid://dfuueuf40f6d5" path="res://resources/merchant.tres" id="1_37be5"]
 
 [resource]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://08ueg2hq0i5m"]
 
-[ext_resource type="Script" path="res://status-bar.gd" id="1_8i5w0"]
+[ext_resource type="Script" uid="uid://cdubpdkwqsle" path="res://status-bar.gd" id="1_8i5w0"]
 [ext_resource type="Texture2D" uid="uid://brv6rqambtntx" path="res://art/enemy-status.png" id="2_2pn4p"]
 
 [node name="StatusBar" type="Node2D"]

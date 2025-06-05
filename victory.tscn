@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ckdbow6m0qkrb"]
 
-[ext_resource type="Script" path="res://victory.gd" id="1_67sh8"]
-[ext_resource type="Script" path="res://canvas_layer.gd" id="1_ipw6g"]
+[ext_resource type="Script" uid="uid://cmk4aemgir24x" path="res://victory.gd" id="1_67sh8"]
+[ext_resource type="Script" uid="uid://bojhpt5h2ae1l" path="res://canvas_layer.gd" id="1_ipw6g"]
 
 [node name="Victory" type="Control"]
 layout_mode = 3

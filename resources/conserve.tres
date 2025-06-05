@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CardStats" load_steps=2 format=3 uid="uid://bf5i7egv1lv46"]
 
-[ext_resource type="Script" path="res://classnames/card.gd" id="1_qc27h"]
+[ext_resource type="Script" uid="uid://ora72sbwymg6" path="res://classnames/card.gd" id="1_qc27h"]
 
 [resource]
 script = ExtResource("1_qc27h")
@@ -9,3 +9,12 @@ attack = 0
 block = 0
 position = Vector2(103, 536)
 card_text = "Double your effort next turn"
+card_cost = {
+&"blood_effort": 0,
+&"fire_effort": 0,
+&"holy_effort": 0,
+&"mental_effort": 0,
+&"physical_effort": 1
+}
+effect = null
+number_of_times_used = 0

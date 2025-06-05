@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CardStats" load_steps=2 format=3 uid="uid://3dc3xdpbaxfc"]
 
-[ext_resource type="Script" path="res://classnames/card.gd" id="1_2epfh"]
+[ext_resource type="Script" uid="uid://ora72sbwymg6" path="res://classnames/card.gd" id="1_2epfh"]
 
 [resource]
 script = ExtResource("1_2epfh")
@@ -17,3 +17,4 @@ card_cost = {
 "physical_effort": 0
 }
 effect = null
+number_of_times_used = 0

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Enemy" load_steps=2 format=3 uid="uid://dkg4xkvbtva68"]
 
-[ext_resource type="Script" path="res://classnames/enemy.gd" id="1_vuao3"]
+[ext_resource type="Script" uid="uid://b6einrxvm4vwf" path="res://classnames/enemy.gd" id="1_vuao3"]
 
 [resource]
 script = ExtResource("1_vuao3")
@@ -12,3 +12,5 @@ max_health = 3
 starting_health = 3
 starting_block = 3
 burn_amount = 0
+stun_amount = 0
+final_boss = false

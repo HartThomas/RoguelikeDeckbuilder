@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Enemy" load_steps=2 format=3 uid="uid://bmymygifraho6"]
 
-[ext_resource type="Script" path="res://classnames/enemy.gd" id="1_hc23t"]
+[ext_resource type="Script" uid="uid://b6einrxvm4vwf" path="res://classnames/enemy.gd" id="1_hc23t"]
 
 [resource]
 script = ExtResource("1_hc23t")
@@ -11,3 +11,6 @@ heal = 6
 max_health = 6
 starting_health = 6
 starting_block = 6
+burn_amount = 0
+stun_amount = 0
+final_boss = false

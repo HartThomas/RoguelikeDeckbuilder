@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CardStats" load_steps=2 format=3 uid="uid://v5jynfr1lyv7"]
 
-[ext_resource type="Script" path="res://classnames/card.gd" id="1_0px8e"]
+[ext_resource type="Script" uid="uid://ora72sbwymg6" path="res://classnames/card.gd" id="1_0px8e"]
 
 [resource]
 script = ExtResource("1_0px8e")
@@ -9,7 +9,12 @@ attack = 0
 block = 6
 position = Vector2(103, 536)
 card_text = ""
-cost = 0
-type = {
-"physical": 1
+card_cost = {
+&"blood_effort": 0,
+&"fire_effort": 0,
+&"holy_effort": 0,
+&"mental_effort": 0,
+&"physical_effort": 1
 }
+effect = null
+number_of_times_used = 0

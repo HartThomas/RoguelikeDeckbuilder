@@ -18,7 +18,6 @@ var in_binder: bool = false
 var in_card_zoom: bool = false
 var temporary_instance : bool = true
 var face_up : bool = false
-var face_up_texture = preload('res://art/pixel card.png')
 var face_down_texture = preload("res://art/pixel card back.png")
 var end_of_battle_selecting: bool = false
 var mouse_hovering :bool = false

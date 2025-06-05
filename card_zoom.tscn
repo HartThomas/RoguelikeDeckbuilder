@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://d12f5mxx8r0h2"]
 
-[ext_resource type="Script" path="res://card_zoom.gd" id="1_gs1xe"]
+[ext_resource type="Script" uid="uid://dolstoakqd1cv" path="res://card_zoom.gd" id="1_gs1xe"]
 [ext_resource type="PackedScene" uid="uid://48qfybefw3aa" path="res://card.tscn" id="1_w2cdj"]
 [ext_resource type="Texture2D" uid="uid://da1wabljsl6ti" path="res://art/card zoom background.png" id="3_wv42t"]
 
