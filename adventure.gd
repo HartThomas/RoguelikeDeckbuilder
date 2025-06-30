@@ -4,8 +4,8 @@ var stage :int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var center_x = 600
-	var spacing = 212
+	var center_x = 320
+	var spacing = 200
 	var total_routes = CampaignManager.campaign_data.stages[stage].routes.size()
 	for i in total_routes:
 		var new_route = route_scene.instantiate()

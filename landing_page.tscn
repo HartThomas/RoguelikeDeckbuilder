@@ -21,62 +21,70 @@ binder_scene = ExtResource("4_3r04l")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 648.0
+offset_right = 640.0
+offset_bottom = 360.0
 mouse_filter = 2
 texture = ExtResource("2_v3fm6")
 
 [node name="ChoseStarter" type="BoxContainer" parent="."]
 layout_mode = 0
-offset_left = 335.0
-offset_top = 61.0
-offset_right = 1111.0
-offset_bottom = 254.0
+offset_left = 168.0
+offset_top = 34.0
+offset_right = 474.0
+offset_bottom = 110.0
 mouse_filter = 2
 theme_override_constants/separation = 170
 
 [node name="PlayButton" type="Button" parent="."]
+texture_filter = 1
 layout_mode = 0
-offset_left = 147.0
-offset_top = 122.0
-offset_right = 243.0
-offset_bottom = 157.0
+offset_left = 91.0
+offset_top = 65.0
+offset_right = 132.0
+offset_bottom = 89.0
+theme_override_font_sizes/font_size = 16
 text = "Play"
 
 [node name="CardListButton" type="Button" parent="."]
+texture_filter = 1
 layout_mode = 0
-offset_left = 147.0
-offset_top = 207.0
-offset_right = 243.0
-offset_bottom = 242.0
+offset_left = 91.0
+offset_top = 112.0
+offset_right = 149.0
+offset_bottom = 136.0
+theme_override_font_sizes/font_size = 16
 text = "Binder"
 
 [node name="OptionsButton" type="Button" parent="."]
+texture_filter = 1
 layout_mode = 0
-offset_left = 147.0
-offset_top = 284.0
-offset_right = 243.0
-offset_bottom = 319.0
+offset_left = 91.0
+offset_top = 158.0
+offset_right = 158.0
+offset_bottom = 182.0
 text = "Options
 "
 
 [node name="StatisticsButton" type="Button" parent="."]
+texture_filter = 1
 layout_mode = 0
-offset_left = 147.0
-offset_top = 366.0
-offset_right = 243.0
-offset_bottom = 401.0
+offset_left = 86.0
+offset_top = 201.0
+offset_right = 164.0
+offset_bottom = 225.0
 text = "Statistics
 "
 
 [node name="QuitButton" type="Button" parent="."]
+texture_filter = 1
 layout_mode = 0
-offset_left = 147.0
-offset_top = 477.0
-offset_right = 243.0
-offset_bottom = 512.0
+offset_left = 89.0
+offset_top = 283.0
+offset_right = 128.0
+offset_bottom = 307.0
 text = "Quit"
 
 [connection signal="button_down" from="PlayButton" to="." method="_on_play_button_button_down"]
 [connection signal="button_down" from="CardListButton" to="." method="_on_card_list_button_button_down"]
+[connection signal="button_down" from="OptionsButton" to="." method="_on_options_button_button_down"]
 [connection signal="button_down" from="QuitButton" to="." method="_on_quit_button_button_down"]

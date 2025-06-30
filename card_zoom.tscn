@@ -21,18 +21,18 @@ texture_filter = 1
 layout_mode = 0
 offset_left = 154.0
 offset_top = 46.0
-offset_right = 1109.0
-offset_bottom = 556.0
+offset_right = 618.0
+offset_bottom = 294.0
 mouse_filter = 2
 texture = ExtResource("3_wv42t")
 expand_mode = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 0
-offset_left = 501.0
-offset_top = 89.0
-offset_right = 1073.0
-offset_bottom = 519.0
+offset_left = 303.0
+offset_top = 65.0
+offset_right = 600.0
+offset_bottom = 275.0
 
 [node name="BoxContainer" type="BoxContainer" parent="ScrollContainer"]
 layout_mode = 2

@@ -56,19 +56,21 @@ func _ready() -> void:
 	card_zoom.connect(BattleManager.card_zoom)
 	if in_binder:
 		card_flip()
-		scale = Vector2(2,2)
-	if in_card_zoom:
+		scale = Vector2(0.75,0.75)
+	elif in_card_zoom:
 		card_flip()
-		scale = Vector2(3,3)
+		scale = Vector2(1,1)
+	else:
+		scale = Vector2(0.75,0.75)
 
 func _process(delta: float) -> void:
 	if not is_dragging and self.has_meta("target_position") and self.get_meta("target_position") != self.position and not is_shaking and not is_forgetting:
 		self.position = self.position.lerp(self.get_meta("target_position"), 5 * delta)
 	if not in_deck:
 		if get_parent().hand.has(self):
-			self.scale = Vector2(2,2)
+			self.scale = Vector2(0.75,0.75)
 		else:
-			self.scale = Vector2(1,1)
+			self.scale = Vector2(0.5,0.5)
 	var mouse_pos1 = get_global_mouse_position()
 	var shader = sprite_2d.get_material()
 	shader.set_shader_parameter('mouse_screen_pos',mouse_pos1)
@@ -81,12 +83,19 @@ func _process(delta: float) -> void:
 	shader.set_shader_parameter("hovering", hovering)
 
 func generate_texture(card: CardStats) -> ImageTexture:
-	var base_image = Image.new()
-	var card_route = 'res://art/%s card.png' % [ 'fire' if card.card_cost.fire_effort > 0 else 'blood' if card.card_cost.blood_effort > 0 else 'holy' if card.card_cost.holy_effort > 0 else 'mental' if card.card_cost.mental_effort > 0 else 'physical' ]
-	base_image.load(card_route)
+	var card_route = "res://art/%s card.png" % [ 
+	"fire" if card.card_cost.fire_effort > 0 
+	else "blood" if card.card_cost.blood_effort > 0 
+	else "holy" if card.card_cost.holy_effort > 0 
+	else "mental" if card.card_cost.mental_effort > 0 
+	else "physical"
+]
+	var texture = load(card_route) as Texture2D
+	var base_image = texture.get_image()
 	var label_image = await make_label_image(card.card_name)
 	var max_label_width = 80
 	if label_image.get_width() > max_label_width:
+		
 		var scaled_image = Image.new()
 		scaled_image.copy_from(label_image)
 		scaled_image.resize(max_label_width, label_image.get_height(), Image.INTERPOLATE_LANCZOS)
@@ -96,15 +105,15 @@ func generate_texture(card: CardStats) -> ImageTexture:
 	var name_position = Vector2(15, 0)
 	base_image.blend_rect(label_image, Rect2(Vector2.ZERO, label_image.get_size()), name_position)
 	if card.attack != 0:
-		var attack_texture = Image.new()
-		attack_texture.load("res://art/attack.png")
-		base_image.blend_rect(attack_texture, Rect2(Vector2.ZERO, attack_texture.get_size()), Vector2(48,64 ))
+		var attack_texture = load("res://art/attack.png")
+		var attack_image = attack_texture.get_image()
+		base_image.blend_rect(attack_image, Rect2(Vector2.ZERO, attack_image.get_size()), Vector2(48,64 ))
 		var attack_amount_label = await make_label_image(str(card.attack), 10, true)
 		base_image.blend_rect(attack_amount_label, Rect2(Vector2.ZERO, attack_amount_label.get_size()), Vector2(56,62 ))
 	if card.block != 0:
-		var block_texture = Image.new()
-		block_texture.load('res://art/block.png')
-		base_image.blend_rect(block_texture, Rect2(Vector2.ZERO, block_texture.get_size()), Vector2(18,64 ))
+		var block_texture = load('res://art/block.png')
+		var block_image = block_texture.get_image()
+		base_image.blend_rect(block_image, Rect2(Vector2.ZERO, block_image.get_size()), Vector2(18,64 ))
 		var block_amount_label = await make_label_image(str(card.block), 10, true)
 		base_image.blend_rect(block_amount_label, Rect2(Vector2.ZERO, block_amount_label.get_size()), Vector2(26,62 ))
 	if card.card_text.length() > 0:
@@ -113,12 +122,13 @@ func generate_texture(card: CardStats) -> ImageTexture:
 	for cost in card.card_cost:
 		if card.card_cost[cost] > 0:
 			var effort_path = cost.replace('_', ' ')
-			var effort_texture = Image.new()
-			effort_texture.load("res://art/%s.png" % [effort_path])
+			var effort_texture = load("res://art/%s.png" % [effort_path])
+			var effort_image = effort_texture.get_image()
 			var target_size = Vector2i(24, 24)
-			effort_texture.resize(target_size.x, target_size.y, Image.INTERPOLATE_LANCZOS)
-			base_image.blend_rect(effort_texture, Rect2(Vector2.ZERO, effort_texture.get_size()), Vector2(68,10 ))
+			effort_image.resize(target_size.x, target_size.y, Image.INTERPOLATE_LANCZOS)
+			base_image.blend_rect(effort_image, Rect2(Vector2.ZERO, effort_image.get_size()), Vector2(68,10 ))
 	var tex = ImageTexture.create_from_image(base_image)
+	
 	return tex
 
 func make_label_image(text: String, font_size : int = 10, small = false) -> Image:
@@ -164,7 +174,7 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 			released.emit(self)
 			is_dragging = false
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
-		if event.pressed and not in_card_zoom:
+		if event.pressed and not in_card_zoom and face_up:
 			card_zoom.emit(self)
 
 func _physics_process(delta):

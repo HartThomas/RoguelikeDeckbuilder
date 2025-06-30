@@ -11,6 +11,7 @@ func _ready() -> void:
 	if card_stats:
 		new_card.card_info = card_stats
 	new_card.position = Vector2(150,250)
+	new_card.scale = Vector2(1.5, 1.5)
 	background.add_child(new_card)
 	new_card.card_flip()
 	if card_stats and card_stats.card_text.contains('Burn'):

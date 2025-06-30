@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://sfmoec5x7y2" path="res://art/victorian panelling.png" id="4_edr1t"]
 [ext_resource type="Texture2D" uid="uid://b1ve41b7fdwt6" path="res://art/floor panel.png" id="5_4i2rh"]
 [ext_resource type="Texture2D" uid="uid://bah1vppwlt0hg" path="res://art/battle hud.png" id="5_m7ere"]
-[ext_resource type="Texture2D" uid="uid://bdky0m17w7ynf" path="res://art/effort.png" id="6_12q4i"]
+[ext_resource type="Texture2D" uid="uid://dh1mescqufemw" path="res://art/physical effort.png" id="6_12q4i"]
 [ext_resource type="Texture2D" uid="uid://ce2jg61mhyshu" path="res://art/constance 1-Sheet.png" id="6_spr81"]
 [ext_resource type="Texture2D" uid="uid://b4lnllu7b4kov" path="res://art/enemy-Sheet.png" id="7_y4vs4"]
 [ext_resource type="Shader" uid="uid://dp8selpe8qdin" path="res://shaders/edge_glow.gdshader" id="8_8uf1w"]
@@ -24,7 +24,7 @@ shader = ExtResource("1_xgkp0")
 shader_parameter/blur_power = 0.05
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rsbja"]
-size = Vector2(731, 204)
+size = Vector2(368, 108)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mi3ks"]
 bg_color = Color(0.0943559, 0.253403, 0.275361, 0.996078)
@@ -177,7 +177,7 @@ shader_parameter/edge_width = 0.2
 shader_parameter/hovered = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tjdb5"]
-size = Vector2(729, 212)
+size = Vector2(367.5, 155)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0hq57"]
 shader = ExtResource("11_n41il")
@@ -193,43 +193,44 @@ card_scene = ExtResource("1_8fvkg")
 
 [node name="VictorianPanelling" type="TextureRect" parent="."]
 texture_filter = 1
-offset_top = 98.0
-offset_right = 576.0
-offset_bottom = 162.0
-scale = Vector2(2, 2)
+offset_top = 51.0
+offset_right = 640.0
+offset_bottom = 115.0
 texture = ExtResource("4_edr1t")
 stretch_mode = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="FloorPanelling" type="TextureRect" parent="."]
 texture_filter = 1
-offset_top = 226.0
-offset_right = 576.0
-offset_bottom = 290.0
-scale = Vector2(2, 2)
+offset_top = 115.0
+offset_right = 640.0
+offset_bottom = 179.0
 texture = ExtResource("5_4i2rh")
 stretch_mode = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="BattleScene" type="TextureRect" parent="."]
 texture_filter = 1
-offset_left = 197.0
-offset_top = 65.0
-offset_right = 776.0
-offset_bottom = 299.0
+offset_left = 151.0
+offset_top = 35.0
+offset_right = 730.0
+offset_bottom = 269.0
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_562i3")
 metadata/_edit_use_anchors_ = true
 
 [node name="BattleHUD" type="TextureRect" parent="."]
 texture_filter = 1
 offset_top = 1.0
-offset_right = 1173.0
-offset_bottom = 649.0
+offset_right = 640.0
+offset_bottom = 361.0
 texture = ExtResource("5_m7ere")
 metadata/_edit_use_anchors_ = true
 
 [node name="Hand" type="Area2D" parent="."]
 
 [node name="HandCollisionShape2D" type="CollisionShape2D" parent="Hand"]
-position = Vector2(579, 495)
+position = Vector2(315, 280)
 shape = SubResource("RectangleShape2D_rsbja")
 
 [node name="Card" parent="." instance=ExtResource("1_8fvkg")]
@@ -246,10 +247,11 @@ position = Vector2(1048, 538)
 scale = Vector2(1.2, 1.2)
 
 [node name="PlayerHealthBar" type="ProgressBar" parent="."]
-offset_left = 277.0
-offset_top = 45.0
-offset_right = 426.0
-offset_bottom = 72.0
+offset_left = 196.0
+offset_top = 43.0
+offset_right = 345.0
+offset_bottom = 70.0
+scale = Vector2(0.5, 0.5)
 theme_override_styles/background = SubResource("StyleBoxFlat_mi3ks")
 theme_override_styles/fill = SubResource("StyleBoxFlat_isxt2")
 max_value = 50.0
@@ -268,10 +270,11 @@ text = "50/50"
 metadata/_edit_use_anchors_ = true
 
 [node name="PlayerBlockBar" type="ProgressBar" parent="."]
-offset_left = 279.0
-offset_top = 47.0
-offset_right = 426.0
-offset_bottom = 70.0
+offset_left = 197.0
+offset_top = 44.0
+offset_right = 344.0
+offset_bottom = 67.0
+scale = Vector2(0.5, 0.5)
 theme_override_styles/background = SubResource("StyleBoxFlat_vrubk")
 theme_override_styles/fill = SubResource("StyleBoxFlat_1wdht")
 max_value = 50.0
@@ -290,7 +293,7 @@ metadata/_edit_use_anchors_ = true
 [node name="Player" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 position = Vector2(360, 200)
-scale = Vector2(2.5, 2.5)
+scale = Vector2(1.25, 1.25)
 sprite_frames = SubResource("SpriteFrames_1nehs")
 frame_progress = 0.816152
 
@@ -300,10 +303,11 @@ libraries = {
 }
 
 [node name="EnemyHealthBar" type="ProgressBar" parent="."]
-offset_left = 631.0
-offset_top = 46.0
-offset_right = 780.0
-offset_bottom = 73.0
+offset_left = 375.0
+offset_top = 43.0
+offset_right = 524.0
+offset_bottom = 70.0
+scale = Vector2(0.5, 0.5)
 theme_override_styles/background = SubResource("StyleBoxFlat_mi3ks")
 theme_override_styles/fill = SubResource("StyleBoxFlat_isxt2")
 max_value = 50.0
@@ -322,10 +326,11 @@ text = "50/50"
 metadata/_edit_use_anchors_ = true
 
 [node name="EnemyBlockBar" type="ProgressBar" parent="."]
-offset_left = 632.772
-offset_top = 47.1962
-offset_right = 779.772
-offset_bottom = 70.1962
+offset_left = 375.772
+offset_top = 44.1962
+offset_right = 522.772
+offset_bottom = 67.1962
+scale = Vector2(0.5, 0.5)
 theme_override_styles/background = SubResource("StyleBoxFlat_vrubk")
 theme_override_styles/fill = SubResource("StyleBoxFlat_1wdht")
 max_value = 50.0
@@ -344,32 +349,39 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Enemy" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-position = Vector2(709, 197)
-scale = Vector2(3, 3)
+position = Vector2(413, 105)
+scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_5vqsg")
-frame_progress = 0.991957
+frame = 1
+frame_progress = 0.544063
 
 [node name="Button" type="Button" parent="."]
-offset_left = 541.0
-offset_top = 597.0
-offset_right = 619.0
-offset_bottom = 633.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 295.0
+offset_top = 345.0
+offset_right = 376.0
+offset_bottom = 369.0
+grow_horizontal = 0
+scale = Vector2(0.5, 0.5)
+size_flags_vertical = 8
 text = "End Turn"
-metadata/_edit_use_anchors_ = true
 
 [node name="EffortLevel" type="Sprite2D" parent="."]
 texture_filter = 1
 material = SubResource("ShaderMaterial_qyywj")
-position = Vector2(273.75, 348.5)
-scale = Vector2(1.1, 1.1)
+position = Vector2(150, 194)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_12q4i")
 
 [node name="PhysicalEffortLabel" type="Label" parent="."]
 texture_filter = 1
-offset_left = 264.0
-offset_top = 341.0
-offset_right = 287.0
-offset_bottom = 357.0
+offset_left = 145.25
+offset_top = 190.5
+offset_right = 168.25
+offset_bottom = 206.5
+scale = Vector2(0.5, 0.5)
 mouse_filter = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 12
@@ -381,16 +393,17 @@ metadata/_edit_use_anchors_ = true
 [node name="HolyEffort" type="Sprite2D" parent="."]
 texture_filter = 1
 material = SubResource("ShaderMaterial_7gl4m")
-position = Vector2(350.6, 348.5)
-scale = Vector2(1.1, 1.1)
+position = Vector2(184, 194)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("10_kpfln")
 
 [node name="HolyEffortLabel" type="Label" parent="."]
 texture_filter = 1
-offset_left = 340.85
-offset_top = 341.1
-offset_right = 363.85
-offset_bottom = 357.1
+offset_left = 178.25
+offset_top = 190.6
+offset_right = 201.25
+offset_bottom = 206.6
+scale = Vector2(0.5, 0.5)
 mouse_filter = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 12
@@ -402,16 +415,17 @@ metadata/_edit_use_anchors_ = true
 [node name="BloodEffort" type="Sprite2D" parent="."]
 texture_filter = 1
 material = SubResource("ShaderMaterial_piruy")
-position = Vector2(389.6, 348.6)
-scale = Vector2(1.1, 1.1)
+position = Vector2(201, 194)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("11_cs2nd")
 
 [node name="BloodEffortLabel" type="Label" parent="."]
 texture_filter = 1
-offset_left = 379.85
-offset_top = 341.2
-offset_right = 402.85
-offset_bottom = 357.2
+offset_left = 195.4
+offset_top = 190.4
+offset_right = 218.4
+offset_bottom = 206.4
+scale = Vector2(0.5, 0.5)
 mouse_filter = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 12
@@ -423,16 +437,17 @@ metadata/_edit_use_anchors_ = true
 [node name="MentalEffort" type="Sprite2D" parent="."]
 texture_filter = 1
 material = SubResource("ShaderMaterial_c7ipj")
-position = Vector2(428.58, 348.716)
-scale = Vector2(1.1, 1.1)
+position = Vector2(218, 194)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("12_5bdmd")
 
 [node name="MentalEffortLabel" type="Label" parent="."]
 texture_filter = 1
-offset_left = 417.58
-offset_top = 340.716
-offset_right = 440.58
-offset_bottom = 356.716
+offset_left = 213.42
+offset_top = 190.284
+offset_right = 236.42
+offset_bottom = 206.284
+scale = Vector2(0.5, 0.5)
 mouse_filter = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 12
@@ -457,22 +472,23 @@ metadata/_edit_use_anchors_ = true
 [node name="PlayArea" type="Area2D" parent="ColorRect"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ColorRect/PlayArea"]
-position = Vector2(364, 106)
+position = Vector2(100.25, 17.5)
 shape = SubResource("RectangleShape2D_tjdb5")
 
 [node name="FireEffort" type="Sprite2D" parent="."]
 texture_filter = 1
 material = SubResource("ShaderMaterial_0hq57")
-position = Vector2(312, 348.5)
-scale = Vector2(1.1, 1.1)
+position = Vector2(167, 194)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("11_dptdv")
 
 [node name="FireEffortLabel" type="Label" parent="."]
 texture_filter = 1
-offset_left = 301.0
-offset_top = 341.0
-offset_right = 324.0
-offset_bottom = 357.0
+offset_left = 162.0
+offset_top = 190.5
+offset_right = 185.0
+offset_bottom = 206.5
+scale = Vector2(0.5, 0.5)
 mouse_filter = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 12
@@ -482,9 +498,12 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="StatusBar" parent="." instance=ExtResource("13_en37s")]
+position = Vector2(66, 29)
+scale = Vector2(0.5, 0.5)
 
 [node name="PlayerStatusBar" parent="." instance=ExtResource("13_en37s")]
-position = Vector2(-312, -24)
+position = Vector2(-149, 8)
+scale = Vector2(0.5, 0.5)
 
 [connection signal="area_entered" from="Hand" to="." method="_on_hand_area_entered"]
 [connection signal="area_exited" from="Hand" to="." method="_on_hand_area_exited"]

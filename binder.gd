@@ -8,11 +8,11 @@ func _ready() -> void:
 	var card_types = ['Physical', 'Fire', 'Holy', 'Blood', 'Mental']
 	for type in card_types:
 		var group_container = VBoxContainer.new()
-		group_container.custom_minimum_size = Vector2(400, 0)
+		group_container.custom_minimum_size = Vector2(300, 0)
 		var label = Label.new()
 		label.text = type
 		label.custom_minimum_size = Vector2(50, 100)
-		label.add_theme_font_size_override('font_size', 30)
+		label.add_theme_font_size_override('font_size',16)
 		group_container.add_child(label)
 		var binder_container = GridContainer.new()
 		binder_container.columns = 4
@@ -23,14 +23,15 @@ func _ready() -> void:
 			var card_in_binder = card_scene.instantiate()
 			card_in_binder.card_info = card
 			var control = Control.new()
-			control.custom_minimum_size = Vector2(100, 170)
+			control.custom_minimum_size = Vector2(80, 85)
 			control.mouse_filter = Control.MOUSE_FILTER_PASS
 			control.add_child(card_in_binder)
 			card_in_binder.in_binder = true
+			
 			binder_container.add_child(control)
 			await get_tree().process_frame
 		var rows = ceil(cards_of_type.size() / 4.0)
-		binder_container.custom_minimum_size = Vector2(400, rows * 170)
+		binder_container.custom_minimum_size = Vector2(300, rows * 85)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

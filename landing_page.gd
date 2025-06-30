@@ -62,3 +62,33 @@ func _on_card_list_button_button_down() -> void:
 		add_child(binder)
 	else:
 		get_children().filter(func (child) : return child.name == 'Binder')[0].queue_free()
+
+
+func _on_options_button_button_down() -> void:
+	set_resolution(1920,1080)
+
+func set_resolution(width: int, height: int):
+	print(get_window().size)
+	get_window().set_size(Vector2i(width,height))
+	print(get_window().size)
+	#DisplayServer.window_set_size(Vector2i(width, height))
+	#save_resolution_setting(width, height)
+	var center_screen = DisplayServer.screen_get_position() + DisplayServer.screen_get_size()/2
+	var window_size = get_window().get_size_with_decorations()
+	get_window().set_position(center_screen - window_size)
+	print(ProjectSettings.get_setting("display/window/size/window_width_override"))
+	ProjectSettings.set_setting("display/window/size/window_height_override", height)
+	ProjectSettings.set_setting("display/window/size/window_width_override", width)
+
+func save_resolution_setting(width: int, height: int):
+	var config = ConfigFile.new()
+	config.set_value("video", "width", width)
+	config.set_value("video", "height", height)
+	config.save("user://settings.cfg")
+
+func load_resolution_setting():
+	var config = ConfigFile.new()
+	if config.load("user://settings.cfg") == OK:
+		var width = config.get_value("video", "width", 1280)
+		var height = config.get_value("video", "height", 720)
+		set_resolution(width, height)

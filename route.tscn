@@ -51,7 +51,7 @@ _data = {
 
 [node name="Route" type="Sprite2D"]
 material = SubResource("ShaderMaterial_otu6f")
-position = Vector2(812, 212)
+position = Vector2(812, 105)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_hey77")
 script = ExtResource("3_la4yp")
@@ -72,7 +72,7 @@ vertical_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_75x5h")
+&"": SubResource("AnimationLibrary_75x5h")
 }
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
